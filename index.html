@@ -12,6 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <!-- EmailJS SDK — real email delivery from static HTML (no server needed) -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   
   <style>
     :root {
@@ -66,7 +68,10 @@
       z-index: 1;
     }
 
-    /* From About Me Onward: Unified seamless dark cinematic atmosphere */
+    /* From About Me Onward: Unified seamless dark cinematic atmosphere
+       PERF: backdrop-filter removed from section containers — it caused
+       a new GPU compositing layer for every section, causing scroll lag.
+       The fixed bg-overlay already provides the cinematic blur effect. */
     .section-about-me,
     .section-academic,
     .section-toolkit,
@@ -81,10 +86,7 @@
       background:
         radial-gradient(ellipse at 20% 40%, rgba(55, 12, 32, 0.32) 0%, transparent 60%),
         radial-gradient(ellipse at 80% 60%, rgba(220, 20, 60, 0.09) 0%, transparent 55%),
-        rgba(5, 2, 6, 0.78);
-      backdrop-filter: blur(48px);
-      -webkit-backdrop-filter: blur(48px);
-      contain: paint;
+        rgba(5, 2, 6, 0.88);
     }
 
     /* Preloader */
@@ -936,14 +938,11 @@
       transform: translateX(20px);
     }
 
-    /* 3D Curved Certifications Carousel Section (legacy override — gap removed) */
+    /* Certifications Section — first definition (legacy, kept for specificity)
+       The second definition at ~line 1374 is the canonical one. */
     .section-certifications {
-      position: relative;
-      padding: 60px 0;
       margin-top: 0;
       border-top: none;
-      text-align: center;
-      overflow: hidden;
     }
 
     .cert-top-pill {
@@ -2255,10 +2254,43 @@
     .contact-submit-btn:hover .cta-arrow { transform: translateX(3px); }
 
     .contact-form-notice {
-      font-size: 12px;
+      font-size: 13px;
       color: rgba(255,255,255,0.3);
-      margin-top: 8px;
+      margin-top: 10px;
       font-style: italic;
+      min-height: 20px;
+      transition: color 0.3s ease;
+    }
+    .contact-form-notice.state-success {
+      color: #22d65f;
+      font-style: normal;
+      font-weight: 600;
+    }
+    .contact-form-notice.state-error {
+      color: rgba(240, 80, 80, 0.9);
+      font-style: normal;
+      font-weight: 600;
+    }
+    /* Button loading state */
+    .contact-submit-btn.is-loading {
+      opacity: 0.72;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .contact-submit-btn.is-loading .btn-send-text { display: none; }
+    .contact-submit-btn .btn-loading-text { display: none; }
+    .contact-submit-btn.is-loading .btn-loading-text { display: inline; }
+    /* Keyboard focus states for accessibility */
+    :focus-visible {
+      outline: 2px solid var(--accent-orange);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .contact-field input:focus-visible,
+    .contact-field textarea:focus-visible {
+      outline: none;
+      border-color: rgba(255,77,0,0.55);
+      box-shadow: 0 0 0 3px rgba(255,77,0,0.12);
     }
 
     /* RIGHT: INFO PANEL */
@@ -2434,22 +2466,9 @@
        COMPREHENSIVE RESPONSIVE SYSTEM + PREMIUM ANIMATIONS
        ===================================================================== */
 
-    /* -- Premium scroll-reveal animation (JS adds .is-visible) -- */
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition:
-        opacity 0.65s cubic-bezier(0.16,1,0.3,1),
-        transform 0.65s cubic-bezier(0.16,1,0.3,1);
-    }
-    .scroll-reveal.delay-1 { transition-delay: 0.08s; }
-    .scroll-reveal.delay-2 { transition-delay: 0.16s; }
-    .scroll-reveal.delay-3 { transition-delay: 0.24s; }
-    .scroll-reveal.delay-4 { transition-delay: 0.32s; }
-    .scroll-reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* -- Premium scroll-reveal animation (JS adds .in-view) -- */
+    /* Note: second definition at line ~3208 is the canonical one (.in-view)
+       This block kept for legacy compatibility but .in-view takes precedence. */
 
     /* -- Subtle ambient section-level pulse (behind all content) -- */
     @keyframes ambientFloat {
@@ -2564,151 +2583,246 @@
     ===================================== */
 
     /* Tablet: 1024px */
+    /* =====================================================================
+       RESPONSIVE SYSTEM
+       Desktop (>1024px): unchanged — all rules below only apply mobile
+    ===================================================================== */
+
+    /* Tablet 1024px */
     @media (max-width: 1024px) {
       .lorven-pillars { grid-template-columns: repeat(2, 1fr); }
       .contact-body  { grid-template-columns: 1fr; }
       .lorven-box    { padding: 40px 36px 34px; }
     }
 
-    /* Tablet: 900px */
+    /* Tablet 900px */
     @media (max-width: 900px) {
-      .cert-grid      { grid-template-columns: repeat(2, 1fr); }
-      .founders-grid  { grid-template-columns: 1fr 1fr; gap: 20px; }
-      .contact-form-row { grid-template-columns: 1fr; }
-      .projects-grid  { grid-template-columns: repeat(2, 1fr) !important; }
-      .about-me-container { padding: 0 28px; }
+      .cert-grid           { grid-template-columns: repeat(2, 1fr); }
+      .founders-grid       { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .contact-form-row    { grid-template-columns: 1fr; }
+      .projects-grid       { grid-template-columns: repeat(2, 1fr) !important; }
+      .about-me-container  { padding: 0 28px; }
     }
 
     /* Mobile nav triggers at 860px */
     @media (max-width: 860px) {
-      .nav-menu    { display: none !important; }
+      .nav-menu      { display: none !important; }
       .nav-hamburger { display: flex; }
     }
 
-    /* Mobile: 600px */
-    @media (max-width: 600px) {
-      /* Section padding tighten */
-      .section-about-me, .section-academic, .section-toolkit,
-      .section-projects, .section-certifications, .section-lorven,
-      .section-founders, .section-contact { padding-left: 0; padding-right: 0; }
+    /* ── Mobile: 768px and below ── */
+    @media (max-width: 768px) {
 
-      /* Hero stacks on mobile */
+      /* ── Global: no horizontal overflow ── */
+      body, html { overflow-x: hidden; }
+
+      /* ── Continuous background — no black gaps between sections ── */
+      .section-about-me,
+      .section-academic,
+      .section-toolkit,
+      .section-projects,
+      .section-certifications,
+      .section-lorven,
+      .section-founders,
+      .section-contact,
+      footer.site-footer {
+        background:
+          radial-gradient(ellipse at 20% 40%, rgba(55,12,32,0.28) 0%, transparent 65%),
+          radial-gradient(ellipse at 80% 60%, rgba(220,20,60,0.07) 0%, transparent 60%),
+          rgba(5, 2, 6, 0.92);
+        /* Remove contain on mobile — causes separate background layers */
+        contain: none;
+      }
+
+      /* ── Section padding tighten ── */
+      .section-about-me, .section-academic, .section-toolkit,
+      .section-projects, .section-certifications,
+      .section-founders, .section-contact {
+        padding: 60px 0;
+      }
+      .section-lorven   { padding: 36px 0; }
+      .section-contact  { padding: 60px 0 70px; }
+
+      /* ── Containers → consistent side padding ── */
+      .cert-container, .lorven-container, .founders-container,
+      .contact-container, .about-me-container,
+      .projects-container, .toolkit-container, .academic-container {
+        padding: 0 18px;
+      }
+
+      /* ── HERO ── */
       .hero-section {
-        padding-top: 110px;
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-top: 100px;
+        padding-left: 18px;
+        padding-right: 18px;
+        min-height: unset;
       }
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
       }
-      .hero-left { max-width: 100%; padding-top: 24px; }
-      .hero-right { max-width: 100%; margin-left: 0; }
-      .hero-title { font-size: clamp(2rem, 9vw, 3rem); letter-spacing: -1px; }
-      .hero-right-title { font-size: clamp(2rem, 9vw, 3rem); letter-spacing: -1px; }
+      .hero-left {
+        max-width: 100%;
+        padding-top: 16px;
+        text-align: center;
+        align-items: center;
+      }
+      .hero-right {
+        max-width: 100%;
+        margin-left: 0;
+        display: flex;
+        justify-content: center;
+      }
+      .hero-eyebrow { font-size: 13px; }
+      .hero-title {
+        font-size: clamp(2.2rem, 9vw, 3.2rem);
+        letter-spacing: -1px;
+        text-align: center;
+      }
+      .hero-right-title {
+        font-size: clamp(1.8rem, 7.5vw, 2.8rem);
+        letter-spacing: -1px;
+        text-align: center;
+      }
+      .hero-right-sub { text-align: center; }
+      .hero-social-buttons { justify-content: center; }
+      /* Portrait canvas — scale down and center */
+      #animationCanvas {
+        max-width: min(340px, 90vw);
+        max-height: 340px;
+        margin: 0 auto;
+      }
 
-      /* Containers */
-      .cert-container, .lorven-container, .founders-container,
-      .contact-container, .about-me-container { padding: 0 16px; }
-      .projects-container { padding: 0 16px; }
-      .toolkit-container { padding: 0 16px; }
-      .academic-container { padding: 0 16px; }
-      .lorven-box { padding: 28px 20px 24px; border-radius: 18px; }
+      /* ── ABOUT ME ── */
+      .section-about-me { padding: 60px 0; }
+      .about-heading     { font-size: clamp(2rem, 7.5vw, 3rem); text-align: center; }
+      .about-highlights  { flex-direction: column; gap: 10px; }
+      .highlight-item    { width: 100%; padding: 12px 18px; }
+      .currently-exploring-area { padding: 20px 18px; }
+      .exploring-chips   { gap: 8px; }
+      .exploring-chip    { font-size: 13px; padding: 8px 16px; }
+      .about-cta-wrapper { justify-content: center; }
 
-      /* Grids → single column */
-      .cert-grid         { grid-template-columns: 1fr; }
-      .lorven-pillars    { grid-template-columns: 1fr; }
-      .founders-grid     { grid-template-columns: 1fr; }
-      .projects-grid     { grid-template-columns: 1fr !important; }
-      .contact-body      { grid-template-columns: 1fr; gap: 20px; }
-      .contact-form-row  { grid-template-columns: 1fr; gap: 12px; }
+      /* ── ACADEMIC ── */
+      .academic-heading  { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+      .academic-journey-track { padding-left: 20px; }
+      .milestone-card    { padding: 20px 16px; }
 
-      /* Toolkit: single column on mobile */
-      .toolkit-dashboard-grid { grid-template-columns: 1fr; gap: 28px; }
-
-      /* Typography scaling */
-      .lorven-main-heading { font-size: clamp(1.4rem, 6vw, 2rem); }
-      .contact-main-heading { font-size: clamp(2rem, 8vw, 3rem); }
-      .founders-main-heading { font-size: clamp(1.8rem, 7vw, 2.8rem); }
-      .cert-main-heading { font-size: clamp(1.8rem, 7vw, 2.8rem); }
-      .toolkit-heading { font-size: clamp(1.8rem, 7vw, 2.6rem); }
-      .about-heading { font-size: clamp(2rem, 7.5vw, 3rem); }
-      .academic-heading { font-size: clamp(1.8rem, 7vw, 2.6rem); }
-
-      /* Logo */
-      .lorven-logo-img { width: min(220px, 60vw); }
-
-      /* Orbital toolkit: prevent horizontal overflow on mobile;
-         reduce height but keep animation active */
-      .section-toolkit { overflow: hidden; }
+      /* ── TOOLKIT ── */
+      .toolkit-heading   { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+      .toolkit-dashboard-grid { grid-template-columns: 1fr; gap: 24px; }
+      .toolkit-directory-col  { overflow: visible; }
+      .toolkit-showcase-col   { position: relative; top: 0; }
+      /* Orbital viewport — controlled height, scroll passes through */
+      .section-toolkit        { overflow: hidden; touch-action: pan-y; }
       .orbital-showcase-viewport {
         height: 320px;
-        touch-action: pan-y; /* CRITICAL: let vertical scroll pass through */
+        touch-action: pan-y;
+        overflow: hidden;
       }
-      /* Scale orbital content to fit — only the visual elements scale, not the container */
+      /* Scale orbital to fit — visual only */
       .orbital-nodes-layer, .orbital-svg-tracks {
-        transform: scale(0.8);
+        transform: scale(0.78);
         transform-origin: center center;
       }
 
-      /* Corner accents hide on mobile (too tight) */
-      .lorven-corner { display: none; }
+      /* ── PROJECTS ── */
+      .projects-grid  { grid-template-columns: 1fr !important; gap: 16px; }
+      .proj-card      { padding: 24px 18px; }
 
-      /* Navbar brand stays visible */
+      /* ── CERTIFICATIONS ── */
+      .cert-grid      { grid-template-columns: 1fr; gap: 14px; }
+      .cert-main-heading { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+      .cert-arc-track { flex-wrap: wrap; transform: none !important; }
+      .cert-card-item { transform: none !important; opacity: 1 !important; }
+
+      /* ── LORVEN ── */
+      .lorven-box        { padding: 26px 18px 22px; border-radius: 16px; }
+      .lorven-main-heading { font-size: clamp(1.4rem, 6vw, 2rem); }
+      .lorven-pillars    { grid-template-columns: 1fr; gap: 12px; }
+      .lorven-logo-img   { width: min(200px, 55vw); }
+      .lorven-corner     { display: none; }
+
+      /* ── FOUNDERS ── */
+      .founders-grid     { grid-template-columns: 1fr; gap: 16px; }
+      .founders-main-heading { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+      .founder-card      { padding: 24px 18px; }
+
+      /* ── CONTACT ── */
+      .contact-main-heading  { font-size: clamp(2rem, 8vw, 3rem); }
+      .contact-body          { grid-template-columns: 1fr; gap: 20px; }
+      .contact-form-row      { grid-template-columns: 1fr; gap: 12px; }
+      .contact-form-panel, .contact-info-card { padding: 24px 18px; }
+
+      /* ── TYPOGRAPHY ── */
       .brand-logo { font-size: 1.1rem; }
 
-      /* Footer */
-      .site-footer { padding: 24px 16px; }
-      .footer-text { font-size: 12px; }
-
-      /* About highlights wrap better */
-      .about-highlights { flex-wrap: wrap; }
-      .highlight-item { min-width: 120px; }
-
-      /* Milestone card full width */
-      .academic-journey-track { padding-left: 24px; }
-      .milestone-card { padding: 20px 16px; }
+      /* ── FOOTER ── */
+      .site-footer { padding: 24px 18px; }
+      .footer-text  { font-size: 12px; text-align: center; }
     }
 
-
-    /* Small phones: 430px and below */
-    @media (max-width: 430px) {
-      .lorven-box { padding: 22px 14px 20px; }
-      .founders-grid { gap: 14px; }
-      .contact-form-panel, .contact-info-card { padding: 22px 16px; }
-      .mobile-nav-link { font-size: 20px; padding: 14px 0; }
-      .hero-title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
-      .hero-right-title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
-      /* Orbital even smaller on tiny phones */
-      .orbital-showcase-viewport { height: 280px; }
+    /* ── Small phones: 480px ── */
+    @media (max-width: 480px) {
+      .hero-title       { font-size: clamp(1.9rem, 8.5vw, 2.8rem); }
+      .hero-right-title { font-size: clamp(1.7rem, 7.5vw, 2.4rem); }
+      #animationCanvas  { max-width: min(300px, 88vw); max-height: 300px; }
+      .proj-card        { padding: 20px 14px; }
+      .lorven-box       { padding: 22px 14px 18px; }
+      .founders-grid    { gap: 12px; }
+      .contact-form-panel, .contact-info-card { padding: 20px 14px; }
+      .mobile-nav-link  { font-size: 20px; padding: 14px 0; }
+      /* Orbital tighter */
+      .orbital-showcase-viewport { height: 290px; }
       .orbital-nodes-layer, .orbital-svg-tracks {
-        transform: scale(0.68);
+        transform: scale(0.7);
         transform-origin: center center;
       }
     }
 
-    /* Very small phones: 360px */
-    @media (max-width: 360px) {
-      .hero-title { font-size: clamp(1.6rem, 8vw, 2.2rem); }
-      .toolkit-heading { font-size: 1.6rem; }
+    /* ── Very small phones: 430px ── */
+    @media (max-width: 430px) {
+      .hero-title       { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+      .hero-right-title { font-size: clamp(1.7rem, 7.5vw, 2.3rem); }
+      .about-heading    { font-size: clamp(1.8rem, 7.5vw, 2.4rem); }
+      #animationCanvas  { max-width: min(280px, 86vw); max-height: 280px; }
+      /* Orbital */
+      .orbital-showcase-viewport { height: 270px; }
+      .orbital-nodes-layer, .orbital-svg-tracks {
+        transform: scale(0.65);
+        transform-origin: center center;
+      }
+    }
+
+    /* ── Smallest phones: 375px ── */
+    @media (max-width: 375px) {
+      body, html { overflow-x: hidden; }
+      .hero-title       { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+      .toolkit-heading  { font-size: 1.6rem; }
+      .about-heading    { font-size: clamp(1.7rem, 7.5vw, 2.1rem); }
+      #animationCanvas  { max-width: min(260px, 84vw); max-height: 260px; }
       .orbital-showcase-viewport { height: 250px; }
       .orbital-nodes-layer, .orbital-svg-tracks {
         transform: scale(0.58);
         transform-origin: center center;
       }
+      /* Form fields: ensure never overflow at 360px */
+      input, textarea, select, button { max-width: 100%; box-sizing: border-box; }
     }
 
-    /* Touch device: hide custom cursor; ensure touch-action is clean */
+    /* ── Touch devices: hide custom cursor, ensure no scroll trap ── */
     @media (hover: none) and (pointer: coarse) {
       .cinematic-cursor-system { display: none !important; }
       body { cursor: auto !important; }
-      /* Critical: ensure toolkit never traps touch scrolling */
+      /* Critical: toolkit NEVER traps touch scroll */
       .section-toolkit,
       .toolkit-directory-col,
       .toolkit-dashboard-grid,
       .orbital-showcase-viewport,
-      .orbital-nodes-layer {
+      .orbital-nodes-layer,
+      .orbital-svg-tracks {
         touch-action: pan-y !important;
+        -webkit-overflow-scrolling: touch;
       }
     }
 
@@ -3054,19 +3168,6 @@
       }
     }
 
-      .about-visual-card {
-        height: 300px;
-      }
-
-      .about-heading {
-        font-size: clamp(2rem, 6vw, 3rem);
-      }
-
-      .about-highlights {
-        flex-direction: flex-start;
-        gap: 12px;
-      }
-    }
 
     @media (max-width: 576px) {
       .section-about-me {
@@ -3307,6 +3408,19 @@
       .about-glow-1, .about-glow-2, .academic-glow-bg, .toolkit-glow-bg { animation: none !important; }
       .section-heading-shimmer.in-view { animation: none !important; -webkit-text-fill-color: #fff; }
       .milestone-card, .proj-card { transition: none !important; }
+      /* Skip scroll-reveal animation — show elements immediately */
+      .scroll-reveal, .about-reveal, .beyond-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .scroll-reveal.in-view, .about-reveal.in-view, .beyond-reveal.in-view {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+      }
+      /* Orbital chips: no transition at all */
+      .orbit-node-chip { transition: none !important; }
     }    /* Two-Column Interactive Dashboard Toolkit Styling */
     .section-toolkit {
       position: relative;
@@ -3643,31 +3757,32 @@
       gap: 7px;
       padding: 5px 12px 5px 8px;
       border-radius: 100px;
-      background: rgba(12, 6, 16, 0.90);
+      /* PERF: backdrop-filter removed from each chip — 25 chips each creating
+         a compositing layer was the primary cause of Toolkit scroll lag.
+         The dark background + box-shadow provides the same visual depth. */
+      background: rgba(10, 5, 14, 0.94);
       border: 1px solid rgba(255, 255, 255, 0.14);
       color: rgba(255, 255, 255, 0.92);
       font-family: 'Outfit', var(--font-main);
       font-size: 11.5px;
       font-weight: 600;
       letter-spacing: 0.2px;
-      /* RIGHT-SIDE nodes are purely visual — cursor passes through */
       pointer-events: none;
       cursor: default;
       white-space: nowrap;
       user-select: none;
-      /* GPU layer — critical for smooth 60fps */
+      /* GPU compositing — each chip on its own layer for transform animation */
       will-change: transform, opacity;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 3px 14px rgba(0,0,0,0.6);
-      /* Visual state transitions only — transform is driven by rAF */
+      box-shadow: 0 2px 12px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
+      /* Transition only CSS-compositor-friendly props */
       transition:
-        border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow   0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity      0.30s ease,
-        background   0.30s ease,
-        filter       0.30s ease;
+        border-color 0.30s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow   0.30s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity      0.25s ease,
+        background   0.25s ease,
+        filter       0.25s ease;
     }
 
     .orbit-node-chip .node-logo-img {
@@ -3724,7 +3839,7 @@
         height: 360px;
       }
       .ring-outer { display: none; }
-    } }
+    }
 
     /* Academic Background Section Styling */
     .section-academic {
@@ -5165,9 +5280,10 @@
               </div>
 
               <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">
-                Send Message <span class="cta-arrow">→</span>
+                <span class="btn-send-text">Send Message <span class="cta-arrow">→</span></span>
+                <span class="btn-loading-text">⧗ Sending…</span>
               </button>
-              <p class="contact-form-notice" id="contactFormNotice"></p>
+              <p class="contact-form-notice" id="contactFormNotice" role="status" aria-live="polite"></p>
 
             </form>
           </div>
@@ -5424,54 +5540,59 @@
 
       // 5. Interactive 2-Column Toolkit Dashboard Engine with REAL LOGOS!
       const REAL_LOGOS = {
-        "C": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
-        "Java": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-        "Python": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-        "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-        "HTML": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-        "CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-        "JavaScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-        "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-        "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-        "Express.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-        "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-        "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-        "Visual Studio Code": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
-        "Antigravity": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg",
-        "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-        "GitHub": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-        "Postman": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
-        "Vercel": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
-        "Kali Linux": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kalilinux/kalilinux-original.svg",
-        "Linux": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-        "Wireshark": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wireshark/wireshark-original.svg",
-        "Burp Suite": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ssh/ssh-original.svg",
-        "Nmap": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",
-        "Metasploit": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-        "OWASP": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
-        "Bash": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",
-        "CVR": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
-        "Motion": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg",
-        "Bhashyam": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
-        "ChatGPT": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-        "Google Gemini": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg",
-        "Claude": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-        "NumPy": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
-        "Pandas": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
-        "Jupyter": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
-        "PyTorch": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
-        "TensorFlow": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
-        "MySQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-        "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-        "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-        "Firebase": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-        "AWS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
-        "Microsoft Azure": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
-        "Google Cloud": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
-        "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-        "Kubernetes": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
-        "Canva": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
-        "CapCut": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
+        "C":                 "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+        "Java":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+        "Python":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+        "TypeScript":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+        "HTML":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+        "CSS":               "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+        "JavaScript":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+        "React":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+        "Node.js":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg",
+        "Express.js":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+        "Next.js":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+        "Tailwind CSS":      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+        "Visual Studio Code":"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+        // Antigravity is a proprietary AI IDE — no official icon; use a styled placeholder SVG
+        "Antigravity":       "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23111' stroke='%23ff4d00' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Outfit,sans-serif' font-weight='800' font-size='11' fill='%23ff4d00'%3EAG%3C/text%3E%3C/svg%3E",
+        "Git":               "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+        "GitHub":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+        "Postman":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+        "Vercel":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+        "Kali Linux":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+        "Linux":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+        "Wireshark":         "https://cdn.simpleicons.org/wireshark/1679A3",
+        // Burp Suite (PortSwigger) — no devicon entry; use official color badge
+        "Burp Suite":        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23FF6633'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='9' fill='%23fff'%3EBurp%3C/text%3E%3C/svg%3E",
+        // Nmap — no devicon; use branded badge
+        "Nmap":              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230E1A2B' stroke='%234a90d9' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='9' fill='%234a90d9'%3ENmap%3C/text%3E%3C/svg%3E",
+        // Metasploit — use branded badge
+        "Metasploit":        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231a1a2e' stroke='%23e94560' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='7.5' fill='%23e94560'%3EMETA%3C/text%3E%3C/svg%3E",
+        // OWASP — use simpleicons
+        "OWASP":             "https://cdn.simpleicons.org/owasp/000000",
+        "Bash":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",
+        "ChatGPT":           "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+        // Google Gemini — use correct Gemini icon from simpleicons
+        "Google Gemini":     "https://cdn.simpleicons.org/googlegemini/4285F4",
+        // Claude (Anthropic) — use simpleicons
+        "Claude":            "https://cdn.simpleicons.org/anthropic/D4A27F",
+        "NumPy":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
+        "Pandas":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+        "Jupyter":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
+        "PyTorch":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+        "TensorFlow":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+        "MySQL":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+        "PostgreSQL":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+        "MongoDB":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+        "Firebase":          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+        "AWS":               "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
+        "Microsoft Azure":   "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+        "Google Cloud":      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+        "Docker":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+        "Kubernetes":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
+        "Canva":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
+        // CapCut — simpleicons entry unavailable; using branded data URI
+        "CapCut":            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Cpath d='M10 10h5v12h-5zM17 10h5v12h-5z' fill='%23fff'/%3E%3C/svg%3E"
       };
 
       const TECH_DATASET = [
@@ -5855,23 +5976,29 @@
       }
 
       // 1. Cursor Magnetic Button Effect (Desktop Fine Pointer Only)
-      const magneticBtns = document.querySelectorAll('.btn-header, .about-cta-btn, .btn-orange, .btn-price, .scale-submit-pill');
+      // Uses RAF-batched getBoundingClientRect to avoid forced layout thrashing
+      var magneticBtns = document.querySelectorAll('.btn-header, .about-cta-btn, .btn-orange, .btn-price, .scale-submit-pill');
       if (matchMedia('(pointer: fine)').matches) {
-        magneticBtns.forEach(btn => {
-          btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const deltaX = (e.clientX - centerX) * 0.22;
-            const deltaY = (e.clientY - centerY) * 0.22;
-            const moveX = Math.max(-8, Math.min(8, deltaX));
-            const moveY = Math.max(-8, Math.min(8, deltaY));
-            btn.style.transform = `translate3d(${moveX}px, ${moveY}px, 0) scale(1.02)`;
-          });
-
-          btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate3d(0, 0, 0) scale(1)';
-          });
+        magneticBtns.forEach(function(btn) {
+          var mx = 0, my = 0, magRafPending = false;
+          btn.addEventListener('mousemove', function(e) {
+            mx = e.clientX; my = e.clientY;
+            if (!magRafPending) {
+              magRafPending = true;
+              requestAnimationFrame(function() {
+                var rect = btn.getBoundingClientRect();
+                var cx   = rect.left + rect.width  / 2;
+                var cy   = rect.top  + rect.height / 2;
+                var moveX = Math.max(-8, Math.min(8, (mx - cx) * 0.22));
+                var moveY = Math.max(-8, Math.min(8, (my - cy) * 0.22));
+                btn.style.transform = 'translate3d(' + moveX + 'px,' + moveY + 'px,0) scale(1.02)';
+                magRafPending = false;
+              });
+            }
+          }, { passive: true });
+          btn.addEventListener('mouseleave', function() {
+            btn.style.transform = 'translate3d(0,0,0) scale(1)';
+          }, { passive: true });
         });
       }
 
@@ -5996,55 +6123,69 @@
         });
       });
 
-      // 4. Unified Cinematic Orb Custom Cursor Tracker (Single Parent Container, 100% Centered)
+      // 4. Unified Cinematic Orb Custom Cursor Tracker
       if (matchMedia('(pointer: fine)').matches) {
-        const cursorSys = document.getElementById('cinematicCursor');
+        var cursorSys = document.getElementById('cinematicCursor');
         if (cursorSys) {
-          let mouseX = window.innerWidth / 2;
-          let mouseY = window.innerHeight / 2;
-          let curX = mouseX;
-          let curY = mouseY;
-          let isVisible = false;
+          var mouseX = window.innerWidth / 2;
+          var mouseY = window.innerHeight / 2;
+          var curX = mouseX, curY = mouseY;
+          var cursorVisible = false;
+          var cursorRafId = null;
+          // Track if cursor actually moved since last frame
+          var cursorDirty = false;
 
-          window.addEventListener('mousemove', (e) => {
+          window.addEventListener('mousemove', function(e) {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            if (!isVisible) {
-              isVisible = true;
+            cursorDirty = true;
+            if (!cursorVisible) {
+              cursorVisible = true;
               cursorSys.style.opacity = '1';
             }
+            // Schedule a frame if not already scheduled
+            if (!cursorRafId) cursorRafId = requestAnimationFrame(renderCursor);
           }, { passive: true });
 
-          document.addEventListener('mouseleave', () => {
+          document.addEventListener('mouseleave', function() {
             cursorSys.style.opacity = '0';
-            isVisible = false;
-          });
+            cursorVisible = false;
+          }, { passive: true });
 
-          window.addEventListener('mousedown', () => {
+          window.addEventListener('mousedown', function() {
             cursorSys.classList.add('clicking');
-          });
+          }, { passive: true });
 
-          window.addEventListener('mouseup', () => {
+          window.addEventListener('mouseup', function() {
             cursorSys.classList.remove('clicking');
+          }, { passive: true });
+
+          // Hover target detection
+          document.querySelectorAll('a, button, .card-item, .price-card, .cert-card-item, .highlight-item, .exploring-chip, .about-cta-btn, .btn-header').forEach(function(el) {
+            el.addEventListener('mouseenter', function() { cursorSys.classList.add('hovering'); }, { passive: true });
+            el.addEventListener('mouseleave', function() { cursorSys.classList.remove('hovering'); }, { passive: true });
           });
 
-          // Interactive Hover Target Detection
-          const hoverTargets = document.querySelectorAll('a, button, .card-item, .price-card, .cert-card-item, .highlight-item, .exploring-chip, .about-cta-btn, .btn-header');
-          hoverTargets.forEach(el => {
-            el.addEventListener('mouseenter', () => cursorSys.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => cursorSys.classList.remove('hovering'));
-          });
-
-          // Unified Lerp Animation Loop (Single Parent Container Only!)
-          function renderUnifiedCursor() {
-            if (isVisible) {
-              curX += (mouseX - curX) * 0.25;
-              curY += (mouseY - curY) * 0.25;
-              cursorSys.style.transform = `translate3d(${curX}px, ${curY}px, 0)`;
+          // Self-scheduling RAF: only runs while cursor is moving/lerping
+          // Stops completely when cursor is stationary — zero CPU at rest
+          var CURSOR_EASE = 0.22;
+          var CURSOR_EPSILON = 0.15; // px — stop lerping below this delta
+          function renderCursor() {
+            cursorRafId = null;
+            var dx = mouseX - curX;
+            var dy = mouseY - curY;
+            if (Math.abs(dx) > CURSOR_EPSILON || Math.abs(dy) > CURSOR_EPSILON) {
+              curX += dx * CURSOR_EASE;
+              curY += dy * CURSOR_EASE;
+              cursorSys.style.transform = 'translate3d(' + curX.toFixed(2) + 'px,' + curY.toFixed(2) + 'px,0)';
+              cursorRafId = requestAnimationFrame(renderCursor);
+            } else {
+              // Snap to final position and stop — no more CPU usage until next mousemove
+              curX = mouseX;
+              curY = mouseY;
+              cursorSys.style.transform = 'translate3d(' + curX + 'px,' + curY + 'px,0)';
             }
-            requestAnimationFrame(renderUnifiedCursor);
           }
-          requestAnimationFrame(renderUnifiedCursor);
         }
       }
 
@@ -6130,41 +6271,108 @@
       })();
 
       (function initContactForm() {
-        const form    = document.getElementById('contactForm');
-        const btn     = document.getElementById('contactSubmitBtn');
-        const notice  = document.getElementById('contactFormNotice');
+        // ── EmailJS credentials ──────────────────────────────────────────
+        var EJS_PUBLIC_KEY  = 'ni0IqrRGioOb5jfTh';
+        var EJS_SERVICE_ID  = 'service_q51cstr';
+        var EJS_TEMPLATE_ID = 'template_qcy1y3b';
+        var TO_EMAIL        = 'vardhanbillakanti125@gmail.com';
+        // ─────────────────────────────────────────────────────────────────
+
+        // Initialise EmailJS SDK with the public key
+        if (typeof emailjs !== 'undefined') {
+          emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+        }
+
+        var form   = document.getElementById('contactForm');
+        var btn    = document.getElementById('contactSubmitBtn');
+        var notice = document.getElementById('contactFormNotice');
         if (!form) return;
 
-        function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+        function isValidEmail(v) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+        }
+        function isValidPhone(v) {
+          if (!v.trim()) return true; // optional — blank is accepted
+          return /^[\+]?[\d\s\-\(\)]{7,15}$/.test(v.trim());
+        }
+
+        function setNotice(msg, state) {
+          notice.textContent = msg;
+          notice.className   = 'contact-form-notice' + (state ? ' ' + state : '');
+        }
+
+        function setLoading(on) {
+          if (on) {
+            btn.classList.add('is-loading');
+            btn.disabled = true;
+          } else {
+            btn.classList.remove('is-loading');
+            btn.disabled = false;
+          }
+        }
 
         form.addEventListener('submit', function (e) {
           e.preventDefault();
-          notice.textContent = '';
-          let valid = true;
+          setNotice('', '');
 
-          const name    = form.querySelector('#cf-name');
-          const email   = form.querySelector('#cf-email');
-          const message = form.querySelector('#cf-message');
+          // Grab all fields
+          var nameEl    = form.querySelector('#cf-name');
+          var emailEl   = form.querySelector('#cf-email');
+          var phoneEl   = form.querySelector('#cf-phone');
+          var subjectEl = form.querySelector('#cf-subject');
+          var messageEl = form.querySelector('#cf-message');
 
-          [name, email, message].forEach(el => el && el.classList.remove('invalid'));
+          // Clear previous invalid states
+          [nameEl, emailEl, phoneEl, messageEl].forEach(function (el) {
+            if (el) el.classList.remove('invalid');
+          });
 
-          if (!name.value.trim())            { name.classList.add('invalid');    valid = false; }
-          if (!isValidEmail(email.value))    { email.classList.add('invalid');   valid = false; }
-          if (!message.value.trim())         { message.classList.add('invalid'); valid = false; }
+          // Validate required fields
+          var valid = true;
+          if (!nameEl    || !nameEl.value.trim())        { if (nameEl)    nameEl.classList.add('invalid');    valid = false; }
+          if (!emailEl   || !isValidEmail(emailEl.value)){ if (emailEl)   emailEl.classList.add('invalid');   valid = false; }
+          if (phoneEl    && !isValidPhone(phoneEl.value)) {                phoneEl.classList.add('invalid');   valid = false; }
+          if (!messageEl || !messageEl.value.trim())     { if (messageEl) messageEl.classList.add('invalid'); valid = false; }
 
           if (!valid) {
-            notice.style.color = 'rgba(220,80,80,0.85)';
-            notice.textContent = 'Please fill in the required fields correctly.';
+            setNotice('Please fill in all required fields correctly.', 'state-error');
             return;
           }
 
-          // Safe placeholder state \u2014 no backend configured yet
-          btn.disabled = true;
-          btn.style.opacity = '0.7';
-          notice.style.color = 'rgba(255,255,255,0.55)';
-          notice.textContent = '\u2713 Message received! I\u2019ll get back to you soon.';
-          form.reset();
-          setTimeout(() => { btn.disabled = false; btn.style.opacity = ''; }, 4000);
+          // Guard: EmailJS SDK must be loaded (CDN block, offline, etc.)
+          if (typeof emailjs === 'undefined') {
+            setNotice('Email service unavailable. Please email me directly at ' + TO_EMAIL, 'state-error');
+            return;
+          }
+
+          // Enter loading state — blocks duplicate submissions
+          setLoading(true);
+          setNotice('Sending\u2026', '');
+
+          // Template params — variable names match your EmailJS template exactly:
+          // {{name}}  {{email}}  {{phone}}  {{subject}}  {{message}}
+          var params = {
+            name:    nameEl.value.trim(),
+            email:   emailEl.value.trim(),
+            phone:   (phoneEl && phoneEl.value.trim()) ? phoneEl.value.trim() : 'Not provided',
+            subject: (subjectEl && subjectEl.value.trim()) ? subjectEl.value.trim() : 'Portfolio Contact',
+            message: messageEl.value.trim()
+          };
+
+          emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, params)
+            .then(function () {
+              // SUCCESS — clear form only after confirmed delivery
+              setLoading(false);
+              setNotice('\u2713 Message sent! I\'ll get back to you soon.', 'state-success');
+              form.reset();
+              setTimeout(function () { setNotice('', ''); }, 8000);
+            })
+            .catch(function (err) {
+              // FAILURE — keep data intact so the user can retry
+              setLoading(false);
+              setNotice('Send failed. Please retry or email me at ' + TO_EMAIL, 'state-error');
+              console.error('[ContactForm] EmailJS error:', err);
+            });
         });
       })();
 
@@ -6172,3 +6380,4 @@
   </script>
 </body>
 </html>
+

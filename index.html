@@ -2629,6 +2629,20 @@
     }
     .mobile-nav-close:hover { color: #fff; }
 
+    /* =====================================================================
+       LARGE / DESKTOP SCREEN CLAMP  (≥ 1440px)
+       Caps hero + nav at laptop-equivalent width so the layout never
+       stretches too wide on large monitors.  Mobile is NOT affected.
+    ===================================================================== */
+    @media (min-width: 1440px) {
+      .nav-header .nav-container {
+        max-width: 1280px;
+      }
+      .hero-section {
+        max-width: 1280px;
+      }
+    }
+
     /* =====================================
        RESPONSIVE BREAKPOINTS
     ===================================== */
@@ -2736,7 +2750,8 @@
         text-align: center;
       }
       .hero-right-sub { text-align: center; }
-      .hero-social-buttons { justify-content: center; }
+      /* Hide horizontal social buttons on mobile — vertical icons now beside portrait */
+      .hero-social-buttons { display: none; }
       /* Portrait canvas — hidden on mobile: static in-flow image replaces it */
       canvas#animationCanvas {
         opacity: 0;
@@ -2744,25 +2759,77 @@
         mask-image: none;
       }
 
-      /* ── MOBILE PORTRAIT — in-flow between social icons and cyber chip ── */
+      /* ── MOBILE PORTRAIT WRAP — portrait + vertical social icons side by side ── */
       .hero-mobile-portrait-wrap {
         display: flex;
-        justify-content: center;
+        flex-direction: row;
         align-items: center;
+        justify-content: center;
         width: 100%;
         margin: 16px 0 14px;
+        gap: 0;
       }
+
+      /* ── MOBILE PORTRAIT IMAGE — NO circle, NO crop, normal rectangular portrait ── */
       .hero-mobile-portrait-img {
-        width: min(220px, 66vw);
-        height: min(220px, 66vw);
-        object-fit: cover;
-        object-position: center 12%;
-        border-radius: 50%;
-        border: 2px solid rgba(255, 77, 0, 0.28);
-        box-shadow:
-          0 0 0 6px rgba(255, 77, 0, 0.06),
-          0 8px 32px rgba(0, 0, 0, 0.55),
-          0 0 28px rgba(255, 77, 0, 0.12);
+        width: min(230px, 64vw);
+        height: auto;
+        object-fit: contain;
+        object-position: center top;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        display: block;
+        flex-shrink: 0;
+        will-change: transform;
+        transition: opacity 0.08s ease;
+      }
+
+      /* ── MOBILE SOCIAL COLUMN — vertical icons to the LEFT of portrait ── */
+      .hero-mobile-social-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        padding-right: 14px;
+        flex-shrink: 0;
+      }
+
+      .hero-mobile-social-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 44px;
+        min-height: 44px;
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        border-radius: 10px;
+        transition: color 0.22s ease, transform 0.22s ease;
+      }
+
+      .hero-mobile-social-icon span {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: inherit;
+        line-height: 1;
+      }
+
+      .hero-mobile-social-icon:active,
+      .hero-mobile-social-icon:hover {
+        color: #ff4d00;
+        transform: scale(1.08);
+      }
+
+      .hero-mobile-social-line {
+        width: 1px;
+        height: 18px;
+        background: rgba(255, 255, 255, 0.15);
+        margin: 4px 0;
       }
 
       /* ── HERO CHIP — center "CYBER & TECH SYSTEMS" below portrait ── */
@@ -4737,12 +4804,30 @@
             </a>
           </div>
 
-          <!-- Mobile-only portrait — shown between social icons and cyber chip on mobile.
-               Hidden on desktop (display:none in base CSS) -->
-          <div class="hero-mobile-portrait-wrap" aria-hidden="true">
+          <!-- Mobile-only portrait + vertical social icons — hidden on desktop (display:none in base CSS) -->
+          <div class="hero-mobile-portrait-wrap">
+            <!-- Vertical social icons — LEFT of portrait, mobile only -->
+            <div class="hero-mobile-social-col" aria-label="Social links">
+              <a href="https://www.instagram.com/vardhan_billakanti/" target="_blank" rel="noopener noreferrer" class="hero-mobile-social-icon" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <span>Instagram</span>
+              </a>
+              <div class="hero-mobile-social-line" aria-hidden="true"></div>
+              <a href="https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382" target="_blank" rel="noopener noreferrer" class="hero-mobile-social-icon" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                <span>LinkedIn</span>
+              </a>
+              <div class="hero-mobile-social-line" aria-hidden="true"></div>
+              <a href="https://github.com/vardhanbillakanti125-crypto" target="_blank" rel="noopener noreferrer" class="hero-mobile-social-icon" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                <span>GitHub</span>
+              </a>
+            </div>
+            <!-- Portrait image — no circle, no crop -->
             <img
               src="frames/ezgif-frame-001.jpg"
-              alt=""
+              alt="Portrait of Billakanti Jaya Vardhan"
+              id="mobilePortraitImg"
               class="hero-mobile-portrait-img"
               loading="eager"
               draggable="false"
@@ -5566,6 +5651,8 @@
         resizeCanvas();
         updateTargetFrame();
         requestAnimationFrame(renderLoop);
+        // Trigger initial mobile portrait frame update
+        window.dispatchEvent(new Event('scroll'));
       }
 
       function resizeCanvas() {
@@ -5661,6 +5748,44 @@
         resizeCanvas();
         drawFrame(currentFrame);
       }, { passive: true });
+
+      // ── Mobile Portrait Frame Scroll ──────────────────────────────────────────
+      // On touch/mobile the canvas is hidden (opacity:0). Instead we drive the
+      // #mobilePortraitImg <img> src from the same preloaded images[] array using
+      // the same targetFrame scroll logic. Zero extra network requests.
+      // Only active when the mobile portrait element exists and we're on a touch device.
+      (function initMobilePortraitScroll() {
+        const mobilePortraitEl = document.getElementById('mobilePortraitImg');
+        if (!mobilePortraitEl) return;
+        // Only run on touch/coarse-pointer devices (mobile)
+        if (!window.matchMedia('(pointer: coarse)').matches) return;
+
+        let mobileLastFrame = -1;
+        let mobileRafPending = false;
+
+        function updateMobilePortrait() {
+          mobileRafPending = false;
+          if (!isLoaded || images.length === 0) return;
+          const frameIdx = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(targetFrame)));
+          if (frameIdx === mobileLastFrame) return;
+          const img = images[frameIdx];
+          if (img && img.complete && img.naturalWidth > 0 && img.src) {
+            mobilePortraitEl.src = img.src;
+            mobileLastFrame = frameIdx;
+          }
+        }
+
+        window.addEventListener('scroll', () => {
+          if (!mobileRafPending) {
+            mobileRafPending = true;
+            requestAnimationFrame(updateMobilePortrait);
+          }
+        }, { passive: true });
+
+        // Set initial frame once images are loaded (already triggered by onAllImagesLoaded above)
+        // We call it on the next tick to ensure isLoaded is true
+        setTimeout(updateMobilePortrait, 0);
+      })();
 
       // Header Scroll Blur/Background Handler
       const navHeader = document.querySelector('header.nav-header');

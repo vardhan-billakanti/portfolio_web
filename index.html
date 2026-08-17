@@ -2205,10 +2205,45 @@
 
     /* LEFT: FORM PANEL */
     .contact-form-panel {
+      position: relative;
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.09);
       border-radius: 22px;
       padding: 36px 32px;
+      overflow: hidden;
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        background 0.35s ease;
+      will-change: transform;
+    }
+    .contact-form-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 77, 0, 0.6) 50%, transparent 100%);
+      opacity: 0.45;
+      transition: opacity 0.35s ease, height 0.35s ease;
+      pointer-events: none;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .contact-form-panel:hover {
+        transform: translateY(-4px) scale(1.008);
+        border-color: rgba(255, 77, 0, 0.35);
+        box-shadow:
+          0 20px 50px rgba(0, 0, 0, 0.6),
+          0 0 30px rgba(255, 77, 0, 0.12),
+          inset 0 1px 0 rgba(255, 77, 0, 0.15);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .contact-form-panel:hover::before {
+        opacity: 1;
+        height: 2.5px;
+      }
     }
     .contact-panel-title {
       font-family: 'Outfit', var(--font-main);
@@ -5926,7 +5961,7 @@
 
       // IntersectionObserver for all reveal animations (covers all sections & cards — runs ONCE only)
       const revealElements = document.querySelectorAll(
-        '.about-reveal, .beyond-reveal, .scroll-reveal, .heading-reveal, .academic-milestone-item, .founder-card, .cert-main-title, .scale-talk-card, .price-card, .highlight-item, .contact-info-card, .lorven-box'
+        '.about-reveal, .beyond-reveal, .scroll-reveal, .heading-reveal, .academic-milestone-item, .founder-card, .cert-main-title, .scale-talk-card, .price-card, .highlight-item, .contact-info-card, .contact-form-panel, .lorven-box'
       );
       if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver((entries, observer) => {

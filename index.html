@@ -2630,16 +2630,18 @@
     .mobile-nav-close:hover { color: #fff; }
 
     /* =====================================================================
-       LARGE / DESKTOP SCREEN CLAMP  (≥ 1440px)
-       Caps hero + nav at laptop-equivalent width so the layout never
-       stretches too wide on large monitors.  Mobile is NOT affected.
+       LARGE / DESKTOP SCREEN CLAMP  (≥ 1500px)
+       Caps hero + nav at 1366px (a very common laptop width) so the layout
+       never stretches too wide on large desktop monitors.
+       Starts at 1500px so genuine laptop screens (1280-1440px) are untouched.
+       Mobile is NOT affected by this min-width rule.
     ===================================================================== */
-    @media (min-width: 1440px) {
+    @media (min-width: 1500px) {
       .nav-header .nav-container {
-        max-width: 1280px;
+        max-width: 1366px;
       }
       .hero-section {
-        max-width: 1280px;
+        max-width: 1366px;
       }
     }
 
@@ -2759,41 +2761,63 @@
         mask-image: none;
       }
 
-      /* ── MOBILE PORTRAIT WRAP — portrait + vertical social icons side by side ── */
+      /* ── MOBILE PORTRAIT WRAP ─────────────────────────────────────────────
+         Full-width, edge-to-edge: breaks out of hero-section's 18px L+R
+         padding via negative margins so the portrait touches screen edges.
+         position:relative lets us overlay the social icons absolutely.
+      ────────────────────────────────────────────────────────────────────── */
       .hero-mobile-portrait-wrap {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin: 16px 0 14px;
-        gap: 0;
+        position: relative;
+        display: block;
+        /* Break out of hero-section's padding-left/right: 18px each side */
+        width: calc(100% + 36px);
+        margin-left: -18px;
+        margin-right: -18px;
+        margin-top: 16px;
+        margin-bottom: 18px;
+        line-height: 0;          /* removes phantom space under the img */
+        overflow: hidden;
       }
 
-      /* ── MOBILE PORTRAIT IMAGE — NO circle, NO crop, normal rectangular portrait ── */
+      /* ── MOBILE PORTRAIT IMAGE ───────────────────────────────────────────
+         Full viewport width, landscape 16:9, no circle, no card, no frame.
+         object-position: 50% 22% keeps the face in view (face is in
+         upper-center of the cinematic landscape frames).
+      ────────────────────────────────────────────────────────────────────── */
       .hero-mobile-portrait-img {
-        width: min(230px, 64vw);
-        height: auto;
-        object-fit: contain;
-        object-position: center top;
+        display: block;
+        width: 100%;
+        height: auto;               /* natural 16:9 ≈ 220px at 390px phone */
+        object-fit: cover;
+        object-position: 50% 22%;
         border-radius: 0;
         border: none;
         box-shadow: none;
-        display: block;
-        flex-shrink: 0;
-        will-change: transform;
-        transition: opacity 0.08s ease;
+        will-change: opacity;
       }
 
-      /* ── MOBILE SOCIAL COLUMN — vertical icons to the LEFT of portrait ── */
+      /* ── MOBILE SOCIAL COLUMN ────────────────────────────────────────────
+         Absolutely positioned glass pill overlaid on the DARK FAR-LEFT of
+         the portrait frame (the face is center-right in the landscape
+         cinematic image so icons do not cover it).
+      ────────────────────────────────────────────────────────────────────── */
       .hero-mobile-social-col {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         gap: 0;
-        padding-right: 14px;
-        flex-shrink: 0;
+        /* frosted glass pill so icons read on any background */
+        background: rgba(4, 2, 6, 0.54);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        padding: 10px 5px;
       }
 
       .hero-mobile-social-icon {
@@ -5757,8 +5781,9 @@
       (function initMobilePortraitScroll() {
         const mobilePortraitEl = document.getElementById('mobilePortraitImg');
         if (!mobilePortraitEl) return;
-        // Only run on touch/coarse-pointer devices (mobile)
-        if (!window.matchMedia('(pointer: coarse)').matches) return;
+        // Run on touch devices OR mobile screen widths (<=768px)
+        const isMobileScreen = window.matchMedia('(max-width: 768px)').matches || window.matchMedia('(pointer: coarse)').matches;
+        if (!isMobileScreen) return;
 
         let mobileLastFrame = -1;
         let mobileRafPending = false;

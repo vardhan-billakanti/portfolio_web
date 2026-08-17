@@ -3515,29 +3515,198 @@
 
 
 
-    /* Universal Interactive Cards & Micro-interactions */
-    .card-item, .price-card, .cert-card-item, .highlight-item, .exploring-chip, .about-academic-detail, .scale-talk-card {
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease, background 0.3s ease;
+    /* ==========================================================================
+       PREMIUM SMOOTH MICRO-INTERACTIONS SYSTEM (PERFORMANCE FIRST)
+       ========================================================================== */
+
+    /* 1. Universal Interactive Cards & Boxes Hover Effects */
+    .card-item,
+    .price-card,
+    .cert-card-item,
+    .highlight-item,
+    .exploring-chip,
+    .about-academic-detail,
+    .scale-talk-card,
+    .milestone-card,
+    .founder-card,
+    .contact-info-card,
+    .contact-social-btn,
+    .scale-company-box,
+    .lorven-pillar {
+      transition:
+        transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.3s ease,
+        box-shadow 0.32s ease,
+        background 0.3s ease;
       will-change: transform;
     }
 
-    .card-item:hover, .price-card:hover, .cert-card-item:hover, .highlight-item:hover, .exploring-chip:hover {
-      transform: translateY(-5px) scale(1.025);
-      border-color: rgba(255, 77, 0, 0.35);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 77, 0, 0.18);
+    @media (hover: hover) and (pointer: fine) {
+      .card-item:hover,
+      .price-card:hover,
+      .highlight-item:hover,
+      .exploring-chip:hover,
+      .about-academic-detail:hover,
+      .scale-talk-card:hover,
+      .contact-info-card:hover {
+        transform: translateY(-4px) scale(1.015);
+        border-color: rgba(255, 77, 0, 0.32);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 77, 0, 0.12);
+      }
+
+      .cert-card-item:hover {
+        border-color: rgba(255, 77, 0, 0.45);
+        box-shadow: 0 20px 42px rgba(0, 0, 0, 0.65), 0 0 26px rgba(255, 77, 0, 0.22);
+      }
+
+      .academic-milestone-item:hover .milestone-card {
+        transform: translateY(-4px) scale(1.012);
+        border-color: rgba(255, 77, 0, 0.30);
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 77, 0, 0.12);
+      }
+
+      .proj-card.revealed:hover {
+        transform: translateY(-6px) scale(1.015);
+        border-color: rgba(255, 77, 0, 0.36);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.58), 0 0 28px rgba(255, 77, 0, 0.14);
+      }
+
+      .founder-card:hover {
+        transform: translateY(-5px) scale(1.012);
+        border-color: rgba(255, 77, 0, 0.32);
+        box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55), 0 0 22px rgba(255, 77, 0, 0.12);
+      }
+
+      .founder-card:hover .founder-avatar {
+        transform: scale(1.05);
+        border-color: rgba(255, 77, 0, 0.55);
+        box-shadow: 0 0 20px rgba(255, 77, 0, 0.32);
+      }
+
+      .lorven-box:hover {
+        transform: translateY(-3px) scale(1.006);
+        border-color: rgba(245, 166, 35, 0.42);
+        box-shadow:
+          0 0 0 1px rgba(245, 166, 35, 0.08),
+          0 24px 64px rgba(0, 0, 0, 0.7),
+          0 0 45px rgba(245, 166, 35, 0.08),
+          inset 0 1px 0 rgba(245, 166, 35, 0.12);
+      }
+
+      .contact-social-btn:hover {
+        transform: translateY(-2px) scale(1.015);
+        border-color: rgba(255, 77, 0, 0.35);
+        background: rgba(255, 77, 0, 0.08);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(255, 77, 0, 0.12);
+      }
     }
 
-    /* Universal Scroll Reveal Base — premium cinematic */
-    .scroll-reveal {
+    /* 2. Premium Button Micro-interactions */
+    .btn-header,
+    .btn-orange,
+    .about-cta-btn,
+    .btn-price,
+    .scale-submit-pill,
+    .contact-submit-btn,
+    .proj-view-btn,
+    .lorven-link-btn {
+      transition:
+        transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.28s ease,
+        background 0.28s ease,
+        border-color 0.28s ease,
+        color 0.28s ease;
+      will-change: transform;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn-header:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 8px 22px rgba(255, 255, 255, 0.22);
+      }
+      .btn-orange:hover,
+      .about-cta-btn:hover,
+      .contact-submit-btn:hover,
+      .scale-submit-pill:hover,
+      .btn-price:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 10px 28px rgba(255, 77, 0, 0.42);
+      }
+    }
+
+    /* Button Active / Press-Down State */
+    .btn-header:active,
+    .btn-orange:active,
+    .about-cta-btn:active,
+    .contact-submit-btn:active,
+    .scale-submit-pill:active,
+    .btn-price:active,
+    .directory-tool-pill:active,
+    .hero-social-btn:active,
+    .footer-social-btn:active {
+      transform: translateY(0) scale(0.98) !important;
+      transition-duration: 0.1s !important;
+    }
+
+    /* Button Icon / Arrow Micro-Nudge */
+    .about-cta-btn .btn-arrow,
+    .contact-submit-btn .cta-arrow,
+    .btn-header .btn-icon-orange,
+    .btn-orange .btn-icon-white {
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .about-cta-btn:hover .btn-arrow,
+      .contact-submit-btn:hover .cta-arrow {
+        transform: translateX(4px);
+      }
+      .btn-header:hover .btn-icon-orange,
+      .btn-orange:hover .btn-icon-white {
+        transform: scale(1.08) translateX(1px);
+      }
+    }
+
+    /* 3. Social Icons Micro-interactions */
+    .hero-social-btn,
+    .hero-mobile-social-icon,
+    .footer-social-btn,
+    .founder-social-btn {
+      transition:
+        transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease,
+        color 0.28s ease;
+      will-change: transform;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .hero-social-btn:hover,
+      .footer-social-btn:hover,
+      .founder-social-btn:hover {
+        transform: translateY(-2px) scale(1.08);
+        border-color: rgba(255, 77, 0, 0.55);
+        color: #ff4d00;
+        box-shadow: 0 6px 18px rgba(255, 77, 0, 0.28), 0 0 12px rgba(255, 77, 0, 0.15);
+      }
+    }
+
+    /* 4. Universal Scroll Reveal Base — premium lightweight GPU fade & upward drift */
+    .scroll-reveal,
+    .about-reveal,
+    .beyond-reveal,
+    .heading-reveal {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(22px);
       transition:
         opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
         transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform, opacity;
     }
 
-    .scroll-reveal.in-view {
+    .scroll-reveal.in-view,
+    .about-reveal.in-view,
+    .beyond-reveal.in-view,
+    .heading-reveal.in-view {
       opacity: 1;
       transform: translateY(0);
     }
@@ -3548,100 +3717,30 @@
     .delay-3 { transition-delay: 0.24s; }
     .delay-4 { transition-delay: 0.32s; }
 
-    /* Premium ambient background animation */
-    @keyframes gradientDrift {
-      0%   { background-position: 0%   50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0%   50%; }
+    /* Ambient glow elements: static for maximum GPU performance */
+    .about-glow-1,
+    .about-glow-2,
+    .academic-glow-bg,
+    .toolkit-glow-bg {
+      will-change: auto;
     }
 
-    @keyframes ambientFloat {
-      0%   { transform: translateY(0)   scale(1);    opacity: 0.7; }
-      50%  { transform: translateY(-18px) scale(1.04); opacity: 0.9; }
-      100% { transform: translateY(0)   scale(1);    opacity: 0.7; }
-    }
-
-    @keyframes softPulseGlow {
-      0%, 100% { opacity: 0.55; }
-      50%       { opacity: 0.85; }
-    }
-
-    /* Ambient glow elements: NO CSS animation — filter:blur + animated transform
-       causes full GPU layer invalidation every frame (major stutter source).
-       Glows remain static; atmosphere is preserved via the backdrop-filter. */
-    .about-glow-1 { will-change: auto; }
-    .about-glow-2 { will-change: auto; }
-    .academic-glow-bg { will-change: auto; }
-    .toolkit-glow-bg  { will-change: auto; }
-
-    /* Milestone card premium hover */
-    .milestone-card {
-      transition:
-        transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.38s ease,
-        box-shadow 0.38s ease,
-        background 0.38s ease;
-    }
-
-    .academic-milestone-item:hover .milestone-card {
-      transform: translateY(-6px) scale(1.012);
-      border-color: rgba(255, 77, 0, 0.30);
-      box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.55),
-        0 0 22px rgba(255, 77, 0, 0.12);
-    }
-
-    /* Proj card already has revealed/hover — ensure hover glow */
-    .proj-card.revealed:hover {
-      transform: translateY(-8px) scale(1.016);
-      border-color: rgba(255, 77, 0, 0.36);
-      box-shadow:
-        0 26px 50px rgba(0, 0, 0, 0.58),
-        0 0 32px rgba(255, 77, 0, 0.12);
-    }
-
-    /* Heading shimmer on reveal */
-    .section-heading-shimmer {
-      background: linear-gradient(
-        90deg,
-        #ffffff 0%,
-        rgba(255, 255, 255, 0.6) 45%,
-        #ffffff 55%,
-        rgba(255, 255, 255, 0.6) 100%
-      );
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-heading-shimmer.in-view {
-      animation: shimmerReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes shimmerReveal {
-      0%   { background-position: -200% center; opacity: 0; }
-      40%  { opacity: 1; }
-      100% { background-position: 200% center; opacity: 1; }
-    }
-
-    /* prefers-reduced-motion: disable all motion additions */
+    /* 5. Accessibility — prefers-reduced-motion: disable motion transitions */
     @media (prefers-reduced-motion: reduce) {
       .about-glow-1, .about-glow-2, .academic-glow-bg, .toolkit-glow-bg { animation: none !important; }
       .section-heading-shimmer.in-view { animation: none !important; -webkit-text-fill-color: #fff; }
-      .milestone-card, .proj-card { transition: none !important; }
+      .milestone-card, .proj-card, .founder-card, .card-item, .price-card, .lorven-box { transition: none !important; }
       /* Skip scroll-reveal animation — show elements immediately */
-      .scroll-reveal, .about-reveal, .beyond-reveal {
+      .scroll-reveal, .about-reveal, .beyond-reveal, .heading-reveal {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
       }
-      .scroll-reveal.in-view, .about-reveal.in-view, .beyond-reveal.in-view {
+      .scroll-reveal.in-view, .about-reveal.in-view, .beyond-reveal.in-view, .heading-reveal.in-view {
         opacity: 1 !important;
         transform: none !important;
         animation: none !important;
       }
-      /* Orbital chips: no transition at all */
       .orbit-node-chip { transition: none !important; }
     }    /* Two-Column Interactive Dashboard Toolkit Styling */
     .section-toolkit {
@@ -5825,8 +5924,10 @@
       window.addEventListener('scroll', handleHeaderScroll, { passive: true });
       handleHeaderScroll();
 
-      // IntersectionObserver for all reveal animations (covers all sections incl. new ones)
-      const revealElements = document.querySelectorAll('.about-reveal, .beyond-reveal, .scroll-reveal');
+      // IntersectionObserver for all reveal animations (covers all sections & cards — runs ONCE only)
+      const revealElements = document.querySelectorAll(
+        '.about-reveal, .beyond-reveal, .scroll-reveal, .heading-reveal, .academic-milestone-item, .founder-card, .cert-main-title, .scale-talk-card, .price-card, .highlight-item, .contact-info-card, .lorven-box'
+      );
       if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
@@ -5835,7 +5936,7 @@
               observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.12 });
+        }, { threshold: 0.10 });
 
         revealElements.forEach(el => {
           el.classList.add('scroll-reveal');

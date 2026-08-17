@@ -89,18 +89,19 @@
         rgba(5, 2, 6, 0.88);
     }
 
-    /* Preloader */
+    /* Preloader — "Loading Portfolio" premium text screen */
     .preloader {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: #000000;
+      background: #050505;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 18px;
       z-index: 9999;
       transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
     }
@@ -111,17 +112,40 @@
       pointer-events: none;
     }
 
-    .spinner {
-      width: 44px;
-      height: 44px;
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      border-top-color: var(--accent-orange);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+    /* Main loading text */
+    .preloader-text {
+      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.3rem, 3.5vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.88);
+      text-shadow: 0 0 28px rgba(255, 77, 0, 0.18);
+      animation: preloaderPulse 1.8s ease-in-out infinite;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    /* Thin orange scanning bar */
+    .preloader-bar-wrap {
+      width: 120px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .preloader-bar {
+      height: 100%;
+      width: 45%;
+      background: linear-gradient(90deg, transparent, #ff4d00 50%, transparent);
+      border-radius: 2px;
+      animation: preloaderSlide 1.3s ease-in-out infinite;
+    }
+
+    @keyframes preloaderPulse {
+      0%, 100% { opacity: 0.72; }
+      50%       { opacity: 1; }
+    }
+    @keyframes preloaderSlide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(320%); }
     }
 
     .scroll-track-space {
@@ -2760,6 +2784,38 @@
       /* ── FOOTER ── */
       .site-footer { padding: 24px 18px; }
       .footer-text  { font-size: 12px; text-align: center; }
+
+      /* ── BEYOND PAUSE — tighten the Hero→About gap on mobile ── */
+      .section-beyond-pause {
+        padding: 40px 18px 32px;
+      }
+      .beyond-title { font-size: clamp(1.7rem, 6.5vw, 2.6rem); letter-spacing: -1px; }
+      .beyond-desc  { font-size: 0.95rem; }
+
+      /* ── CONTACT — prevent iOS double-tap font-size zoom on input focus ── */
+      .contact-field input,
+      .contact-field textarea,
+      .contact-field select {
+        font-size: 16px !important;
+      }
+
+      /* ── ABOUT — academic detail pill wraps cleanly at narrow widths ── */
+      .about-academic-detail {
+        flex-wrap: wrap;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      /* ── HERO RIGHT — center content on mobile ── */
+      .hero-right {
+        align-items: center;
+      }
+
+      /* ── CONTACT INFO VALUE — prevent email overflow ── */
+      .contact-info-value {
+        font-size: 12px;
+        word-break: break-all;
+      }
     }
 
     /* ── Small phones: 480px ── */
@@ -2778,6 +2834,14 @@
         transform: scale(0.7);
         transform-origin: center center;
       }
+      /* Further tighten the Hero→About gap on small phones */
+      .section-beyond-pause { padding: 32px 16px 24px; }
+      /* Lorven pillars — single column on very small screens */
+      .lorven-pillars { grid-template-columns: 1fr; gap: 10px; }
+      /* Contact form row fully single column */
+      .contact-form-row { grid-template-columns: 1fr; gap: 12px; }
+      /* Cert main heading */
+      .cert-main-heading { font-size: clamp(1.6rem, 7vw, 2.2rem); }
     }
 
     /* ── Very small phones: 430px ── */
@@ -3208,7 +3272,8 @@
       position: relative;
       z-index: 2;
       width: 100%;
-      padding: 90px 24px 70px 24px;
+      /* Reduced from 90px/70px — was creating a large blank gap between Hero and About */
+      padding: 60px 24px 48px 24px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -3450,8 +3515,16 @@
       right: 15%;
       width: 750px;
       height: 750px;
-      background: radial-gradient(circle, rgba(255, 77, 0, 0.08) 0%, rgba(220, 20, 60, 0.03) 50%, transparent 70%);
-      filter: blur(100px);
+      /* PERF: filter:blur(100px) removed — caused a GPU compositing layer invalidation
+         on every scroll frame inside the Toolkit section, causing scroll lag.
+         Replaced with a soft multi-stop gradient that gives the same ambient glow. */
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255, 77, 0, 0.065) 0%,
+        rgba(255, 77, 0, 0.035) 28%,
+        rgba(220, 20, 60, 0.018) 52%,
+        transparent 70%
+      );
       pointer-events: none;
       z-index: 0;
     }
@@ -3657,9 +3730,12 @@
       width: 100%;
       height: 540px;
       border-radius: 24px;
-      background: rgba(10, 5, 12, 0.75);
+      /* PERF: backdrop-filter:blur(18px) removed — it forced the browser to create a
+         GPU compositing layer over the entire 540px viewport height and re-composite
+         on every scroll frame, causing the Toolkit scroll lag.
+         Compensated with a slightly more opaque/darker background. */
+      background: rgba(6, 3, 8, 0.94);
       border: 1px solid rgba(255, 77, 0, 0.25);
-      backdrop-filter: blur(18px);
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(255, 77, 0, 0.12);
       overflow: hidden;
       display: flex;
@@ -4485,9 +4561,10 @@
 </head>
 <body>
 
-  <!-- Preloader -->
-  <div class="preloader" id="preloader">
-    <div class="spinner"></div>
+  <!-- Preloader — "Loading Portfolio" text screen -->
+  <div class="preloader" id="preloader" aria-label="Loading" role="status">
+    <div class="preloader-text">Loading Portfolio</div>
+    <div class="preloader-bar-wrap" aria-hidden="true"><div class="preloader-bar"></div></div>
   </div>
 
   <!-- Fixed Background Scroll Animation Canvas -->
@@ -6189,7 +6266,7 @@
         }
       }
 
-      // \u2550\u2550 Contact Form \u2014 client-side validation + safe submission state \u2550\u2550
+      // ── Contact Form — client-side validation + safe submission state ──
       
       // == Mobile Navigation Hamburger ==
       (function() {
@@ -6272,10 +6349,11 @@
 
       (function initContactForm() {
         // ── EmailJS credentials ──────────────────────────────────────────
-        var EJS_PUBLIC_KEY  = 'ni0IqrRGioOb5jfTh';
-        var EJS_SERVICE_ID  = 'service_q51cstr';
-        var EJS_TEMPLATE_ID = 'template_qcy1y3b';
-        var TO_EMAIL        = 'vardhanbillakanti125@gmail.com';
+        var EJS_PUBLIC_KEY      = 'ni0IqrRGioOb5jfTh';
+        var EJS_SERVICE_ID      = 'service_q51cstr';
+        var EJS_TEMPLATE_ID     = 'template_qcy1y3b';   // Original: visitor → my inbox
+        var EJS_AUTOREPLY_ID    = 'template_10tkb1a';   // Auto-reply: portfolio → visitor
+        var TO_EMAIL            = 'vardhanbillakanti125@gmail.com';
         // ─────────────────────────────────────────────────────────────────
 
         // Initialise EmailJS SDK with the public key
@@ -6359,9 +6437,22 @@
             message: messageEl.value.trim()
           };
 
+          // ── STEP 1: Send visitor's message to vardhanbillakanti125@gmail.com ──
           emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, params)
             .then(function () {
-              // SUCCESS — clear form only after confirmed delivery
+              // ── STEP 2: Original send succeeded → send auto-reply to visitor ──
+              // Uses a separate template (template_10tkb1a).
+              // Recipient is {{email}} (the visitor's address), NOT vardhanbillakanti125@gmail.com.
+              emailjs.send(EJS_SERVICE_ID, EJS_AUTOREPLY_ID, {
+                name:  params.name,
+                email: params.email
+              }).catch(function (autoReplyErr) {
+                // Non-critical: visitor's original message was already delivered.
+                // Log silently without affecting the user-facing success state.
+                console.warn('[ContactForm] Auto-reply send failed (non-critical):', autoReplyErr);
+              });
+
+              // SUCCESS — clear form only after confirmed delivery of the original message
               setLoading(false);
               setNotice('\u2713 Message sent! I\'ll get back to you soon.', 'state-success');
               form.reset();

@@ -54,6 +54,9 @@
       z-index: 0;
     }
 
+    /* Mobile-only static portrait — hidden on desktop */
+    .hero-mobile-portrait-wrap { display: none; }
+
     /* Fixed Base Overlay (Cinematic subtle dark vignette & side gradient) */
     .bg-overlay {
       position: fixed;
@@ -443,6 +446,30 @@
       text-transform: uppercase;
       color: var(--accent-orange);
       text-shadow: 0 0 16px rgba(255, 77, 0, 0.35);
+    }
+
+    /* Clickable milestone card — CVR and Bhashyam */
+    a.milestone-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    a.milestone-card:focus-visible {
+      outline: 2px solid rgba(255, 77, 0, 0.6);
+      outline-offset: 4px;
+      border-radius: 16px;
+    }
+    a.milestone-card:hover {
+      border-color: rgba(255, 77, 0, 0.52) !important;
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.58),
+        0 0 22px rgba(255, 77, 0, 0.15) !important;
+      transform: translateY(-4px);
+    }
+    a.milestone-card:hover .node-dot {
+      background: var(--accent-orange);
+      box-shadow: 0 0 10px var(--accent-orange);
     }
 
     .hero-right-title {
@@ -2710,30 +2737,54 @@
       }
       .hero-right-sub { text-align: center; }
       .hero-social-buttons { justify-content: center; }
-      /* Portrait canvas — mobile: soft radial mask fades portrait into dark background.
-         The canvas is position:fixed so max-width/max-height don't center it correctly.
-         Instead, a CSS mask fades the edges so no hard rectangular box is visible,
-         the face stays clearly visible, and it blends naturally into the dark theme. */
-      #animationCanvas {
-        -webkit-mask-image: radial-gradient(
-          ellipse 95% 75% at 50% 22%,
-          black 20%,
-          rgba(0,0,0,0.85) 42%,
-          rgba(0,0,0,0.45) 62%,
-          transparent 88%
-        );
-        mask-image: radial-gradient(
-          ellipse 95% 75% at 50% 22%,
-          black 20%,
-          rgba(0,0,0,0.85) 42%,
-          rgba(0,0,0,0.45) 62%,
-          transparent 88%
-        );
-        /* Reset old rules that don't work on fixed elements */
-        max-width: none;
-        max-height: none;
-        margin: 0;
+      /* Portrait canvas — hidden on mobile: static in-flow image replaces it */
+      canvas#animationCanvas {
+        opacity: 0;
+        -webkit-mask-image: none;
+        mask-image: none;
       }
+
+      /* ── MOBILE PORTRAIT — in-flow between social icons and cyber chip ── */
+      .hero-mobile-portrait-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 16px 0 14px;
+      }
+      .hero-mobile-portrait-img {
+        width: min(220px, 66vw);
+        height: min(220px, 66vw);
+        object-fit: cover;
+        object-position: center 12%;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 77, 0, 0.28);
+        box-shadow:
+          0 0 0 6px rgba(255, 77, 0, 0.06),
+          0 8px 32px rgba(0, 0, 0, 0.55),
+          0 0 28px rgba(255, 77, 0, 0.12);
+      }
+
+      /* ── HERO CHIP — center "CYBER & TECH SYSTEMS" below portrait ── */
+      .floating-cyber-chip.hero-chip {
+        align-self: center;
+        justify-content: center;
+      }
+
+      /* ── HERO RIGHT — center label and all content on mobile ── */
+      .hero-right-label {
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+      .hero-right {
+        align-items: center;
+        text-align: center;
+      }
+      .hero-right-sub {
+        justify-content: center;
+      }
+
 
       /* ── ABOUT ME ── */
       .section-about-me { padding: 60px 0; }
@@ -4686,6 +4737,18 @@
             </a>
           </div>
 
+          <!-- Mobile-only portrait — shown between social icons and cyber chip on mobile.
+               Hidden on desktop (display:none in base CSS) -->
+          <div class="hero-mobile-portrait-wrap" aria-hidden="true">
+            <img
+              src="frames/ezgif-frame-001.jpg"
+              alt=""
+              class="hero-mobile-portrait-img"
+              loading="eager"
+              draggable="false"
+            >
+          </div>
+
           <div class="floating-cyber-chip hero-chip">
             <span class="cyber-chip-dot"></span>
             <span class="cyber-chip-text">CYBER &amp; TECH SYSTEMS</span>
@@ -4831,7 +4894,7 @@
               <span class="node-pulse"></span>
             </div>
 
-            <div class="milestone-card">
+            <a class="milestone-card" href="https://cvr.ac.in/home4/" target="_blank" rel="noopener noreferrer" aria-label="CVR College of Engineering — opens in new tab">
               <div class="milestone-top-row">
                 <span class="milestone-num">01 — CURRENT EDUCATION</span>
                 <span class="milestone-status-badge active">CURRENTLY PURSUING</span>
@@ -4847,7 +4910,7 @@
               <p class="milestone-desc">
                 "I'm currently pursuing my B.Tech in Computer Science &amp; Engineering at CVR College of Engineering. This is where I'm building my technical foundation and exploring my interests in Cyber Security, technology, innovation, and entrepreneurship."
               </p>
-            </div>
+            </a>
           </div>
 
           <!-- Milestone 02: Intermediate -->
@@ -4867,6 +4930,7 @@
                 <img src="images/motion_logo.png" class="institution-logo" alt="Motion Junior College Logo">
                 <span>Motion Junior College, Madhapur</span>
               </div>
+              <div class="milestone-year">2023 — 2025</div>
 
               <p class="milestone-desc">
                 "I continued my academic journey at Motion Junior College, Madhapur, where I completed my intermediate education. This stage strengthened my academic foundation and prepared me for the transition into engineering."
@@ -4880,7 +4944,7 @@
               <span class="node-dot"></span>
             </div>
 
-            <div class="milestone-card">
+            <a class="milestone-card" href="https://bloomsmaheswaram.in/" target="_blank" rel="noopener noreferrer" aria-label="Bhashyam Blooms, Maheshwaram — opens in new tab">
               <div class="milestone-top-row">
                 <span class="milestone-num">03 — SECONDARY EDUCATION</span>
                 <span class="milestone-status-badge">COMPLETED</span>
@@ -4891,11 +4955,12 @@
                 <img src="images/bhashyam_logo.png" class="institution-logo" alt="Bhashyam Blooms Logo">
                 <span>Bhashyam Blooms, Maheshwaram</span>
               </div>
+              <div class="milestone-year">2023</div>
 
               <p class="milestone-desc">
                 "I completed my Class 10 education at Bhashyam Blooms, Maheshwaram. This stage formed an important early foundation in my academic journey and helped shape my approach toward learning and growth."
               </p>
-            </div>
+            </a>
           </div>
 
         </div>

@@ -4901,42 +4901,7 @@
       to { transform: rotate(-360deg); }
     }
 
-    /* Performance Optimizations: Layout Containment & Rendering */
-    .section-academic,
-    .section-toolkit,
-    .section-projects,
-    .section-certifications,
-    .section-lorven,
-    .section-founders,
-    .section-contact {
-      content-visibility: auto;
-      contain-intrinsic-size: 1px 750px;
-    }
-
-    /* GPU Compositing for Smooth Transforms */
-    .btn-header, .about-cta-btn, .btn-orange, .btn-price, .scale-submit-pill,
-    .proj-card, .founder-card, .price-card, .orbit-node-chip, .cinematic-cursor-system {
-      transform: translateZ(0);
-      backface-visibility: hidden;
-    }
-
-    /* Performance optimization on mobile / small screens */
-    @media (max-width: 768px) {
-      .glow-orange-red, .glow-hero-left, .glow-hero-right {
-        filter: blur(50px);
-      }
-      .cinematic-cursor-system {
-        display: none !important;
-      }
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
       .about-reveal, .beyond-reveal, .scroll-reveal, .cursor-glow, .cinematic-cursor-system {
         opacity: 1 !important;
         transform: none !important;

@@ -35,14 +35,20 @@
         images.push(img);
       }
 
+      // Mobile portrait elements
+      const mobilePortraitEl = document.getElementById('mobilePortraitImg');
+      const mobilePortraitWrapEl = document.querySelector('.hero-mobile-portrait-wrap');
+      const heroSectionEl = document.getElementById('home');
+
       function onAllImagesLoaded() {
         isLoaded = true;
         preloader.classList.add('hidden');
         resizeCanvas();
         updateTargetFrame();
+        if (mobilePortraitEl && images[0] && images[0].complete) {
+          mobilePortraitEl.src = images[0].src;
+        }
         requestAnimationFrame(renderLoop);
-        // Trigger initial mobile portrait frame update
-        window.dispatchEvent(new Event('scroll'));
       }
 
       function resizeCanvas() {
@@ -114,6 +120,21 @@
         if (rounded !== lastDrawnFrame) {
           lastDrawnFrame = rounded;
           drawFrame(currentFrame);
+
+          // Update mobile portrait image with exact same smooth lerp
+          if (mobilePortraitEl && images[rounded] && images[rounded].complete && images[rounded].naturalWidth > 0) {
+            mobilePortraitEl.src = images[rounded].src;
+          }
+        }
+
+        // Mobile portrait subtle smooth scroll parallax
+        if (mobilePortraitWrapEl && heroSectionEl) {
+          const scrollTop = window.scrollY || window.pageYOffset || 0;
+          const heroRect = heroSectionEl.getBoundingClientRect();
+          if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
+            const parallaxY = Math.max(0, scrollTop * 0.08);
+            mobilePortraitWrapEl.style.transform = `translate3d(0, ${parallaxY.toFixed(1)}px, 0)`;
+          }
         }
 
         if (Math.abs(targetFrame - currentFrame) > 0.001) {
@@ -138,45 +159,6 @@
         resizeCanvas();
         drawFrame(currentFrame);
       }, { passive: true });
-
-      // ── Mobile Portrait Frame Scroll ──────────────────────────────────────────
-      // On touch/mobile the canvas is hidden (opacity:0). Instead we drive the
-      // #mobilePortraitImg <img> src from the same preloaded images[] array using
-      // the same targetFrame scroll logic. Zero extra network requests.
-      // Only active when the mobile portrait element exists and we're on a touch device.
-      (function initMobilePortraitScroll() {
-        const mobilePortraitEl = document.getElementById('mobilePortraitImg');
-        if (!mobilePortraitEl) return;
-        // Run on touch devices OR mobile screen widths (<=768px)
-        const isMobileScreen = window.matchMedia('(max-width: 768px)').matches || window.matchMedia('(pointer: coarse)').matches;
-        if (!isMobileScreen) return;
-
-        let mobileLastFrame = -1;
-        let mobileRafPending = false;
-
-        function updateMobilePortrait() {
-          mobileRafPending = false;
-          if (!isLoaded || images.length === 0) return;
-          const frameIdx = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(targetFrame)));
-          if (frameIdx === mobileLastFrame) return;
-          const img = images[frameIdx];
-          if (img && img.complete && img.naturalWidth > 0 && img.src) {
-            mobilePortraitEl.src = img.src;
-            mobileLastFrame = frameIdx;
-          }
-        }
-
-        window.addEventListener('scroll', () => {
-          if (!mobileRafPending) {
-            mobileRafPending = true;
-            requestAnimationFrame(updateMobilePortrait);
-          }
-        }, { passive: true });
-
-        // Set initial frame once images are loaded (already triggered by onAllImagesLoaded above)
-        // We call it on the next tick to ensure isLoaded is true
-        setTimeout(updateMobilePortrait, 0);
-      })();
 
       // Header Scroll Blur/Background Handler
       const navHeader = document.querySelector('header.nav-header');

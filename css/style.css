@@ -2909,50 +2909,33 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0;
-        /* frosted glass pill so icons read on any background */
-        background: rgba(4, 2, 6, 0.54);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.09);
-        padding: 10px 5px;
+        gap: 12px;
+        background: transparent;
+        border: none;
+        padding: 0;
       }
-
-      .hero-mobile-social-icon {
+      .hero-mobile-social-col .hero-social-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.16);
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 5px;
-        width: 44px;
-        min-height: 44px;
-        color: rgba(255, 255, 255, 0.75);
+        color: rgba(255, 255, 255, 0.85);
         text-decoration: none;
-        border-radius: 10px;
-        transition: color 0.22s ease, transform 0.22s ease;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, color 0.28s ease;
       }
-
-      .hero-mobile-social-icon span {
-        font-size: 9px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        color: inherit;
-        line-height: 1;
-      }
-
-      .hero-mobile-social-icon:active,
-      .hero-mobile-social-icon:hover {
+      .hero-mobile-social-col .hero-social-btn:active,
+      .hero-mobile-social-col .hero-social-btn:hover {
+        transform: scale(1.1);
+        background: rgba(255, 77, 0, 0.15);
+        border-color: rgba(255, 77, 0, 0.45);
         color: #ff4d00;
-        transform: scale(1.08);
-      }
-
-      .hero-mobile-social-line {
-        width: 1px;
-        height: 18px;
-        background: rgba(255, 255, 255, 0.15);
-        margin: 4px 0;
+        box-shadow: 0 6px 20px rgba(255, 77, 0, 0.25), 0 0 12px rgba(255, 77, 0, 0.2);
       }
 
       /* ── HERO CHIP — center "CYBER & TECH SYSTEMS" below portrait ── */

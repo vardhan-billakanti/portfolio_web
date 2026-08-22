@@ -40,6 +40,10 @@
         preloader.classList.add('hidden');
         resizeCanvas();
         updateTargetFrame();
+        const mobImg = document.getElementById('mobilePortraitImg');
+        if (mobImg && images[0] && images[0].complete) {
+          mobImg.src = images[0].src;
+        }
         requestAnimationFrame(renderLoop);
       }
 
@@ -112,6 +116,12 @@
         if (rounded !== lastDrawnFrame) {
           lastDrawnFrame = rounded;
           drawFrame(currentFrame);
+
+          // Update mobile portrait image with exact same 145-frame sequence & lerp
+          const mobImg = document.getElementById('mobilePortraitImg');
+          if (mobImg && images[rounded] && images[rounded].complete && images[rounded].naturalWidth > 0) {
+            mobImg.src = images[rounded].src;
+          }
         }
 
         if (Math.abs(targetFrame - currentFrame) > 0.001) {

@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects — Billakanti Jaya Vardhan</title>
+  <meta name="description" content="Projects and Case Studies by Billakanti Jaya Vardhan — Full-Stack Development, AI/ML, and Software Engineering.">
+  <meta name="author" content="Billakanti Jaya Vardhan">
+  <meta name="google-site-verification" content="">
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
@@ -12,599 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-dark-slate: #0b0d14;
-      --accent-orange: #ff4d00;
-      --text-white: #ffffff;
-      --text-muted: #a1a5b7;
-      --glass-bg: rgba(18, 20, 29, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --font-main: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      width: 100%;
-      background-color: var(--bg-dark-slate);
-      background-image: radial-gradient(circle at 50% -10%, rgba(255, 77, 0, 0.15) 0%, rgba(22, 28, 45, 0.5) 45%, rgba(11, 13, 20, 1) 90%);
-      background-attachment: fixed;
-      color: var(--text-white);
-      font-family: var(--font-main);
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-
-    /* Subtle Low Opacity Orange-Red Ambient Glows */
-    .glow-orange-red {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 77, 0, 0.16) 0%, rgba(255, 30, 0, 0.06) 50%, transparent 70%);
-      filter: blur(95px);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .glow-proj-hero { top: 5%; right: 10%; width: 550px; height: 550px; }
-    .glow-proj-grid { top: 32%; left: -10%; width: 650px; height: 650px; }
-    .glow-proj-metrics { top: 60%; right: -8%; width: 580px; height: 580px; }
-    .glow-proj-process { top: 82%; left: -5%; width: 520px; height: 520px; }
-
-    /* Content Wrapper */
-    .content-wrapper {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1680px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Scroll Margin Offset for Fixed Navbar Clearance */
-    section, [id] {
-      scroll-margin-top: 110px;
-    }
-
-    /* Navbar Header */
-    header.nav-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 16px 0;
-      background: rgba(11, 13, 20, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-      transition: background 0.3s ease, padding 0.3s ease;
-    }
-
-    .nav-header .nav-container {
-      max-width: 1680px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand-logo {
-      font-family: 'Outfit', var(--font-main);
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.8px;
-      color: var(--text-white);
-      text-decoration: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .brand-logo:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .nav-link {
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      transition: color 0.2s ease;
-      position: relative;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      color: var(--text-white);
-    }
-
-    .nav-link.active::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
-      background: var(--accent-orange);
-      border-radius: 50%;
-    }
-
-    .btn-header {
-      background: #ffffff;
-      color: #000000;
-      border: none;
-      padding: 6px 6px 6px 20px;
-      border-radius: 100px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn-header:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-icon-orange {
-      width: 32px;
-      height: 32px;
-      background: var(--accent-orange);
-      border-radius: 50%;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
-    /* Section Tag Badge */
-    .section-tag {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--accent-orange);
-      margin-bottom: 16px;
-      display: inline-block;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    /* SECTION 1: Projects Hero Header */
-    .projects-hero {
-      padding-top: 160px;
-      padding-bottom: 60px;
-      text-align: center;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .projects-hero-title {
-      font-size: clamp(3rem, 6vw, 5.2rem);
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1.05;
-      color: var(--text-white);
-      margin-bottom: 24px;
-    }
-
-    .projects-hero-desc {
-      font-size: 18px;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 48px;
-    }
-
-    /* Filter Pills Bar */
-    .filter-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.8);
-      padding: 10px 24px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
-    }
-
-    /* SECTION 2: Projects Showcase Gallery Grid */
-    .section-projects-grid {
-      padding: 60px 0 120px 0;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 36px;
-    }
-
-    .project-card {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      background: rgba(18, 20, 29, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-6px) scale(1.015);
-      border-color: rgba(255, 77, 0, 0.35);
-      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.65), 0 0 24px rgba(255, 77, 0, 0.12);
-    }
-
-    .project-card-img-box {
-      width: 100%;
-      height: 280px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .project-card-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .project-card:hover .project-card-img {
-      transform: scale(1.08);
-    }
-
-    .project-card-body {
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      justify-content: space-between;
-    }
-
-    .project-meta-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-
-    .project-category {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent-orange);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .project-year {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.45);
-    }
-
-    .project-title {
-      font-size: 22px;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 12px;
-      letter-spacing: -0.5px;
-      line-height: 1.25;
-    }
-
-    .project-desc {
-      font-size: 14px;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.65);
-      margin-bottom: 24px;
-    }
-
-    .project-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .tag-badge {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .project-btn-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 20px;
-    }
-
-    .btn-project-link {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: color 0.2s ease;
-    }
-
-    .btn-project-link:hover {
-      color: var(--accent-orange);
-    }
-
-    /* SECTION 3: Project Impact & Metrics */
-    .section-metrics {
-      padding: 100px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      text-align: center;
-    }
-
-    .metrics-header {
-      margin-bottom: 60px;
-    }
-
-    .metrics-title {
-      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      color: #ffffff;
-      margin-top: 10px;
-    }
-
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
-    }
-
-    .metric-card {
-      background: rgba(18, 20, 29, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 36px 24px;
-      text-align: center;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .metric-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 77, 0, 0.4);
-    }
-
-    .metric-number {
-      font-size: clamp(2.8rem, 4.5vw, 4rem);
-      font-weight: 900;
-      color: var(--accent-orange);
-      line-height: 1;
-      margin-bottom: 12px;
-      letter-spacing: -1px;
-    }
-
-    .metric-label {
-      font-size: 15px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 6px;
-    }
-
-    .metric-sub {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.45);
-    }
-
-    /* SECTION 4: Collaborative Process Grid */
-    .section-process {
-      padding: 100px 0 120px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .process-header {
-      text-align: center;
-      margin-bottom: 70px;
-    }
-
-    .process-title {
-      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      color: #ffffff;
-      margin-top: 10px;
-    }
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
-    }
-
-    .process-card {
-      background: rgba(18, 20, 29, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 36px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .process-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 255, 255, 0.25);
-    }
-
-    .process-num {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--accent-orange);
-      letter-spacing: 1px;
-    }
-
-    .process-card-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .process-card-desc {
-      font-size: 14px;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* Scale & Contact Banner */
-    .section-scale {
-      position: relative;
-      padding: 100px 0 120px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .scale-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 32px;
-      margin-bottom: 60px;
-    }
-
-    .scale-heading-top {
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 0.95;
-      color: #ffffff;
-      text-transform: uppercase;
-    }
-
-    .scale-heading-main {
-      display: flex;
-      align-items: baseline;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .scale-grow-text {
-      font-size: clamp(4rem, 8.5vw, 8rem);
-      font-weight: 900;
-      letter-spacing: -3px;
-      line-height: 0.9;
-      color: #ffffff;
-      text-transform: uppercase;
-    }
-
-    .scale-company-box {
-      display: flex;
-      flex-direction: column;
-      font-size: clamp(1.8rem, 3.5vw, 3.2rem);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1.05;
-      color: #ffffff;
-      text-transform: uppercase;
-    }
-
-    .scale-talk-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 16px 20px;
-      max-width: 220px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .talk-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .talk-subtitle {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.35;
-    }
-
-    /* Footer */
-    footer.site-footer {
-      padding: 60px 0 40px 0;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      margin-top: 40px;
-    }
-
-    .footer-text {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 992px) {
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-      .metrics-grid, .process-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-      .scale-header {
-        flex-direction: column;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .metrics-grid, .process-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/projects.css">
 </head>
 <body>
 
@@ -660,7 +71,7 @@
         <!-- Project Card 1 -->
         <div class="project-card" data-category="ai">
           <div class="project-card-img-box">
-            <img src="images/proj_dashboard.png" alt="AI Analytics & Financial Dashboard" class="project-card-img">
+            <img src="images/proj_dashboard.png" alt="AI Analytics & Financial Dashboard" class="project-card-img" loading="lazy" decoding="async">
           </div>
           <div class="project-card-body">
             <div>
@@ -690,7 +101,7 @@
         <!-- Project Card 2 -->
         <div class="project-card" data-category="brand">
           <div class="project-card-img-box">
-            <img src="images/jacket.jpg" alt="Minimalist Tailored Apparel Identity" class="project-card-img">
+            <img src="images/jacket.jpg" alt="Minimalist Tailored Apparel Identity" class="project-card-img" loading="lazy" decoding="async">
           </div>
           <div class="project-card-body">
             <div>
@@ -719,7 +130,7 @@
         <!-- Project Card 3 -->
         <div class="project-card" data-category="hardware">
           <div class="project-card-img-box">
-            <img src="images/proj_spatial.png" alt="Spatial VR Headset & Spatial OS" class="project-card-img">
+            <img src="images/proj_spatial.png" alt="Spatial VR Headset & Spatial OS" class="project-card-img" loading="lazy" decoding="async">
           </div>
           <div class="project-card-body">
             <div>
@@ -748,7 +159,7 @@
         <!-- Project Card 4 -->
         <div class="project-card" data-category="ai">
           <div class="project-card-img-box">
-            <img src="images/proj_app.png" alt="Conversational AI Mobile Companion" class="project-card-img">
+            <img src="images/proj_app.png" alt="Conversational AI Mobile Companion" class="project-card-img" loading="lazy" decoding="async">
           </div>
           <div class="project-card-body">
             <div>
@@ -777,7 +188,7 @@
         <!-- Project Card 5 -->
         <div class="project-card" data-category="hardware">
           <div class="project-card-img-box">
-            <img src="images/headphones.jpg" alt="Acoustic Precision Headphones" class="project-card-img">
+            <img src="images/headphones.jpg" alt="Acoustic Precision Headphones" class="project-card-img" loading="lazy" decoding="async">
           </div>
           <div class="project-card-body">
             <div>
@@ -806,7 +217,7 @@
         <!-- Project Card 6 -->
         <div class="project-card" data-category="brand">
           <div class="project-card-img-box">
-            <img src="images/bottle.jpg" alt="Eco-Luxe Cosmetic Packaging" class="project-card-img">
+            <img src="images/bottle.jpg" alt="Eco-Luxe Cosmetic Packaging" class="project-card-img" loading="lazy" decoding="async">
           </div>
           <div class="project-card-body">
             <div>
@@ -938,22 +349,6 @@
     </footer>
 
   </main>
-
-  <script>
-    function filterProjects(category, btn) {
-      const buttons = document.querySelectorAll('.filter-btn');
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const cards = document.querySelectorAll('.project-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-  </script>
+  <script src="js/projects.js"></script>
 </body>
 </html>

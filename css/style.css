@@ -2851,70 +2851,19 @@
         text-align: center;
       }
       .hero-right-sub { text-align: center; }
-      /* Hide horizontal social buttons on mobile — vertical icons now beside portrait */
-      .hero-social-buttons { display: none; }
-      /* Portrait canvas — hidden on mobile: static in-flow image replaces it */
-      canvas#animationCanvas {
-        opacity: 0;
-        -webkit-mask-image: none;
-        mask-image: none;
-      }
-
-      /* ── MOBILE PORTRAIT WRAP ─────────────────────────────────────────────
-         Full-width, edge-to-edge: breaks out of hero-section's 18px L+R
-         padding via negative margins so the portrait touches screen edges.
-         position:relative lets us overlay the social icons absolutely.
-      ────────────────────────────────────────────────────────────────────── */
-      .hero-mobile-portrait-wrap {
-        position: relative;
-        display: block;
-        /* Break out of hero-section's padding-left/right: 18px each side */
-        width: calc(100% + 36px);
-        margin-left: -18px;
-        margin-right: -18px;
-        margin-top: 16px;
-        margin-bottom: 18px;
-        line-height: 0;          /* removes phantom space under the img */
-        overflow: hidden;
-      }
-
-      /* ── MOBILE PORTRAIT IMAGE ───────────────────────────────────────────
-         Full viewport width, landscape 16:9, no circle, no card, no frame.
-         object-position: 50% 22% keeps the face in view (face is in
-         upper-center of the cinematic landscape frames).
-      ────────────────────────────────────────────────────────────────────── */
-      .hero-mobile-portrait-img {
-        display: block;
-        width: 100%;
-        height: auto;               /* natural 16:9 ≈ 220px at 390px phone */
-        object-fit: cover;
-        object-position: 50% 22%;
-        border-radius: 0;
-        border: none;
-        box-shadow: none;
-        will-change: opacity;
-      }
-
-      /* ── MOBILE SOCIAL COLUMN ────────────────────────────────────────────
-         Absolutely positioned glass pill overlaid on the DARK FAR-LEFT of
-         the portrait frame (the face is center-right in the landscape
-         cinematic image so icons do not cover it).
-      ────────────────────────────────────────────────────────────────────── */
-      .hero-mobile-social-col {
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
+      /* Hero Social Buttons on mobile — individual circular buttons arranged vertically */
+      .hero-social-buttons {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 12px;
+        margin-top: 18px;
+        margin-bottom: 22px;
         background: transparent;
         border: none;
         padding: 0;
       }
-      .hero-mobile-social-col .hero-social-btn {
+      .hero-social-buttons .hero-social-btn {
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -2929,8 +2878,8 @@
         -webkit-backdrop-filter: blur(8px);
         transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, color 0.28s ease;
       }
-      .hero-mobile-social-col .hero-social-btn:active,
-      .hero-mobile-social-col .hero-social-btn:hover {
+      .hero-social-buttons .hero-social-btn:active,
+      .hero-social-buttons .hero-social-btn:hover {
         transform: scale(1.1);
         background: rgba(255, 77, 0, 0.15);
         border-color: rgba(255, 77, 0, 0.45);
@@ -2938,7 +2887,7 @@
         box-shadow: 0 6px 20px rgba(255, 77, 0, 0.25), 0 0 12px rgba(255, 77, 0, 0.2);
       }
 
-      /* ── HERO CHIP — center "CYBER & TECH SYSTEMS" below portrait ── */
+      /* ── HERO CHIP — center "CYBER & TECH SYSTEMS" on mobile ── */
       .floating-cyber-chip.hero-chip {
         align-self: center;
         justify-content: center;

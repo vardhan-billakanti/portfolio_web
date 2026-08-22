@@ -35,19 +35,11 @@
         images.push(img);
       }
 
-      // Mobile portrait elements
-      const mobilePortraitEl = document.getElementById('mobilePortraitImg');
-      const mobilePortraitWrapEl = document.querySelector('.hero-mobile-portrait-wrap');
-      const heroSectionEl = document.getElementById('home');
-
       function onAllImagesLoaded() {
         isLoaded = true;
         preloader.classList.add('hidden');
         resizeCanvas();
         updateTargetFrame();
-        if (mobilePortraitEl && images[0] && images[0].complete) {
-          mobilePortraitEl.src = images[0].src;
-        }
         requestAnimationFrame(renderLoop);
       }
 
@@ -120,21 +112,6 @@
         if (rounded !== lastDrawnFrame) {
           lastDrawnFrame = rounded;
           drawFrame(currentFrame);
-
-          // Update mobile portrait image with exact same smooth lerp
-          if (mobilePortraitEl && images[rounded] && images[rounded].complete && images[rounded].naturalWidth > 0) {
-            mobilePortraitEl.src = images[rounded].src;
-          }
-        }
-
-        // Mobile portrait subtle smooth scroll parallax
-        if (mobilePortraitWrapEl && heroSectionEl) {
-          const scrollTop = window.scrollY || window.pageYOffset || 0;
-          const heroRect = heroSectionEl.getBoundingClientRect();
-          if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
-            const parallaxY = Math.max(0, scrollTop * 0.08);
-            mobilePortraitWrapEl.style.transform = `translate3d(0, ${parallaxY.toFixed(1)}px, 0)`;
-          }
         }
 
         if (Math.abs(targetFrame - currentFrame) > 0.001) {

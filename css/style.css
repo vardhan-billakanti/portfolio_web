@@ -2898,11 +2898,13 @@
         border-radius: 0;
         border: none;
         box-shadow: none;
-        will-change: opacity;
+        will-change: transform;
+        transform: translate3d(0, 0, 0) scale(1.06);
+        transform-origin: center top;
       }
 
       /* ── MOBILE SOCIAL COLUMN ────────────────────────────────────────────
-         Vertical social icons — beside left side of portrait, NO outer box
+         Vertical social icons — beside left side of portrait, NO outer box/panel
       ────────────────────────────────────────────────────────────────────── */
       .hero-mobile-social-col {
         position: absolute;
@@ -2914,9 +2916,15 @@
         flex-direction: column;
         align-items: center;
         gap: 12px;
-        background: transparent;
-        border: none;
-        padding: 0;
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        outline: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
       }
       .hero-mobile-social-col .hero-social-btn {
         width: 40px;

@@ -60,9 +60,17 @@
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         
         if (maxScroll <= 0) return;
-        
-        const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
-        targetFrame = scrollFraction * (TOTAL_FRAMES - 1);
+
+        // On mobile viewport (<= 768px), scale scroll across hero section & top scroll so all 145 frames animate fluidly
+        if (window.innerWidth <= 768) {
+          const heroEl = document.getElementById('home');
+          const heroRange = heroEl ? Math.max(800, heroEl.offsetHeight * 1.8) : 1000;
+          const mobileFraction = Math.max(0, Math.min(1, scrollTop / heroRange));
+          targetFrame = mobileFraction * (TOTAL_FRAMES - 1);
+        } else {
+          const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
+          targetFrame = scrollFraction * (TOTAL_FRAMES - 1);
+        }
       }
 
       function drawFrame(frameIdx) {
@@ -121,6 +129,18 @@
           const mobImg = document.getElementById('mobilePortraitImg');
           if (mobImg && images[rounded] && images[rounded].complete && images[rounded].naturalWidth > 0) {
             mobImg.src = images[rounded].src;
+          }
+        }
+
+        // Mobile portrait smooth parallax displacement
+        const mobImgEl = document.getElementById('mobilePortraitImg');
+        const heroEl = document.getElementById('home');
+        if (mobImgEl && heroEl && window.innerWidth <= 768) {
+          const scrollTop = window.scrollY || window.pageYOffset || 0;
+          const heroH = heroEl.offsetHeight || 600;
+          if (scrollTop <= heroH * 1.6) {
+            const parallaxY = scrollTop * 0.22;
+            mobImgEl.style.transform = `translate3d(0, ${parallaxY.toFixed(1)}px, 0) scale(1.06)`;
           }
         }
 

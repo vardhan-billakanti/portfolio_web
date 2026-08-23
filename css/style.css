@@ -4878,104 +4878,9 @@
       line-height: 1.5;
     }
 
-    /* Overlapping Stack Deck Container */
-    .cert-stack-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 24px 0 32px;
-    }
-
-    .cert-stack-stage {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 30px 10px 40px;
-      perspective: 1200px;
-    }
-
-    /* Individual Fanned Certificate Card (7-Card Collection) */
-    .cert-fan-card {
-      position: relative;
-      width: 250px;
-      margin: 0 -36px; /* Controlled overlapping spread */
-      background: rgba(14, 6, 18, 0.92);
-      border: 1.2px solid rgba(255, 255, 255, 0.09);
-      border-radius: 16px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 0, 0, 0.4);
-      user-select: none;
-      transform-origin: center bottom;
-      transition:
-        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.4s ease,
-        border-color 0.35s ease,
-        opacity 0.35s ease;
-      will-change: transform;
-    }
-
-    /* 7-Card Fanned Resting Positions (Balanced Deck Arc) */
-    .cert-fan-card:nth-child(1) {
-      transform: translateY(32px) rotate(-12deg) scale(0.88);
-      z-index: 1;
-      opacity: 0.85;
-    }
-
-    .cert-fan-card:nth-child(2) {
-      transform: translateY(18px) rotate(-8deg) scale(0.92);
-      z-index: 2;
-      opacity: 0.90;
-    }
-
-    .cert-fan-card:nth-child(3) {
-      transform: translateY(8px) rotate(-4deg) scale(0.96);
-      z-index: 3;
-      opacity: 0.95;
-    }
-
-    .cert-fan-card:nth-child(4) {
-      transform: translateY(0px) rotate(0deg) scale(1.02);
-      z-index: 4;
-      opacity: 1;
-      border-color: rgba(255, 255, 255, 0.16);
-    }
-
-    .cert-fan-card:nth-child(5) {
-      transform: translateY(8px) rotate(4deg) scale(0.96);
-      z-index: 3;
-      opacity: 0.95;
-    }
-
-    .cert-fan-card:nth-child(6) {
-      transform: translateY(18px) rotate(8deg) scale(0.92);
-      z-index: 2;
-      opacity: 0.90;
-    }
-
-    .cert-fan-card:nth-child(7) {
-      transform: translateY(32px) rotate(12deg) scale(0.88);
-      z-index: 1;
-      opacity: 0.85;
-    }
-
-    /* Hover & Keyboard Focus-Visible: Pop Forward, Straighten, Glowing Border */
-    .cert-fan-card:hover,
-    .cert-fan-card:focus-visible {
-      transform: translateY(-28px) rotate(0deg) scale(1.15) !important;
-      z-index: 35 !important;
-      opacity: 1 !important;
-      border-color: rgba(255, 77, 0, 0.7) !important;
-      box-shadow:
-        0 26px 60px rgba(0, 0, 0, 0.9),
-        0 0 35px rgba(255, 77, 0, 0.3) !important;
-      outline: none;
-    }
-
+    /* ══════════════════════════════════════════════
+       SHARED CARD INTERNALS
+    ══════════════════════════════════════════════ */
     .cert-fan-media {
       position: relative;
       width: 100%;
@@ -5080,6 +4985,222 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    /* ══════════════════════════════════════════════
+       DESKTOP & TABLET: FANNED ARC DECK (>= 768px)
+    ══════════════════════════════════════════════ */
+    @media (min-width: 768px) {
+      .cert-stack-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 24px 0 32px;
+      }
+
+      .cert-stack-stage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 30px 10px 40px;
+        perspective: 1200px;
+      }
+
+      .cert-fan-card {
+        position: relative;
+        width: 250px;
+        margin: 0 -36px; /* Controlled overlapping spread */
+        background: rgba(14, 6, 18, 0.92);
+        border: 1.2px solid rgba(255, 255, 255, 0.09);
+        border-radius: 16px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 0, 0, 0.4);
+        user-select: none;
+        transform-origin: center bottom;
+        transition:
+          transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.4s ease,
+          border-color 0.35s ease,
+          opacity 0.35s ease;
+        will-change: transform;
+      }
+
+      /* 7-Card Symmetrical Resting Positions (Crash Course on Python = Card 4 Center) */
+      .cert-fan-card:nth-child(1) { transform: translateY(32px) rotate(-12deg) scale(0.88); z-index: 1; opacity: 0.85; }
+      .cert-fan-card:nth-child(2) { transform: translateY(18px) rotate(-8deg) scale(0.92); z-index: 2; opacity: 0.90; }
+      .cert-fan-card:nth-child(3) { transform: translateY(8px) rotate(-4deg) scale(0.96); z-index: 3; opacity: 0.95; }
+      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.02); z-index: 4; opacity: 1; border-color: rgba(255, 255, 255, 0.16); }
+      .cert-fan-card:nth-child(5) { transform: translateY(8px) rotate(4deg) scale(0.96); z-index: 3; opacity: 0.95; }
+      .cert-fan-card:nth-child(6) { transform: translateY(18px) rotate(8deg) scale(0.92); z-index: 2; opacity: 0.90; }
+      .cert-fan-card:nth-child(7) { transform: translateY(32px) rotate(12deg) scale(0.88); z-index: 1; opacity: 0.85; }
+
+      .cert-fan-card:hover,
+      .cert-fan-card:focus-visible {
+        transform: translateY(-28px) rotate(0deg) scale(1.15) !important;
+        z-index: 35 !important;
+        opacity: 1 !important;
+        border-color: rgba(255, 77, 0, 0.7) !important;
+        box-shadow:
+          0 26px 60px rgba(0, 0, 0, 0.9),
+          0 0 35px rgba(255, 77, 0, 0.3) !important;
+        outline: none;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1240px) {
+      .cert-fan-card {
+        width: 210px;
+        margin: 0 -36px;
+      }
+      .cert-fan-card:nth-child(1) { transform: translateY(26px) rotate(-10deg) scale(0.88); }
+      .cert-fan-card:nth-child(2) { transform: translateY(14px) rotate(-6deg) scale(0.92); }
+      .cert-fan-card:nth-child(3) { transform: translateY(6px) rotate(-3deg) scale(0.96); }
+      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.02); }
+      .cert-fan-card:nth-child(5) { transform: translateY(6px) rotate(3deg) scale(0.96); }
+      .cert-fan-card:nth-child(6) { transform: translateY(14px) rotate(6deg) scale(0.92); }
+      .cert-fan-card:nth-child(7) { transform: translateY(26px) rotate(10deg) scale(0.88); }
+    }
+
+    @media (min-width: 768px) and (max-width: 960px) {
+      .cert-fan-card {
+        width: 175px;
+        margin: 0 -32px;
+        padding: 10px;
+      }
+      .cert-fan-card:nth-child(1) { transform: translateY(18px) rotate(-8deg) scale(0.88); }
+      .cert-fan-card:nth-child(2) { transform: translateY(10px) rotate(-5deg) scale(0.92); }
+      .cert-fan-card:nth-child(3) { transform: translateY(4px) rotate(-2deg) scale(0.96); }
+      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.0); }
+      .cert-fan-card:nth-child(5) { transform: translateY(4px) rotate(2deg) scale(0.96); }
+      .cert-fan-card:nth-child(6) { transform: translateY(10px) rotate(5deg) scale(0.92); }
+      .cert-fan-card:nth-child(7) { transform: translateY(18px) rotate(8deg) scale(0.88); }
+    }
+
+    /* ══════════════════════════════════════════════
+       MOBILE: TRUE HORIZONTAL SCROLL STRIP (< 768px)
+    ══════════════════════════════════════════════ */
+    @media (max-width: 767px) {
+      .section-certifications {
+        padding: 50px 0 45px;
+        overflow: hidden;
+        width: 100%;
+      }
+      .cert-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      .cert-header-block {
+        padding: 0 20px;
+        margin-bottom: 20px;
+      }
+      /* Viewport Scroll Container */
+      .cert-stack-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 10px 0 24px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        overscroll-behavior-x: contain;
+      }
+      .cert-stack-wrapper::-webkit-scrollbar {
+        display: none;
+      }
+      /* Content Track */
+      .cert-stack-stage {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        justify-content: flex-start;
+        width: max-content;
+        min-width: 100%;
+        padding: 4px 24px 10px 24px;
+        gap: 16px;
+        margin: 0;
+        transform: none;
+        perspective: none;
+        overflow: visible;
+      }
+      /* Clean standalone cards with ZERO desktop transforms */
+      .cert-fan-card {
+        flex: 0 0 270px;
+        width: 270px;
+        max-width: 78vw;
+        min-width: 240px;
+        margin: 0;
+        transform: none;
+        opacity: 1;
+        scroll-snap-align: center;
+        scroll-snap-stop: normal;
+        background: rgba(14, 6, 18, 0.92);
+        border: 1.2px solid rgba(255, 255, 255, 0.09);
+        border-radius: 14px;
+        padding: 13px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        flex-shrink: 0;
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        z-index: 1;
+      }
+      .cert-fan-card:nth-child(n) {
+        transform: none;
+        opacity: 1;
+        margin: 0;
+        z-index: 1;
+      }
+      .cert-fan-card:hover,
+      .cert-fan-card:active {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+        border-color: rgba(255, 77, 0, 0.7);
+      }
+      .cert-fan-title {
+        font-size: 13.5px;
+      }
+      .cert-fan-sub {
+        font-size: 11px;
+      }
+      .cert-modal {
+        padding: 16px;
+      }
+      .cert-modal-container {
+        padding: 46px 14px 16px 14px;
+        max-width: 90vw;
+        max-height: 80vh;
+      }
+      .cert-modal-close-btn {
+        top: 10px;
+        right: 12px;
+        width: 34px;
+        height: 34px;
+        z-index: 100;
+      }
+      .cert-modal-img {
+        max-height: 55vh;
+      }
+      .cert-modal-caption {
+        font-size: 13px;
+        margin-top: 8px;
+      }
     }
 
     /* ── FULLSCREEN CERTIFICATE VIEWER MODAL ── */
@@ -5190,136 +5311,6 @@
       color: rgba(255, 255, 255, 0.92);
       text-align: center;
       letter-spacing: -0.2px;
-    }
-
-    /* ── RESPONSIVE STACK BEHAVIOR ── */
-    @media (max-width: 1240px) {
-      .cert-fan-card {
-        width: 210px;
-        margin: 0 -36px;
-      }
-      .cert-fan-card:nth-child(1) { transform: translateY(26px) rotate(-10deg) scale(0.88); }
-      .cert-fan-card:nth-child(2) { transform: translateY(14px) rotate(-6deg) scale(0.92); }
-      .cert-fan-card:nth-child(3) { transform: translateY(6px) rotate(-3deg) scale(0.96); }
-      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.02); }
-      .cert-fan-card:nth-child(5) { transform: translateY(6px) rotate(3deg) scale(0.96); }
-      .cert-fan-card:nth-child(6) { transform: translateY(14px) rotate(6deg) scale(0.92); }
-      .cert-fan-card:nth-child(7) { transform: translateY(26px) rotate(10deg) scale(0.88); }
-    }
-
-    @media (max-width: 960px) {
-      .cert-fan-card {
-        width: 175px;
-        margin: 0 -32px;
-        padding: 10px;
-      }
-      .cert-fan-card:nth-child(1) { transform: translateY(18px) rotate(-8deg) scale(0.88); }
-      .cert-fan-card:nth-child(2) { transform: translateY(10px) rotate(-5deg) scale(0.92); }
-      .cert-fan-card:nth-child(3) { transform: translateY(4px) rotate(-2deg) scale(0.96); }
-      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.0); }
-      .cert-fan-card:nth-child(5) { transform: translateY(4px) rotate(2deg) scale(0.96); }
-      .cert-fan-card:nth-child(6) { transform: translateY(10px) rotate(5deg) scale(0.92); }
-      .cert-fan-card:nth-child(7) { transform: translateY(18px) rotate(8deg) scale(0.88); }
-    }
-
-    @media (max-width: 767px) {
-      .section-certifications {
-        padding: 50px 0 45px;
-        overflow: hidden;
-        width: 100%;
-      }
-      .cert-container {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-        margin: 0;
-      }
-      .cert-header-block {
-        padding: 0 20px;
-        margin-bottom: 20px;
-      }
-      /* ── Dedicated Horizontal Scroll Viewport ── */
-      .cert-stack-wrapper {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 10px 0 24px;
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
-        scroll-snap-type: x mandatory !important;
-        scrollbar-width: none !important;
-        overscroll-behavior-x: contain !important;
-      }
-      .cert-stack-wrapper::-webkit-scrollbar {
-        display: none !important;
-      }
-      /* ── Horizontal Scroll Track (Content Width) ── */
-      .cert-stack-stage {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        align-items: stretch !important;
-        justify-content: flex-start !important;
-        width: max-content !important;
-        min-width: 100% !important;
-        padding: 4px 24px 10px 24px !important;
-        gap: 16px !important;
-        margin: 0 !important;
-        transform: none !important;
-        perspective: none !important;
-        overflow: visible !important;
-      }
-      /* ── Individual Certificate Cards ── */
-      .cert-fan-card {
-        flex: 0 0 270px !important;
-        width: 270px !important;
-        max-width: 78vw !important;
-        min-width: 240px !important;
-        margin: 0 !important;
-        transform: none !important;
-        opacity: 1 !important;
-        scroll-snap-align: center !important;
-        scroll-snap-stop: normal !important;
-        padding: 13px !important;
-        border-radius: 14px !important;
-        box-sizing: border-box !important;
-        flex-shrink: 0 !important;
-        position: relative !important;
-      }
-      .cert-fan-card:hover,
-      .cert-fan-card:active {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6) !important;
-      }
-      .cert-fan-title {
-        font-size: 13.5px !important;
-      }
-      .cert-fan-sub {
-        font-size: 11px !important;
-      }
-      .cert-modal {
-        padding: 16px;
-      }
-      .cert-modal-container {
-        padding: 46px 14px 16px 14px;
-        max-width: 90vw;
-        max-height: 80vh;
-      }
-      .cert-modal-close-btn {
-        top: 10px;
-        right: 12px;
-        width: 34px;
-        height: 34px;
-        z-index: 100;
-      }
-      .cert-modal-img {
-        max-height: 55vh;
-      }
-      .cert-modal-caption {
-        font-size: 13px;
-        margin-top: 8px;
-      }
     }
 
     /* Unified Cinematic Orb Cursor System (Parent Container Architecture) */

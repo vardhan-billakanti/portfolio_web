@@ -14,6 +14,11 @@
       padding: 0;
     }
 
+    a, a:link, a:visited, a:hover, a:active, a:focus {
+      text-decoration: none;
+      color: inherit;
+    }
+
     html, body {
       width: 100%;
       background-color: #070307;
@@ -4625,6 +4630,18 @@
     }
 
     /* Project card — Compact & Fully Clickable Anchor */
+    a.proj-card,
+    a.proj-card:link,
+    a.proj-card:visited,
+    a.proj-card:hover,
+    a.proj-card:active,
+    a.proj-card:focus,
+    .proj-card,
+    .proj-card * {
+      text-decoration: none !important;
+      -webkit-text-decoration: none !important;
+    }
+
     .proj-card {
       position: relative;
       background: rgba(14, 6, 16, 0.85);
@@ -4635,8 +4652,8 @@
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      text-decoration: none;
-      color: inherit;
+      text-decoration: none !important;
+      color: inherit !important;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
       transition:
         transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -4718,6 +4735,7 @@
       font-weight: 800;
       letter-spacing: 2px;
       color: rgba(255, 255, 255, 0.28);
+      text-decoration: none !important;
       transition: color 0.3s ease, transform 0.3s ease;
     }
 
@@ -4734,6 +4752,7 @@
       letter-spacing: 1.8px;
       color: rgba(255, 77, 0, 0.75);
       text-transform: uppercase;
+      text-decoration: none !important;
       margin-bottom: 4px;
     }
 
@@ -4746,6 +4765,7 @@
       letter-spacing: -0.3px;
       margin-bottom: 6px;
       line-height: 1.2;
+      text-decoration: none !important;
       transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
     }
 
@@ -4760,6 +4780,7 @@
       font-size: 13px;
       line-height: 1.5;
       color: rgba(255, 255, 255, 0.58);
+      text-decoration: none !important;
       margin-bottom: 12px;
     }
 
@@ -4769,6 +4790,7 @@
       flex-wrap: wrap;
       gap: 5px;
       margin-bottom: 0;
+      text-decoration: none !important;
     }
 
     .proj-tag {
@@ -4779,6 +4801,7 @@
       background: rgba(255, 255, 255, 0.05);
       color: rgba(255, 255, 255, 0.52);
       border: 1px solid rgba(255, 255, 255, 0.08);
+      text-decoration: none !important;
       transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
     }
 
@@ -4836,7 +4859,7 @@
       color: var(--text-white);
       letter-spacing: -1.2px;
       line-height: 1.08;
-      margin-bottom: 12px;
+      margin-bottom: 0;
     }
 
     .cert-subtext {
@@ -5062,7 +5085,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 20px;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
@@ -5084,7 +5107,8 @@
     .cert-modal-container {
       position: relative;
       z-index: 2;
-      max-width: 82vw;
+      width: min(780px, 86vw);
+      max-width: 780px;
       max-height: 82vh;
       display: flex;
       flex-direction: column;
@@ -5092,7 +5116,7 @@
       background: rgba(14, 6, 18, 0.96);
       border: 1px solid rgba(255, 77, 0, 0.4);
       border-radius: 18px;
-      padding: 48px 24px 18px 24px; /* Generous top padding ensures X button has clear dedicated space */
+      padding: 46px 22px 18px 22px; /* Generous top padding ensures X button has clear dedicated space */
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 77, 0, 0.18);
       transform: scale(0.94);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -5132,19 +5156,22 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-width: 100%;
+      width: 100%;
       max-height: 100%;
       overflow: hidden;
     }
 
     .cert-modal-img {
       max-width: 100%;
-      max-height: 58vh;
+      max-height: 55vh;
+      width: auto;
+      height: auto;
       object-fit: contain;
       border-radius: 10px;
       background: #000;
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      display: block;
     }
 
     .cert-modal-caption {

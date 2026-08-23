@@ -4896,15 +4896,15 @@
       perspective: 1200px;
     }
 
-    /* Individual Fanned Certificate Card (5-Card Collection) */
+    /* Individual Fanned Certificate Card (7-Card Collection) */
     .cert-fan-card {
       position: relative;
-      width: 280px;
-      margin: 0 -30px; /* Controlled overlapping spread */
+      width: 250px;
+      margin: 0 -36px; /* Controlled overlapping spread */
       background: rgba(14, 6, 18, 0.92);
       border: 1.2px solid rgba(255, 255, 255, 0.09);
       border-radius: 16px;
-      padding: 13px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       cursor: pointer;
@@ -4919,48 +4919,60 @@
       will-change: transform;
     }
 
-    /* 5-Card Fanned Resting Positions (Balanced Deck Arc) */
+    /* 7-Card Fanned Resting Positions (Balanced Deck Arc) */
     .cert-fan-card:nth-child(1) {
-      transform: translateY(22px) rotate(-8deg) scale(0.92);
+      transform: translateY(32px) rotate(-12deg) scale(0.88);
       z-index: 1;
-      opacity: 0.88;
+      opacity: 0.85;
     }
 
     .cert-fan-card:nth-child(2) {
-      transform: translateY(8px) rotate(-4deg) scale(0.96);
+      transform: translateY(18px) rotate(-8deg) scale(0.92);
       z-index: 2;
-      opacity: 0.93;
+      opacity: 0.90;
     }
 
     .cert-fan-card:nth-child(3) {
-      transform: translateY(0px) rotate(0deg) scale(1.02);
+      transform: translateY(8px) rotate(-4deg) scale(0.96);
       z-index: 3;
+      opacity: 0.95;
+    }
+
+    .cert-fan-card:nth-child(4) {
+      transform: translateY(0px) rotate(0deg) scale(1.02);
+      z-index: 4;
       opacity: 1;
       border-color: rgba(255, 255, 255, 0.16);
     }
 
-    .cert-fan-card:nth-child(4) {
+    .cert-fan-card:nth-child(5) {
       transform: translateY(8px) rotate(4deg) scale(0.96);
-      z-index: 2;
-      opacity: 0.93;
+      z-index: 3;
+      opacity: 0.95;
     }
 
-    .cert-fan-card:nth-child(5) {
-      transform: translateY(22px) rotate(8deg) scale(0.92);
+    .cert-fan-card:nth-child(6) {
+      transform: translateY(18px) rotate(8deg) scale(0.92);
+      z-index: 2;
+      opacity: 0.90;
+    }
+
+    .cert-fan-card:nth-child(7) {
+      transform: translateY(32px) rotate(12deg) scale(0.88);
       z-index: 1;
-      opacity: 0.88;
+      opacity: 0.85;
     }
 
     /* Hover & Keyboard Focus-Visible: Pop Forward, Straighten, Glowing Border */
     .cert-fan-card:hover,
     .cert-fan-card:focus-visible {
-      transform: translateY(-24px) rotate(0deg) scale(1.14) !important;
-      z-index: 25 !important;
+      transform: translateY(-28px) rotate(0deg) scale(1.15) !important;
+      z-index: 35 !important;
       opacity: 1 !important;
       border-color: rgba(255, 77, 0, 0.7) !important;
       box-shadow:
-        0 24px 55px rgba(0, 0, 0, 0.88),
-        0 0 32px rgba(255, 77, 0, 0.28) !important;
+        0 26px 60px rgba(0, 0, 0, 0.9),
+        0 0 35px rgba(255, 77, 0, 0.3) !important;
       outline: none;
     }
 
@@ -5181,24 +5193,33 @@
     }
 
     /* ── RESPONSIVE STACK BEHAVIOR ── */
-    @media (max-width: 1199px) {
+    @media (max-width: 1240px) {
       .cert-fan-card {
-        width: 250px;
+        width: 210px;
         margin: 0 -36px;
       }
+      .cert-fan-card:nth-child(1) { transform: translateY(26px) rotate(-10deg) scale(0.88); }
+      .cert-fan-card:nth-child(2) { transform: translateY(14px) rotate(-6deg) scale(0.92); }
+      .cert-fan-card:nth-child(3) { transform: translateY(6px) rotate(-3deg) scale(0.96); }
+      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.02); }
+      .cert-fan-card:nth-child(5) { transform: translateY(6px) rotate(3deg) scale(0.96); }
+      .cert-fan-card:nth-child(6) { transform: translateY(14px) rotate(6deg) scale(0.92); }
+      .cert-fan-card:nth-child(7) { transform: translateY(26px) rotate(10deg) scale(0.88); }
     }
 
     @media (max-width: 960px) {
       .cert-fan-card {
-        width: 215px;
-        margin: 0 -34px;
+        width: 175px;
+        margin: 0 -32px;
         padding: 10px;
       }
-      .cert-fan-card:nth-child(1) { transform: translateY(16px) rotate(-6deg) scale(0.92); }
-      .cert-fan-card:nth-child(2) { transform: translateY(6px) rotate(-3deg) scale(0.96); }
-      .cert-fan-card:nth-child(3) { transform: translateY(0px) rotate(0deg) scale(1.0); }
-      .cert-fan-card:nth-child(4) { transform: translateY(6px) rotate(3deg) scale(0.96); }
-      .cert-fan-card:nth-child(5) { transform: translateY(16px) rotate(6deg) scale(0.92); }
+      .cert-fan-card:nth-child(1) { transform: translateY(18px) rotate(-8deg) scale(0.88); }
+      .cert-fan-card:nth-child(2) { transform: translateY(10px) rotate(-5deg) scale(0.92); }
+      .cert-fan-card:nth-child(3) { transform: translateY(4px) rotate(-2deg) scale(0.96); }
+      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.0); }
+      .cert-fan-card:nth-child(5) { transform: translateY(4px) rotate(2deg) scale(0.96); }
+      .cert-fan-card:nth-child(6) { transform: translateY(10px) rotate(5deg) scale(0.92); }
+      .cert-fan-card:nth-child(7) { transform: translateY(18px) rotate(8deg) scale(0.88); }
     }
 
     @media (max-width: 767px) {

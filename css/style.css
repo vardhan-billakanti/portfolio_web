@@ -5226,52 +5226,66 @@
       .section-certifications {
         padding: 50px 0 45px;
         overflow: hidden;
+        width: 100%;
       }
       .cert-container {
         width: 100%;
         max-width: 100%;
         padding: 0;
+        margin: 0;
       }
       .cert-header-block {
         padding: 0 20px;
         margin-bottom: 20px;
       }
+      /* ── Dedicated Horizontal Scroll Viewport ── */
       .cert-stack-wrapper {
         width: 100%;
-        padding: 10px 0 20px;
-        overflow: hidden;
+        max-width: 100%;
+        margin: 0;
+        padding: 10px 0 24px;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+        scrollbar-width: none !important;
+        overscroll-behavior-x: contain !important;
       }
+      .cert-stack-wrapper::-webkit-scrollbar {
+        display: none !important;
+      }
+      /* ── Horizontal Scroll Track (Content Width) ── */
       .cert-stack-stage {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         align-items: stretch !important;
         justify-content: flex-start !important;
+        width: max-content !important;
+        min-width: 100% !important;
+        padding: 4px 24px 10px 24px !important;
         gap: 16px !important;
-        width: 100% !important;
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        scroll-snap-type: x mandatory !important;
-        -webkit-overflow-scrolling: touch !important;
-        scrollbar-width: none !important;
-        padding: 10px 24px 20px 24px !important;
         margin: 0 !important;
+        transform: none !important;
         perspective: none !important;
+        overflow: visible !important;
       }
-      .cert-stack-stage::-webkit-scrollbar {
-        display: none !important;
-      }
+      /* ── Individual Certificate Cards ── */
       .cert-fan-card {
-        flex: 0 0 80% !important;
-        max-width: 300px !important;
-        min-width: 250px !important;
+        flex: 0 0 270px !important;
+        width: 270px !important;
+        max-width: 78vw !important;
+        min-width: 240px !important;
         margin: 0 !important;
         transform: none !important;
         opacity: 1 !important;
         scroll-snap-align: center !important;
-        scroll-snap-stop: always !important;
-        padding: 14px !important;
+        scroll-snap-stop: normal !important;
+        padding: 13px !important;
         border-radius: 14px !important;
+        box-sizing: border-box !important;
+        flex-shrink: 0 !important;
+        position: relative !important;
       }
       .cert-fan-card:hover,
       .cert-fan-card:active {

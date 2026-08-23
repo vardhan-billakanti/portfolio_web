@@ -1352,29 +1352,37 @@
     /* ══════════════════════════════════════════════
        NAV CTA — Premium pill + orange circle arrow
     ══════════════════════════════════════════════ */
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.96);
-      color: #111;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 5px 5px 5px 14px;
-      border-radius: 100px;
-      letter-spacing: 0.15px;
-      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease, background 0.25s ease;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.22);
-      white-space: nowrap;
+    .nav-cta,
+    a.nav-cta,
+    a.nav-cta:link,
+    a.nav-cta:visited,
+    a.nav-cta:hover,
+    a.nav-cta:active,
+    a.nav-cta:focus {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      background: rgba(255, 255, 255, 0.96) !important;
+      color: #111111 !important;
+      text-decoration: none !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      padding: 5px 5px 5px 14px !important;
+      border-radius: 100px !important;
+      letter-spacing: 0.15px !important;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.25s ease !important;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.22) !important;
+      white-space: nowrap !important;
     }
-    .nav-cta:hover {
-      transform: translateY(-1px) scale(1.025);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.32);
-      background: #fff;
+    .nav-cta:hover,
+    a.nav-cta:hover {
+      transform: translateY(-1px) scale(1.025) !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.32) !important;
+      background: #ffffff !important;
+      color: #111111 !important;
     }
     .nav-cta-text {
-      /* text node only — styled by parent */
+      color: #111111 !important;
     }
     .nav-cta-circle {
       width: 30px;
@@ -1385,7 +1393,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), background 0.25s ease;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
     }
     .nav-cta:hover .nav-cta-circle {
       transform: scale(1.08);
@@ -4888,15 +4896,15 @@
       perspective: 1200px;
     }
 
-    /* Individual Fanned Certificate Card (7-Card Collection) */
+    /* Individual Fanned Certificate Card (5-Card Collection) */
     .cert-fan-card {
       position: relative;
-      width: 250px;
-      margin: 0 -36px; /* Controlled overlapping spread */
+      width: 280px;
+      margin: 0 -30px; /* Controlled overlapping spread */
       background: rgba(14, 6, 18, 0.92);
       border: 1.2px solid rgba(255, 255, 255, 0.09);
       border-radius: 16px;
-      padding: 12px;
+      padding: 13px;
       display: flex;
       flex-direction: column;
       cursor: pointer;
@@ -4911,60 +4919,48 @@
       will-change: transform;
     }
 
-    /* 7-Card Fanned Resting Positions (Balanced Deck Arc) */
+    /* 5-Card Fanned Resting Positions (Balanced Deck Arc) */
     .cert-fan-card:nth-child(1) {
-      transform: translateY(32px) rotate(-12deg) scale(0.88);
+      transform: translateY(22px) rotate(-8deg) scale(0.92);
       z-index: 1;
-      opacity: 0.85;
+      opacity: 0.88;
     }
 
     .cert-fan-card:nth-child(2) {
-      transform: translateY(18px) rotate(-8deg) scale(0.92);
+      transform: translateY(8px) rotate(-4deg) scale(0.96);
       z-index: 2;
-      opacity: 0.90;
+      opacity: 0.93;
     }
 
     .cert-fan-card:nth-child(3) {
-      transform: translateY(8px) rotate(-4deg) scale(0.96);
-      z-index: 3;
-      opacity: 0.95;
-    }
-
-    .cert-fan-card:nth-child(4) {
       transform: translateY(0px) rotate(0deg) scale(1.02);
-      z-index: 4;
+      z-index: 3;
       opacity: 1;
       border-color: rgba(255, 255, 255, 0.16);
     }
 
-    .cert-fan-card:nth-child(5) {
+    .cert-fan-card:nth-child(4) {
       transform: translateY(8px) rotate(4deg) scale(0.96);
-      z-index: 3;
-      opacity: 0.95;
-    }
-
-    .cert-fan-card:nth-child(6) {
-      transform: translateY(18px) rotate(8deg) scale(0.92);
       z-index: 2;
-      opacity: 0.90;
+      opacity: 0.93;
     }
 
-    .cert-fan-card:nth-child(7) {
-      transform: translateY(32px) rotate(12deg) scale(0.88);
+    .cert-fan-card:nth-child(5) {
+      transform: translateY(22px) rotate(8deg) scale(0.92);
       z-index: 1;
-      opacity: 0.85;
+      opacity: 0.88;
     }
 
     /* Hover & Keyboard Focus-Visible: Pop Forward, Straighten, Glowing Border */
     .cert-fan-card:hover,
     .cert-fan-card:focus-visible {
-      transform: translateY(-28px) rotate(0deg) scale(1.15) !important;
-      z-index: 35 !important;
+      transform: translateY(-24px) rotate(0deg) scale(1.14) !important;
+      z-index: 25 !important;
       opacity: 1 !important;
       border-color: rgba(255, 77, 0, 0.7) !important;
       box-shadow:
-        0 26px 60px rgba(0, 0, 0, 0.9),
-        0 0 35px rgba(255, 77, 0, 0.3) !important;
+        0 24px 55px rgba(0, 0, 0, 0.88),
+        0 0 32px rgba(255, 77, 0, 0.28) !important;
       outline: none;
     }
 
@@ -5185,78 +5181,87 @@
     }
 
     /* ── RESPONSIVE STACK BEHAVIOR ── */
-    @media (max-width: 1240px) {
+    @media (max-width: 1199px) {
       .cert-fan-card {
-        width: 210px;
+        width: 250px;
         margin: 0 -36px;
       }
-      .cert-fan-card:nth-child(1) { transform: translateY(26px) rotate(-10deg) scale(0.88); }
-      .cert-fan-card:nth-child(2) { transform: translateY(14px) rotate(-6deg) scale(0.92); }
-      .cert-fan-card:nth-child(3) { transform: translateY(6px) rotate(-3deg) scale(0.96); }
-      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.02); }
-      .cert-fan-card:nth-child(5) { transform: translateY(6px) rotate(3deg) scale(0.96); }
-      .cert-fan-card:nth-child(6) { transform: translateY(14px) rotate(6deg) scale(0.92); }
-      .cert-fan-card:nth-child(7) { transform: translateY(26px) rotate(10deg) scale(0.88); }
     }
 
     @media (max-width: 960px) {
       .cert-fan-card {
-        width: 175px;
-        margin: 0 -32px;
+        width: 215px;
+        margin: 0 -34px;
         padding: 10px;
       }
-      .cert-fan-card:nth-child(1) { transform: translateY(18px) rotate(-8deg) scale(0.88); }
-      .cert-fan-card:nth-child(2) { transform: translateY(10px) rotate(-5deg) scale(0.92); }
-      .cert-fan-card:nth-child(3) { transform: translateY(4px) rotate(-2deg) scale(0.96); }
-      .cert-fan-card:nth-child(4) { transform: translateY(0px) rotate(0deg) scale(1.0); }
-      .cert-fan-card:nth-child(5) { transform: translateY(4px) rotate(2deg) scale(0.96); }
-      .cert-fan-card:nth-child(6) { transform: translateY(10px) rotate(5deg) scale(0.92); }
-      .cert-fan-card:nth-child(7) { transform: translateY(18px) rotate(8deg) scale(0.88); }
+      .cert-fan-card:nth-child(1) { transform: translateY(16px) rotate(-6deg) scale(0.92); }
+      .cert-fan-card:nth-child(2) { transform: translateY(6px) rotate(-3deg) scale(0.96); }
+      .cert-fan-card:nth-child(3) { transform: translateY(0px) rotate(0deg) scale(1.0); }
+      .cert-fan-card:nth-child(4) { transform: translateY(6px) rotate(3deg) scale(0.96); }
+      .cert-fan-card:nth-child(5) { transform: translateY(16px) rotate(6deg) scale(0.92); }
     }
 
     @media (max-width: 767px) {
+      .section-certifications {
+        padding: 50px 0 45px;
+        overflow: hidden;
+      }
       .cert-container {
-        padding: 0 16px;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+      }
+      .cert-header-block {
+        padding: 0 20px;
+        margin-bottom: 20px;
       }
       .cert-stack-wrapper {
-        padding: 6px 0 16px;
+        width: 100%;
+        padding: 10px 0 20px;
+        overflow: hidden;
       }
       .cert-stack-stage {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        gap: 14px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding: 8px 16px 18px 16px;
-        margin: 0 -16px;
-        perspective: none;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        gap: 16px !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding: 10px 24px 20px 24px !important;
+        margin: 0 !important;
+        perspective: none !important;
       }
       .cert-stack-stage::-webkit-scrollbar {
-        display: none;
+        display: none !important;
       }
       .cert-fan-card {
-        flex: 0 0 78%;
-        max-width: 290px;
-        min-width: 240px;
+        flex: 0 0 80% !important;
+        max-width: 300px !important;
+        min-width: 250px !important;
         margin: 0 !important;
         transform: none !important;
-        scroll-snap-align: center;
         opacity: 1 !important;
-        padding: 12px;
-        border-radius: 14px;
+        scroll-snap-align: center !important;
+        scroll-snap-stop: always !important;
+        padding: 14px !important;
+        border-radius: 14px !important;
       }
       .cert-fan-card:hover,
       .cert-fan-card:active {
         transform: translateY(-2px) !important;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6) !important;
       }
       .cert-fan-title {
-        font-size: 13px;
+        font-size: 13.5px !important;
       }
       .cert-fan-sub {
-        font-size: 11px;
+        font-size: 11px !important;
       }
       .cert-modal {
         padding: 16px;

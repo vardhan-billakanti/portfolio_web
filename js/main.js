@@ -3,12 +3,33 @@
       const canvas = document.getElementById('animationCanvas');
       const ctx = canvas.getContext('2d');
       const preloader = document.getElementById('preloader');
+      const navHeader = document.querySelector('header.nav-header');
+      const mobImgEl = document.getElementById('mobilePortraitImg');
+      const heroEl = document.getElementById('home');
 
-      const images = [];
-      let loadedCount = 0;
+      const images = new Array(TOTAL_FRAMES);
       let targetFrame = 0;
       let currentFrame = 0;
       let isLoaded = false;
+      let initialFrameReady = false;
+
+      // ── CACHED LAYOUT DIMENSIONS (Prevents Forced Synchronous Layout during scroll) ──
+      let cachedWinHeight = window.innerHeight || 800;
+      let cachedWinWidth = window.innerWidth || 1200;
+      let cachedDocHeight = document.documentElement.scrollHeight || 4000;
+      let cachedMaxScroll = Math.max(1, cachedDocHeight - cachedWinHeight);
+      let cachedHeroHeight = heroEl ? (heroEl.offsetHeight || 650) : 650;
+
+      function updateDimensions() {
+        cachedWinHeight = window.innerHeight || 800;
+        cachedWinWidth = window.innerWidth || 1200;
+        cachedDocHeight = document.documentElement.scrollHeight || 4000;
+        cachedMaxScroll = Math.max(1, cachedDocHeight - cachedWinHeight);
+        if (heroEl) {
+          cachedHeroHeight = heroEl.offsetHeight || 650;
+        }
+        resizeCanvas();
+      }
 
       // Pad number to 3 digits (e.g., 1 -> "001")
       function getFrameFilename(index) {
@@ -16,68 +37,116 @@
         return `frames/ezgif-frame-${paddedIndex}.jpg`;
       }
 
-      // Preload all 145 images
-      for (let i = 1; i <= TOTAL_FRAMES; i++) {
-        const img = new Image();
-        img.src = getFrameFilename(i);
-        img.onload = () => {
-          loadedCount++;
-          if (loadedCount === TOTAL_FRAMES) {
-            onAllImagesLoaded();
-          }
-        };
-        img.onerror = () => {
-          loadedCount++;
-          if (loadedCount === TOTAL_FRAMES) {
-            onAllImagesLoaded();
-          }
-        };
-        images.push(img);
+      function initInitialFrame() {
+        if (initialFrameReady) return;
+        initialFrameReady = true;
+        isLoaded = true;
+        if (preloader) {
+          preloader.classList.add('hidden');
+        }
+        updateDimensions();
+        if (mobImgEl && images[0] && images[0].complete) {
+          mobImgEl.src = images[0].src;
+        }
+        drawFrame(0);
+        triggerRenderLoop();
+        revealInitialElements();
       }
 
-      function onAllImagesLoaded() {
-        isLoaded = true;
-        preloader.classList.add('hidden');
-        resizeCanvas();
-        updateTargetFrame();
-        const mobImg = document.getElementById('mobilePortraitImg');
-        if (mobImg && images[0] && images[0].complete) {
-          mobImg.src = images[0].src;
+      // 1. Load First Critical Frame immediately for instant page display
+      const firstImg = new Image();
+      firstImg.src = getFrameFilename(1);
+      firstImg.onload = () => {
+        images[0] = firstImg;
+        initInitialFrame();
+        // Progressively stream remaining frames in non-blocking background batches
+        loadRemainingFrames();
+      };
+      firstImg.onerror = () => {
+        initInitialFrame();
+        loadRemainingFrames();
+      };
+
+      // Fallback safeguard: Never hold preloader more than 250ms
+      setTimeout(() => {
+        if (!initialFrameReady) initInitialFrame();
+      }, 250);
+
+      // 2. Stream Remaining Frames Asynchronously (idle/batch loading)
+      function loadRemainingFrames() {
+        let currentIndex = 2;
+        const BATCH_SIZE = 8;
+
+        function loadNextBatch() {
+          if (currentIndex > TOTAL_FRAMES) return;
+          const end = Math.min(currentIndex + BATCH_SIZE, TOTAL_FRAMES + 1);
+
+          for (let i = currentIndex; i < end; i++) {
+            const idx = i - 1;
+            const img = new Image();
+            img.src = getFrameFilename(i);
+            img.onload = () => { images[idx] = img; };
+            img.onerror = () => { images[idx] = null; };
+          }
+          currentIndex = end;
+
+          if (currentIndex <= TOTAL_FRAMES) {
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(loadNextBatch, { timeout: 60 });
+            } else {
+              setTimeout(loadNextBatch, 16);
+            }
+          }
         }
-        requestAnimationFrame(renderLoop);
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadNextBatch, { timeout: 80 });
+        } else {
+          setTimeout(loadNextBatch, 20);
+        }
       }
 
       function resizeCanvas() {
-        const dpr = window.devicePixelRatio || 1;
-        canvas.width = window.innerWidth * dpr;
-        canvas.height = window.innerHeight * dpr;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x DPR to save GPU memory & fill rate
+        canvas.width = cachedWinWidth * dpr;
+        canvas.height = cachedWinHeight * dpr;
         ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'medium'; // 'high' is significantly more expensive
+        ctx.imageSmoothingQuality = 'medium';
       }
 
-      function updateTargetFrame() {
-        const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        
-        if (maxScroll <= 0) return;
+      function updateTargetFrame(scrollTop) {
+        if (cachedMaxScroll <= 0) return;
 
-        // On mobile viewport (<= 768px), scale scroll across hero section & top scroll so all 145 frames animate fluidly
-        if (window.innerWidth <= 768) {
-          const heroEl = document.getElementById('home');
-          const heroRange = heroEl ? Math.max(800, heroEl.offsetHeight * 1.8) : 1000;
+        if (cachedWinWidth <= 768) {
+          const heroRange = Math.max(700, cachedHeroHeight * 1.6);
           const mobileFraction = Math.max(0, Math.min(1, scrollTop / heroRange));
           targetFrame = mobileFraction * (TOTAL_FRAMES - 1);
         } else {
-          const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
+          const scrollFraction = Math.max(0, Math.min(1, scrollTop / cachedMaxScroll));
           targetFrame = scrollFraction * (TOTAL_FRAMES - 1);
         }
       }
 
+      function getBestAvailableFrame(idx) {
+        if (images[idx] && images[idx].complete && images[idx].naturalWidth > 0) {
+          return images[idx];
+        }
+        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+          if (idx - offset >= 0 && images[idx - offset] && images[idx - offset].complete && images[idx - offset].naturalWidth > 0) {
+            return images[idx - offset];
+          }
+          if (idx + offset < TOTAL_FRAMES && images[idx + offset] && images[idx + offset].complete && images[idx + offset].naturalWidth > 0) {
+            return images[idx + offset];
+          }
+        }
+        return images[0] || null;
+      }
+
       function drawFrame(frameIdx) {
-        if (!isLoaded || images.length === 0) return;
+        if (!isLoaded) return;
         
         const clampedIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(frameIdx)));
-        const img = images[clampedIndex];
+        const img = getBestAvailableFrame(clampedIndex);
         
         if (!img || !img.complete || img.naturalWidth === 0) return;
 
@@ -107,44 +176,47 @@
         ctx.drawImage(img, x, y, drawWidth, drawHeight);
       }
 
-      // Smooth interpolation render loop (lerp) — skip draw when idle or unchanged
+      // Smooth interpolation render loop (lerp)
       let lastDrawnFrame = -1;
       let renderLoopRunning = false;
 
       function renderLoop() {
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
         const diff = targetFrame - currentFrame;
 
         if (Math.abs(diff) > 0.001) {
-          currentFrame += diff * 0.12; // silky smooth lerp
+          currentFrame += diff * 0.16; // silky smooth & responsive lerp
         } else {
           currentFrame = targetFrame;
         }
 
-        const rounded = Math.round(currentFrame);
-        if (rounded !== lastDrawnFrame) {
-          lastDrawnFrame = rounded;
-          drawFrame(currentFrame);
+        // OFFSCREEN CANVAS CULLING:
+        // Only draw canvas frames when hero is within or near viewport
+        const heroVisible = currentScrollY <= cachedHeroHeight * 1.8;
 
-          // Update mobile portrait image with exact same 145-frame sequence & lerp
-          const mobImg = document.getElementById('mobilePortraitImg');
-          if (mobImg && images[rounded] && images[rounded].complete && images[rounded].naturalWidth > 0) {
-            mobImg.src = images[rounded].src;
+        if (heroVisible) {
+          const rounded = Math.round(currentFrame);
+          if (rounded !== lastDrawnFrame) {
+            lastDrawnFrame = rounded;
+            drawFrame(currentFrame);
+
+            // Update mobile portrait image with lerped frame
+            if (mobImgEl && cachedWinWidth <= 768) {
+              const currentMobImg = getBestAvailableFrame(rounded);
+              if (currentMobImg && currentMobImg.complete && currentMobImg.naturalWidth > 0) {
+                mobImgEl.src = currentMobImg.src;
+              }
+            }
           }
-        }
 
-        // Mobile portrait smooth parallax displacement
-        const mobImgEl = document.getElementById('mobilePortraitImg');
-        const heroEl = document.getElementById('home');
-        if (mobImgEl && heroEl && window.innerWidth <= 768) {
-          const scrollTop = window.scrollY || window.pageYOffset || 0;
-          const heroH = heroEl.offsetHeight || 600;
-          if (scrollTop <= heroH * 1.6) {
-            const parallaxY = scrollTop * 0.22;
+          // Mobile portrait smooth parallax displacement using cached height
+          if (mobImgEl && cachedWinWidth <= 768 && currentScrollY <= cachedHeroHeight * 1.6) {
+            const parallaxY = currentScrollY * 0.22;
             mobImgEl.style.transform = `translate3d(0, ${parallaxY.toFixed(1)}px, 0) scale(1.06)`;
           }
         }
 
-        if (Math.abs(targetFrame - currentFrame) > 0.001) {
+        if (Math.abs(targetFrame - currentFrame) > 0.001 && heroVisible) {
           requestAnimationFrame(renderLoop);
         } else {
           renderLoopRunning = false;
@@ -158,29 +230,53 @@
         }
       }
 
-      window.addEventListener('scroll', () => {
-        updateTargetFrame();
-        triggerRenderLoop();
-      }, { passive: true });
+      // ── SINGLE COALESCED SCROLL DISPATCHER (Zero Layout Thrashing) ──
+      let scrollTicking = false;
+      function handleScroll() {
+        if (!scrollTicking) {
+          scrollTicking = true;
+          requestAnimationFrame(() => {
+            const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+            
+            // 1. Header scroll blur
+            if (navHeader) {
+              if (currentScrollY > 30) {
+                navHeader.classList.add('scrolled');
+              } else {
+                navHeader.classList.remove('scrolled');
+              }
+            }
+
+            // 2. Canvas frame update (only active when near hero)
+            if (currentScrollY <= cachedHeroHeight * 1.8) {
+              updateTargetFrame(currentScrollY);
+              triggerRenderLoop();
+            }
+
+            scrollTicking = false;
+          });
+        }
+      }
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
       window.addEventListener('resize', () => {
-        resizeCanvas();
+        updateDimensions();
         drawFrame(currentFrame);
       }, { passive: true });
 
-      // Header Scroll Blur/Background Handler
-      const navHeader = document.querySelector('header.nav-header');
-      function handleHeaderScroll() {
-        if (!navHeader) return;
-        if (window.scrollY > 30) {
-          navHeader.classList.add('scrolled');
-        } else {
-          navHeader.classList.remove('scrolled');
-        }
+      // Immediate reveal for elements currently on or near screen on load
+      function revealInitialElements() {
+        const threshold = cachedWinHeight * 1.4;
+        document.querySelectorAll('.about-reveal, .beyond-reveal, .scroll-reveal, .academic-milestone-item, .founder-card, .proj-card, .lorven-box').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= threshold) {
+            el.classList.add('in-view');
+            el.classList.add('revealed');
+          }
+        });
       }
-      window.addEventListener('scroll', handleHeaderScroll, { passive: true });
-      handleHeaderScroll();
 
-      // IntersectionObserver for all reveal animations (covers all sections & cards — runs ONCE only)
+      // Anticipatory IntersectionObserver (220px lookahead ensures zero scroll-lag)
       const revealElements = document.querySelectorAll(
         '.about-reveal, .beyond-reveal, .scroll-reveal, .heading-reveal, .academic-milestone-item, .founder-card, .cert-main-title, .scale-talk-card, .price-card, .highlight-item, .contact-info-card, .contact-form-panel, .lorven-box'
       );
@@ -192,7 +288,7 @@
               observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.10 });
+        }, { rootMargin: '220px 0px 100px 0px', threshold: 0.001 });
 
         revealElements.forEach(el => {
           el.classList.add('scroll-reveal');
@@ -743,10 +839,10 @@
             if (!entry.isIntersecting) return;
             const card = entry.target;
             const idx  = parseInt(card.dataset.projIndex, 10) || 0;
-            setTimeout(() => card.classList.add('revealed'), idx * 95);
+            setTimeout(() => card.classList.add('revealed'), idx * 30);
             io.unobserve(card);
           });
-        }, { threshold: 0.12 });
+        }, { rootMargin: '180px 0px 80px 0px', threshold: 0.01 });
 
         cards.forEach(c => io.observe(c));
       })();
@@ -902,6 +998,36 @@
           if (e.key === 'Escape') closeMenu();
         }, { passive: true });
       })();
+
+      // ══════════════════════════════════════════════
+      // CERTIFICATES LIGHTBOX MODAL VIEWER
+      // ══════════════════════════════════════════════
+      window.openCertModal = function(imgSrc, caption) {
+        const modal = document.getElementById('certModal');
+        const modalImg = document.getElementById('certModalImg');
+        const modalCaption = document.getElementById('certModalCaption');
+        if (!modal || !modalImg) return;
+
+        modalImg.src = imgSrc;
+        if (modalCaption) modalCaption.textContent = caption || '';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeCertModal = function() {
+        const modal = document.getElementById('certModal');
+        if (!modal) return;
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      };
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          window.closeCertModal();
+        }
+      }, { passive: true });
 // == Lorven Box: GPU-optimised cursor-following glow ==
       (function() {
         var box  = document.getElementById('lorvenBox');
@@ -1052,6 +1178,23 @@
               console.error('[ContactForm] EmailJS error:', err);
             });
         });
+      })();
+
+      // ── Initial Hash Navigation Handler (Smooth Return from projects.html#projects) ──
+      (function handleInitialHash() {
+        if (window.location.hash) {
+          const hash = window.location.hash;
+          const targetEl = document.querySelector(hash);
+          if (targetEl) {
+            // Instantly reveal all elements in the target section so there is zero flicker
+            targetEl.querySelectorAll('.proj-card, .scroll-reveal, .about-reveal, .heading-reveal').forEach(el => {
+              el.classList.add('in-view', 'revealed');
+            });
+            setTimeout(() => {
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 80);
+          }
+        }
       })();
 
     })();

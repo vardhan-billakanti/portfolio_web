@@ -57,48 +57,35 @@
 </head>
 <body>
 
-  <!-- Header Navigation -->
-  <header class="nav-header">
-    <div class="nav-container">
-      <a href="index.html" class="brand-logo">Portfolio</a>
-      
-      <nav class="nav-menu">
-        <a href="index.html#home" class="nav-link">Home</a>
-        <a href="index.html#about" class="nav-link">About</a>
-        <a href="projects.html" class="nav-link active">Projects</a>
-        <a href="index.html#pricing" class="nav-link">Pricing</a>
-        <a href="index.html#certifications" class="nav-link">Certifications</a>
-        <a href="index.html#contact" class="btn-header">
-          Get in touch
-          <span class="btn-icon-orange">➔</span>
-        </a>
-      </nav>
-    </div>
-  </header>
-
   <!-- Main Projects Content -->
   <main class="content-wrapper">
+
+    <!-- Minimal Back Control -->
+    <div class="top-nav-bar">
+      <a href="index.html#projects" class="back-link" aria-label="Back to Portfolio Projects">
+        <span class="back-arrow">←</span>
+        <span>Back to Portfolio</span>
+      </a>
+    </div>
 
     <!-- Ambient Low-Opacity Orange-Red Glow Points -->
     <div class="glow-orange-red glow-proj-hero"></div>
     <div class="glow-orange-red glow-proj-grid"></div>
-    <div class="glow-orange-red glow-proj-metrics"></div>
-    <div class="glow-orange-red glow-proj-process"></div>
 
     <!-- SECTION 1: Projects Hero Header -->
     <section class="projects-hero">
-      <span class="section-tag">Selected Works & Case Studies</span>
-      <h1 class="projects-hero-title">Crafting Next-Gen Products & Digital Experiences</h1>
+      <span class="section-tag">MY PROJECTS</span>
+      <h1 class="projects-hero-title">Projects I’ve Built</h1>
       <p class="projects-hero-desc">
-        A curated collection of full-stack AI interfaces, spatial product engineering, design systems, and brand transformations.
+        A collection of web projects I’ve designed and developed while exploring cybersecurity, privacy, cloud storage, and interactive web experiences.
       </p>
 
       <!-- Category Filter Bar -->
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterProjects('all', this)">All Works (6)</button>
-        <button class="filter-btn" onclick="filterProjects('ai', this)">UI/UX & AI</button>
-        <button class="filter-btn" onclick="filterProjects('hardware', this)">Hardware & Spatial</button>
-        <button class="filter-btn" onclick="filterProjects('brand', this)">Packaging & Brand</button>
+        <button class="filter-btn active" onclick="filterProjects('all', this)">All Projects (4)</button>
+        <button class="filter-btn" onclick="filterProjects('web', this)">Web &amp; Cloud</button>
+        <button class="filter-btn" onclick="filterProjects('security', this)">Security &amp; Privacy</button>
+        <button class="filter-btn" onclick="filterProjects('interactive', this)">Interactive</button>
       </div>
     </section>
 
@@ -106,278 +93,147 @@
     <section class="section-projects-grid">
       <div class="projects-grid" id="projectsGrid">
         
-        <!-- Project Card 1 -->
-        <div class="project-card" data-category="ai">
+        <!-- Project Card 1: Portfolio -->
+        <div class="project-card" data-category="web">
           <div class="project-card-img-box">
-            <img src="images/proj_dashboard.png" alt="AI Analytics & Financial Dashboard" class="project-card-img">
+            <img src="images/proj_portfolio.jpg" alt="Portfolio Website by Billakanti Jaya Vardhan" class="project-card-img" loading="lazy">
           </div>
           <div class="project-card-body">
             <div>
               <div class="project-meta-row">
-                <span class="project-category">UI/UX & AI</span>
+                <span class="project-category">Portfolio &amp; Web</span>
                 <span class="project-year">2026</span>
               </div>
-              <h2 class="project-title">AI Financial Dashboard & Predictive Analytics</h2>
+              <h2 class="project-title">Portfolio</h2>
               <p class="project-desc">
-                High-throughput telemetry dashboard powered by predictive machine learning models, real-time streaming charts, and custom glassmorphism components.
+                A modern personal portfolio built to showcase my academic journey, technical skills, projects, certifications, and professional presence through a polished interactive experience with a premium dark visual identity.
+              </p>
+              <div class="project-tags">
+                <span class="tag-badge">HTML5</span>
+                <span class="tag-badge">CSS3</span>
+                <span class="tag-badge">JavaScript</span>
+                <span class="tag-badge">EmailJS</span>
+                <span class="tag-badge">Git</span>
+                <span class="tag-badge">GitHub</span>
+                <span class="tag-badge">Vercel</span>
+              </div>
+            </div>
+            <div class="project-btn-row">
+              <a href="https://vardhanbillakanti.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-link" aria-label="Visit Live Portfolio Project">
+                <span>Visit Live Project</span>
+                <span class="btn-link-arrow">➔</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Card 2: VAULTIX -->
+        <div class="project-card" data-category="security">
+          <div class="project-card-img-box">
+            <img src="images/proj_vaultix.jpg" alt="VAULTIX — Secure Cloud Vault" class="project-card-img" loading="lazy">
+          </div>
+          <div class="project-card-body">
+            <div>
+              <div class="project-meta-row">
+                <span class="project-category">Cloud Storage &amp; Privacy</span>
+                <span class="project-year">2026</span>
+              </div>
+              <h2 class="project-title">VAULTIX</h2>
+              <p class="project-desc">
+                A secure personal cloud-storage platform that uses each user's Google Drive for file storage while providing authentication, organized file management, folders, favorites, notes, and a dedicated trash system.
+              </p>
+              <div class="project-tags">
+                <span class="tag-badge">React</span>
+                <span class="tag-badge">TypeScript</span>
+                <span class="tag-badge">Vite</span>
+                <span class="tag-badge">Node.js</span>
+                <span class="tag-badge">Express</span>
+                <span class="tag-badge">Turso / libSQL</span>
+                <span class="tag-badge">Google Drive API</span>
+                <span class="tag-badge">Google OAuth 2.0</span>
+                <span class="tag-badge">bcrypt</span>
+                <span class="tag-badge">AES-256-GCM</span>
+                <span class="tag-badge">Vercel</span>
+              </div>
+            </div>
+            <div class="project-btn-row">
+              <a href="https://myvaultix.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-link" aria-label="Visit Live VAULTIX Project">
+                <span>Visit Live Project</span>
+                <span class="btn-link-arrow">➔</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Card 3: MyCloudStore -->
+        <div class="project-card" data-category="web">
+          <div class="project-card-img-box">
+            <img src="images/proj_cloudstore.jpg" alt="MyCloudStore — Personal Cloud Storage" class="project-card-img" loading="lazy">
+          </div>
+          <div class="project-card-body">
+            <div>
+              <div class="project-meta-row">
+                <span class="project-category">Cloud &amp; Storage</span>
+                <span class="project-year">2026</span>
+              </div>
+              <h2 class="project-title">MyCloudStore</h2>
+              <p class="project-desc">
+                A personal cloud-storage platform for uploading, organizing, searching, previewing, and managing files with folders, notes, trash management, and a PIN-protected Secure Vault.
               </p>
               <div class="project-tags">
                 <span class="tag-badge">Next.js</span>
-                <span class="tag-badge">PyTorch</span>
-                <span class="tag-badge">FastAPI</span>
-                <span class="tag-badge">TailwindCSS</span>
+                <span class="tag-badge">React</span>
+                <span class="tag-badge">TypeScript</span>
+                <span class="tag-badge">MongoDB Atlas</span>
+                <span class="tag-badge">Vercel Blob</span>
+                <span class="tag-badge">Server-side Authentication</span>
+                <span class="tag-badge">GitHub</span>
+                <span class="tag-badge">Vercel</span>
               </div>
             </div>
             <div class="project-btn-row">
-              <a href="index.html#contact" class="btn-project-link">
-                View Case Study ➔
+              <a href="https://mycloudstore.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-link" aria-label="Visit Live MyCloudStore Project">
+                <span>Visit Live Project</span>
+                <span class="btn-link-arrow">➔</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- Project Card 2 -->
-        <div class="project-card" data-category="brand">
+        <!-- Project Card 4: Explore The Globe -->
+        <div class="project-card" data-category="interactive">
           <div class="project-card-img-box">
-            <img src="images/jacket.jpg" alt="Minimalist Tailored Apparel Identity" class="project-card-img">
+            <img src="images/proj_exploreglobe.jpg" alt="Explore The Globe — Interactive 3D Geography" class="project-card-img" loading="lazy">
           </div>
           <div class="project-card-body">
             <div>
               <div class="project-meta-row">
-                <span class="project-category">Packaging & Brand</span>
-                <span class="project-year">2025</span>
-              </div>
-              <h2 class="project-title">Minimalist Apparel & Sustainable Identity</h2>
-              <p class="project-desc">
-                Complete brand architecture, eco-friendly product packaging, and global eCommerce experience for an artisan outerwear label.
-              </p>
-              <div class="project-tags">
-                <span class="tag-badge">Brand Strategy</span>
-                <span class="tag-badge">Packaging</span>
-                <span class="tag-badge">Shopify Plus</span>
-              </div>
-            </div>
-            <div class="project-btn-row">
-              <a href="index.html#contact" class="btn-project-link">
-                View Case Study ➔
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project Card 3 -->
-        <div class="project-card" data-category="hardware">
-          <div class="project-card-img-box">
-            <img src="images/proj_spatial.png" alt="Spatial VR Headset & Spatial OS" class="project-card-img">
-          </div>
-          <div class="project-card-body">
-            <div>
-              <div class="project-meta-row">
-                <span class="project-category">Hardware & Spatial</span>
+                <span class="project-category">Interactive &amp; Exploration</span>
                 <span class="project-year">2026</span>
               </div>
-              <h2 class="project-title">Spatial VR Headset & Spatial OS Architecture</h2>
+              <h2 class="project-title">Explore The Globe</h2>
               <p class="project-desc">
-                Next-generation spatial computing hardware design, hand-tracking gesture interactions, and immersive 3D user environment.
+                An interactive 3D geography experience where users can explore a realistic Earth, select countries, and discover detailed information about their regions, culture, history, food, places, and facts.
               </p>
               <div class="project-tags">
-                <span class="tag-badge">Spatial OS</span>
-                <span class="tag-badge">3D Hardware</span>
-                <span class="tag-badge">Unity / WebXR</span>
+                <span class="tag-badge">HTML5</span>
+                <span class="tag-badge">CSS3</span>
+                <span class="tag-badge">JavaScript</span>
+                <span class="tag-badge">WebGL</span>
+                <span class="tag-badge">GeoJSON</span>
+                <span class="tag-badge">GitHub</span>
+                <span class="tag-badge">Vercel</span>
               </div>
             </div>
             <div class="project-btn-row">
-              <a href="index.html#contact" class="btn-project-link">
-                View Case Study ➔
+              <a href="https://exploreglobe.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-link" aria-label="Visit Live Explore The Globe Project">
+                <span>Visit Live Project</span>
+                <span class="btn-link-arrow">➔</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- Project Card 4 -->
-        <div class="project-card" data-category="ai">
-          <div class="project-card-img-box">
-            <img src="images/proj_app.png" alt="Conversational AI Mobile Companion" class="project-card-img">
-          </div>
-          <div class="project-card-body">
-            <div>
-              <div class="project-meta-row">
-                <span class="project-category">UI/UX & AI</span>
-                <span class="project-year">2026</span>
-              </div>
-              <h2 class="project-title">Conversational AI Companion Mobile App</h2>
-              <p class="project-desc">
-                Intelligent multimodal voice and text assistant interface featuring fluid micro-interactions and dark neon aesthetics.
-              </p>
-              <div class="project-tags">
-                <span class="tag-badge">iOS & Android</span>
-                <span class="tag-badge">Claude API</span>
-                <span class="tag-badge">React Native</span>
-              </div>
-            </div>
-            <div class="project-btn-row">
-              <a href="index.html#contact" class="btn-project-link">
-                View Case Study ➔
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project Card 5 -->
-        <div class="project-card" data-category="hardware">
-          <div class="project-card-img-box">
-            <img src="images/headphones.jpg" alt="Acoustic Precision Headphones" class="project-card-img">
-          </div>
-          <div class="project-card-body">
-            <div>
-              <div class="project-meta-row">
-                <span class="project-category">Hardware & Spatial</span>
-                <span class="project-year">2025</span>
-              </div>
-              <h2 class="project-title">Acoustic Precision Headphones & Hardware</h2>
-              <p class="project-desc">
-                Industrial design language, active noise-canceling hardware ergonomics, and premium unboxing experience.
-              </p>
-              <div class="project-tags">
-                <span class="tag-badge">Industrial Design</span>
-                <span class="tag-badge">Audio Eng</span>
-                <span class="tag-badge">Packaging</span>
-              </div>
-            </div>
-            <div class="project-btn-row">
-              <a href="index.html#contact" class="btn-project-link">
-                View Case Study ➔
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project Card 6 -->
-        <div class="project-card" data-category="brand">
-          <div class="project-card-img-box">
-            <img src="images/bottle.jpg" alt="Eco-Luxe Cosmetic Packaging" class="project-card-img">
-          </div>
-          <div class="project-card-body">
-            <div>
-              <div class="project-meta-row">
-                <span class="project-category">Packaging & Brand</span>
-                <span class="project-year">2025</span>
-              </div>
-              <h2 class="project-title">Eco-Luxe Cosmetic Skincare Packaging Line</h2>
-              <p class="project-desc">
-                Recyclable glass vessel design, tactile embossed label typography, and luxury retail visual campaign.
-              </p>
-              <div class="project-tags">
-                <span class="tag-badge">3D Render</span>
-                <span class="tag-badge">Materials</span>
-                <span class="tag-badge">Brand Identity</span>
-              </div>
-            </div>
-            <div class="project-btn-row">
-              <a href="index.html#contact" class="btn-project-link">
-                View Case Study ➔
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION 3: Project Impact & Performance Metrics -->
-    <section class="section-metrics">
-      <div class="metrics-header">
-        <span class="section-tag">Proven Results</span>
-        <h2 class="metrics-title">Delivering Measurable Impact</h2>
-      </div>
-
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-number">+240%</div>
-          <div class="metric-label">Conversion Growth</div>
-          <div class="metric-sub">Average lift post redesign</div>
-        </div>
-
-        <div class="metric-card">
-          <div class="metric-number">1.8M+</div>
-          <div class="metric-label">Active App Users</div>
-          <div class="metric-sub">Across portfolio platforms</div>
-        </div>
-
-        <div class="metric-card">
-          <div class="metric-number">99.9%</div>
-          <div class="metric-label">System Uptime</div>
-          <div class="metric-sub">Enterprise SLA engineering</div>
-        </div>
-
-        <div class="metric-card">
-          <div class="metric-number">$15M+</div>
-          <div class="metric-label">Venture Capital Raised</div>
-          <div class="metric-sub">By client partners & startups</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 4: Collaborative Work Methodology -->
-    <section class="section-process">
-      <div class="process-header">
-        <span class="section-tag">Work Methodology</span>
-        <h2 class="process-title">From Concept to Production Deployment</h2>
-      </div>
-
-      <div class="process-grid">
-        <div class="process-card">
-          <span class="process-num">PHASE 01</span>
-          <h3 class="process-card-title">Discovery & Strategy</h3>
-          <p class="process-card-desc">
-            Deep-dive audit into user needs, business goals, competitive landscape, and brand positioning.
-          </p>
-        </div>
-
-        <div class="process-card">
-          <span class="process-num">PHASE 02</span>
-          <h3 class="process-card-title">System Architecture</h3>
-          <p class="process-card-desc">
-            Wireframing design tokens, scalable component libraries, and API data flow modeling.
-          </p>
-        </div>
-
-        <div class="process-card">
-          <span class="process-num">PHASE 03</span>
-          <h3 class="process-card-title">High-Fidelity Design</h3>
-          <p class="process-card-desc">
-            Crafting pixel-perfect layouts, interactive micro-animations, and glassmorphic UI polish.
-          </p>
-        </div>
-
-        <div class="process-card">
-          <span class="process-num">PHASE 04</span>
-          <h3 class="process-card-title">Production & QA</h3>
-          <p class="process-card-desc">
-            Clean code integration, cross-device performance optimization, and seamless cloud deployment.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Scale & Contact CTA Banner -->
-    <section class="section-scale" id="contact">
-      <div class="scale-header">
-        <div class="scale-title-box">
-          <div class="scale-heading-top">READY TO</div>
-          <div class="scale-heading-main">
-            <span class="scale-grow-text">GROW</span>
-            <div class="scale-company-box">
-              <span>& SCALE YOUR</span>
-              <span>COMPANY?</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="scale-talk-card">
-          <span class="talk-title">LET'S TALK</span>
-          <span class="talk-subtitle">Unique and custom strategies for your business contact us.</span>
-        </div>
       </div>
     </section>
 

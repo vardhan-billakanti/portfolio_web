@@ -615,6 +615,12 @@
 
         nodesLayer.appendChild(fragment);
 
+        // Orbit scale & easing settings
+        const TARGET_SCALE  = 1.35;
+        const SCALE_EASE    = 0.16;
+        const SCALE_EPSILON = 0.001;
+        const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         // ── Viewport dimension & scale calculation ──
         let vw = viewport.clientWidth  || 540;
         let vh = viewport.clientHeight || 540;
@@ -623,31 +629,6 @@
         let scaleY = scale;
         let cx = vw / 2;
         let cy = vh / 2;
-
-        function updateDimensions() {
-          vw = viewport.clientWidth  || 540;
-          vh = viewport.clientHeight || 540;
-          const s = Math.min(vw / 540, vh / 540);
-          scaleX = s;
-          scaleY = s;
-          cx = vw / 2;
-          cy = vh / 2;
-          renderFrame(0);
-        }
-        updateDimensions();
-
-        const ro = new ResizeObserver(() => {
-          updateDimensions();
-        });
-        ro.observe(viewport);
-
-        // Orbit scale settings for premium pop-forward hover
-        const TARGET_SCALE  = 1.35;
-        const SCALE_EASE    = 0.16;
-        const SCALE_EPSILON = 0.001;
-
-        // Check reduced motion preference
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         // Render single frame
         function renderFrame(dt) {
@@ -684,6 +665,23 @@
           }
         }
 
+        function updateDimensions() {
+          vw = viewport.clientWidth  || 540;
+          vh = viewport.clientHeight || 540;
+          const s = Math.min(vw / 540, vh / 540);
+          scaleX = s;
+          scaleY = s;
+          cx = vw / 2;
+          cy = vh / 2;
+          renderFrame(0);
+        }
+        updateDimensions();
+
+        const ro = new ResizeObserver(() => {
+          updateDimensions();
+        });
+        ro.observe(viewport);
+
         // Initial render of nodes
         renderFrame(0);
 
@@ -692,7 +690,7 @@
         let rafId = null;
         let isRunning = false;
         let sectionVisible = true;
-        let docVisible = !document.hidden;
+        let docVisible = typeof document !== 'undefined' ? !document.hidden : true;
 
         function tick(ts) {
           if (!isRunning) return;

@@ -1128,15 +1128,22 @@
         // ── EmailJS credentials ──────────────────────────────────────────
         var EJS_PUBLIC_KEY      = 'ni0IqrRGioOb5jfTh';
         var EJS_SERVICE_ID      = 'service_q51cstr';
-        var EJS_TEMPLATE_ID     = 'template_qcy1y3b';   // Original: visitor → my inbox
+        var EJS_TEMPLATE_ID     = 'template_qcy1y3b';   // Main: visitor → vardhanbillakanti125@gmail.com
         var EJS_AUTOREPLY_ID    = 'template_10tkb1a';   // Auto-reply: portfolio → visitor
         var TO_EMAIL            = 'vardhanbillakanti125@gmail.com';
         // ─────────────────────────────────────────────────────────────────
 
         // Initialise EmailJS SDK with the public key
-        if (typeof emailjs !== 'undefined') {
-          emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+        function ensureEmailJSInit() {
+          if (typeof emailjs !== 'undefined' && emailjs.init) {
+            try {
+              emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+            } catch (e) {
+              console.warn('[ContactForm] emailjs.init error:', e);
+            }
+          }
         }
+        ensureEmailJSInit();
 
         var form   = document.getElementById('contactForm');
         var btn    = document.getElementById('contactSubmitBtn');
@@ -1152,11 +1159,13 @@
         }
 
         function setNotice(msg, state) {
+          if (!notice) return;
           notice.textContent = msg;
           notice.className   = 'contact-form-notice' + (state ? ' ' + state : '');
         }
 
         function setLoading(on) {
+          if (!btn) return;
           if (on) {
             btn.classList.add('is-loading');
             btn.disabled = true;
@@ -1197,37 +1206,63 @@
           // Guard: EmailJS SDK must be loaded (CDN block, offline, etc.)
           if (typeof emailjs === 'undefined') {
             setNotice('Email service unavailable. Please email me directly at ' + TO_EMAIL, 'state-error');
+            console.error('[ContactForm] EmailJS SDK is not defined on window.');
             return;
           }
+
+          // Ensure initialized before sending
+          ensureEmailJSInit();
 
           // Enter loading state — blocks duplicate submissions
           setLoading(true);
           setNotice('Sending\u2026', '');
 
-          // Template params — variable names match your EmailJS template exactly:
-          // {{name}}  {{email}}  {{phone}}  {{subject}}  {{message}}
+          var rawName    = nameEl.value.trim();
+          var rawEmail   = emailEl.value.trim();
+          var rawPhone   = (phoneEl && phoneEl.value.trim()) ? phoneEl.value.trim() : 'Not provided';
+          var rawSubject = (subjectEl && subjectEl.value.trim()) ? subjectEl.value.trim() : 'Portfolio Contact';
+          var rawMessage = messageEl.value.trim();
+
+          // Comprehensive template params covering all possible standard template tags
           var params = {
-            name:    nameEl.value.trim(),
-            email:   emailEl.value.trim(),
-            phone:   (phoneEl && phoneEl.value.trim()) ? phoneEl.value.trim() : 'Not provided',
-            subject: (subjectEl && subjectEl.value.trim()) ? subjectEl.value.trim() : 'Portfolio Contact',
-            message: messageEl.value.trim()
+            name:       rawName,
+            from_name:  rawName,
+            user_name:  rawName,
+            email:      rawEmail,
+            from_email: rawEmail,
+            user_email: rawEmail,
+            reply_to:   rawEmail,
+            phone:      rawPhone,
+            user_phone: rawPhone,
+            title:      rawSubject,
+            subject:    rawSubject,
+            message:    rawMessage
           };
 
           // ── STEP 1: Send visitor's message to vardhanbillakanti125@gmail.com ──
-          emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, params)
-            .then(function () {
-              // ── STEP 2: Original send succeeded → send auto-reply to visitor ──
-              // Uses a separate template (template_10tkb1a).
-              // Recipient is {{email}} (the visitor's address), NOT vardhanbillakanti125@gmail.com.
-              emailjs.send(EJS_SERVICE_ID, EJS_AUTOREPLY_ID, {
-                name:  params.name,
-                email: params.email
-              }).catch(function (autoReplyErr) {
-                // Non-critical: visitor's original message was already delivered.
-                // Log silently without affecting the user-facing success state.
-                console.warn('[ContactForm] Auto-reply send failed (non-critical):', autoReplyErr);
-              });
+          emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, params, EJS_PUBLIC_KEY)
+            .then(function (response) {
+              console.log('[ContactForm] EmailJS send SUCCESS:', response);
+
+              // ── STEP 2: Send auto-reply to visitor (non-blocking) ──
+              var autoReplyParams = {
+                name:       rawName,
+                from_name:  rawName,
+                user_name:  rawName,
+                email:      rawEmail,
+                user_email: rawEmail,
+                to_email:   rawEmail,
+                reply_to:   rawEmail
+              };
+
+              emailjs.send(EJS_SERVICE_ID, EJS_AUTOREPLY_ID, autoReplyParams, EJS_PUBLIC_KEY)
+                .then(function(autoRes) {
+                  console.log('[ContactForm] Auto-reply send SUCCESS:', autoRes);
+                })
+                .catch(function (autoReplyErr) {
+                  // Non-critical: visitor's original message was already delivered.
+                  console.warn('[ContactForm] Auto-reply send error (non-critical):', autoReplyErr);
+                });
 
               // SUCCESS — clear form only after confirmed delivery of the original message
               setLoading(false);
@@ -1239,7 +1274,12 @@
               // FAILURE — keep data intact so the user can retry
               setLoading(false);
               setNotice('Send failed. Please retry or email me at ' + TO_EMAIL, 'state-error');
-              console.error('[ContactForm] EmailJS error:', err);
+
+              // Detailed diagnostic console output
+              console.error('[ContactForm] EmailJS send FAILED:');
+              console.error('error.status:', err && err.status);
+              console.error('error.text:', err && err.text);
+              console.error('Complete error object:', err);
             });
         });
       })();

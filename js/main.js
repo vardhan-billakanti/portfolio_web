@@ -1180,7 +1180,7 @@
         });
       })();
 
-      // ── Initial Hash Navigation Handler (Smooth Return from projects.html#projects) ──
+      // ── Initial Hash Navigation Handler (Smooth Return from /projects -> /#projects) ──
       (function handleInitialHash() {
         if (window.location.hash) {
           const hash = window.location.hash;

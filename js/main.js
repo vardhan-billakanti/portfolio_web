@@ -585,17 +585,13 @@
             ? `<img src="${logo}" class="node-logo-img" alt="${tool.name}"><span>${tool.name}</span>`
             : `<span style="font-size:14px;line-height:1">&#9679;</span><span>${tool.name}</span>`;
 
-          // Direct hover on orbit nodes
+          // Direct hover on orbit nodes: subtle info update without triggering full pop-out animation
           chip.addEventListener('mouseenter', () => {
-            _highlightNode(tool.name);
-            highlightLeftPill(tool.name);
             const techObj = TECH_DATASET.find(t => t.name === tool.name);
             if (techObj) updateRightShowcase(techObj);
           }, { passive: true });
 
           chip.addEventListener('mouseleave', () => {
-            _resetHighlight();
-            resetLeftPills();
             updateRightShowcase(DEFAULT_SHOWCASE_STATE);
           }, { passive: true });
 

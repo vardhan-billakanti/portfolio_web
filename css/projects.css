@@ -375,6 +375,9 @@
     .project-card:hover .tag-badge:nth-child(7) { transition-delay: 0.20s; }
     .project-card:hover .tag-badge:nth-child(8) { transition-delay: 0.23s; }
     .project-card:hover .tag-badge:nth-child(9) { transition-delay: 0.26s; }
+    .project-card:hover .tag-badge:nth-child(10) { transition-delay: 0.29s; }
+    .project-card:hover .tag-badge:nth-child(11) { transition-delay: 0.32s; }
+    .project-card:hover .tag-badge:nth-child(12) { transition-delay: 0.35s; }
 
     .tag-badge:hover {
       background: rgba(255, 77, 0, 0.18) !important;

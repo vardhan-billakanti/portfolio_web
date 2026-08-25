@@ -3006,17 +3006,12 @@
       .toolkit-dashboard-grid { grid-template-columns: 1fr; gap: 24px; }
       .toolkit-directory-col  { overflow: visible; }
       .toolkit-showcase-col   { position: relative; top: 0; }
-      /* Orbital viewport — controlled height, scroll passes through */
+      /* Orbital viewport — responsive height with smooth pan scrolling */
       .section-toolkit        { overflow: hidden; touch-action: pan-y; }
       .orbital-showcase-viewport {
-        height: 320px;
+        height: 420px;
         touch-action: pan-y;
         overflow: hidden;
-      }
-      /* Scale orbital to fit — visual only */
-      .orbital-nodes-layer, .orbital-svg-tracks {
-        transform: scale(0.78);
-        transform-origin: center center;
       }
 
       /* ── PROJECTS ── */
@@ -3096,12 +3091,8 @@
       .founders-grid    { gap: 12px; }
       .contact-form-panel, .contact-info-card { padding: 20px 14px; }
       .mobile-nav-link  { font-size: 20px; padding: 14px 0; }
-      /* Orbital tighter */
-      .orbital-showcase-viewport { height: 290px; }
-      .orbital-nodes-layer, .orbital-svg-tracks {
-        transform: scale(0.7);
-        transform-origin: center center;
-      }
+      /* Orbital responsive height */
+      .orbital-showcase-viewport { height: 390px; }
       /* Further tighten the Hero→About gap on small phones */
       .section-beyond-pause { padding: 32px 16px 24px; }
       /* Lorven pillars — single column on very small screens */
@@ -3117,12 +3108,8 @@
       .hero-title       { font-size: clamp(1.8rem, 8vw, 2.6rem); }
       .hero-right-title { font-size: clamp(1.7rem, 7.5vw, 2.3rem); }
       .about-heading    { font-size: clamp(1.8rem, 7.5vw, 2.4rem); }
-      /* Orbital */
-      .orbital-showcase-viewport { height: 270px; }
-      .orbital-nodes-layer, .orbital-svg-tracks {
-        transform: scale(0.65);
-        transform-origin: center center;
-      }
+      /* Orbital responsive height */
+      .orbital-showcase-viewport { height: 370px; }
     }
 
     /* ── Smallest phones: 375px ── */
@@ -3131,11 +3118,7 @@
       .hero-title       { font-size: clamp(1.6rem, 8vw, 2.2rem); }
       .toolkit-heading  { font-size: 1.6rem; }
       .about-heading    { font-size: clamp(1.7rem, 7.5vw, 2.1rem); }
-      .orbital-showcase-viewport { height: 250px; }
-      .orbital-nodes-layer, .orbital-svg-tracks {
-        transform: scale(0.58);
-        transform-origin: center center;
-      }
+      .orbital-showcase-viewport { height: 350px; }
       /* Form fields: ensure never overflow at 360px */
       input, textarea, select, button { max-width: 100%; box-sizing: border-box; }
     }
@@ -4099,10 +4082,6 @@
       width: 100%;
       height: 540px;
       border-radius: 24px;
-      /* PERF: backdrop-filter:blur(18px) removed — it forced the browser to create a
-         GPU compositing layer over the entire 540px viewport height and re-composite
-         on every scroll frame, causing the Toolkit scroll lag.
-         Compensated with a slightly more opaque/darker background. */
       background: rgba(6, 3, 8, 0.94);
       border: 1px solid rgba(255, 77, 0, 0.25);
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(255, 77, 0, 0.12);
@@ -4110,7 +4089,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Ensure touch scrolling always passes through to the page */
+      contain: paint;
       touch-action: pan-y;
     }
 
@@ -4125,17 +4104,17 @@
     }
 
     /* Ring colors matching reference image */
-    .orbit-ring-1 { fill: none; stroke: rgba(255, 100, 20, 0.55); stroke-width: 1.2px; }
-    .orbit-ring-2 { fill: none; stroke: rgba(120, 80, 255, 0.40); stroke-width: 1px; stroke-dasharray: 6 4; }
-    .orbit-ring-3 { fill: none; stroke: rgba(60, 140, 255, 0.35); stroke-width: 1px; stroke-dasharray: 4 6; }
-    .orbit-ring-4 { fill: none; stroke: rgba(255, 100, 20, 0.28); stroke-width: 1px; stroke-dasharray: 2 8; }
+    .orbit-ring-1 { fill: none; stroke: rgba(255, 100, 20, 0.65); stroke-width: 1.4px; }
+    .orbit-ring-2 { fill: none; stroke: rgba(135, 95, 255, 0.50); stroke-width: 1.2px; stroke-dasharray: 6 4; }
+    .orbit-ring-3 { fill: none; stroke: rgba(70, 160, 255, 0.45); stroke-width: 1.2px; stroke-dasharray: 4 6; }
+    .orbit-ring-4 { fill: none; stroke: rgba(255, 120, 40, 0.38); stroke-width: 1.2px; stroke-dasharray: 3 6; }
 
     /* Active ring highlight on hover */
     .orbital-showcase-viewport.is-active .orbit-ring-1.ring-active,
     .orbital-showcase-viewport.is-active .orbit-ring-2.ring-active,
     .orbital-showcase-viewport.is-active .orbit-ring-3.ring-active,
     .orbital-showcase-viewport.is-active .orbit-ring-4.ring-active {
-      stroke: rgba(255, 77, 0, 0.9);
+      stroke: rgba(255, 77, 0, 0.95);
       stroke-width: 1.8px;
       stroke-dasharray: none;
       filter: drop-shadow(0 0 8px rgba(255, 77, 0, 0.6));
@@ -4164,6 +4143,7 @@
       justify-content: center;
       pointer-events: none;
       user-select: none;
+      transition: width 0.3s ease, height 0.3s ease;
     }
 
     .core-symbol {
@@ -4202,29 +4182,27 @@
       gap: 7px;
       padding: 5px 12px 5px 8px;
       border-radius: 100px;
-      /* PERF: backdrop-filter removed from each chip — 25 chips each creating
-         a compositing layer was the primary cause of Toolkit scroll lag.
-         The dark background + box-shadow provides the same visual depth. */
       background: rgba(10, 5, 14, 0.94);
       border: 1px solid rgba(255, 255, 255, 0.14);
       color: rgba(255, 255, 255, 0.92);
       font-family: 'Outfit', var(--font-main);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.2px;
-      pointer-events: none;
-      cursor: default;
+      pointer-events: auto;
+      cursor: pointer;
       white-space: nowrap;
       user-select: none;
+      contain: layout style;
       /* GPU compositing — each chip on its own layer for transform animation */
-      will-change: transform, opacity;
+      will-change: transform;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       box-shadow: 0 2px 12px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
       /* Transition only CSS-compositor-friendly props */
       transition:
-        border-color 0.30s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow   0.30s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow   0.25s cubic-bezier(0.22, 1, 0.36, 1),
         opacity      0.25s ease,
         background   0.25s ease,
         filter       0.25s ease;
@@ -4238,24 +4216,24 @@
       border-radius: 3px;
     }
 
-    /* Active state: premium pop-out look */
+    /* Active state / Hover: premium pop-out look */
+    .orbit-node-chip:hover,
     .orbit-node-chip.active {
       border-color: rgba(255, 90, 10, 0.95);
       background: rgba(30, 10, 18, 0.98);
       color: #ffffff;
       box-shadow:
-        0 0 0 4px  rgba(255, 77,  0, 0.14),
+        0 0 0 3px  rgba(255, 77,  0, 0.20),
         0 0 18px   rgba(255, 100, 0, 0.55),
-        0 0 40px   rgba(255, 77,  0, 0.30),
+        0 0 36px   rgba(255, 77,  0, 0.25),
         0 6px 24px rgba(0,   0,   0, 0.70);
-      z-index: 80;
-      /* brightness lift via filter — GPU composited */
+      z-index: 90;
       filter: brightness(1.18) saturate(1.12);
     }
 
     /* Dim all non-active nodes when a tool is highlighted */
     .orbital-showcase-viewport.is-active .orbit-node-chip:not(.active) {
-      opacity: 0.18;
+      opacity: 0.22;
       filter: brightness(0.7);
     }
 
@@ -4263,7 +4241,6 @@
       .toolkit-dashboard-grid {
         grid-template-columns: 1fr;
       }
-      /* No max-height restriction on tablet either */
       .toolkit-directory-col {
         overflow: visible;
       }
@@ -4278,12 +4255,31 @@
 
     @media (max-width: 600px) {
       .toolkit-container {
-        padding: 0 24px;
+        padding: 0 20px;
       }
       .orbital-showcase-viewport {
-        height: 360px;
+        height: 380px;
       }
-      .ring-outer { display: none; }
+      .orbit-node-chip {
+        font-size: 9.5px;
+        padding: 3px 8px 3px 6px;
+        gap: 5px;
+      }
+      .orbit-node-chip .node-logo-img {
+        width: 13px;
+        height: 13px;
+      }
+      .orbital-center-core {
+        width: 68px;
+        height: 68px;
+      }
+      .core-symbol {
+        font-size: 16px;
+      }
+      .core-label {
+        font-size: 6px;
+        letter-spacing: 1px;
+      }
     }
 
     /* Academic Background Section Styling */

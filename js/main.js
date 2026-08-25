@@ -300,136 +300,93 @@
 
       // 5. Interactive 2-Column Toolkit Dashboard Engine with REAL LOGOS!
       const REAL_LOGOS = {
-        "C":                 "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
-        "Java":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-        "Python":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-        "TypeScript":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-        "HTML":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-        "CSS":               "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-        "JavaScript":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-        "React":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-        "Node.js":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg",
-        "Express.js":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-        "Next.js":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-        "Tailwind CSS":      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-        "Visual Studio Code":"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
-        // Antigravity is a proprietary AI IDE — no official icon; use a styled placeholder SVG
-        "Antigravity":       "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23111' stroke='%23ff4d00' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Outfit,sans-serif' font-weight='800' font-size='11' fill='%23ff4d00'%3EAG%3C/text%3E%3C/svg%3E",
-        "Git":               "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-        "GitHub":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-        "Postman":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
-        "Vercel":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
-        "Kali Linux":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-        "Linux":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-        "Wireshark":         "https://cdn.simpleicons.org/wireshark/1679A3",
-        // Burp Suite (PortSwigger) — no devicon entry; use official color badge
-        "Burp Suite":        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23FF6633'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='9' fill='%23fff'%3EBurp%3C/text%3E%3C/svg%3E",
-        // Nmap — no devicon; use branded badge
-        "Nmap":              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230E1A2B' stroke='%234a90d9' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='9' fill='%234a90d9'%3ENmap%3C/text%3E%3C/svg%3E",
-        // Metasploit — use branded badge
-        "Metasploit":        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231a1a2e' stroke='%23e94560' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='7.5' fill='%23e94560'%3EMETA%3C/text%3E%3C/svg%3E",
-        // OWASP — use simpleicons
-        "OWASP":             "https://cdn.simpleicons.org/owasp/000000",
-        "Bash":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",
-        "ChatGPT":           "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-        // Google Gemini — use correct Gemini icon from simpleicons
-        "Google Gemini":     "https://cdn.simpleicons.org/googlegemini/4285F4",
-        // Claude (Anthropic) — use simpleicons
-        "Claude":            "https://cdn.simpleicons.org/anthropic/D4A27F",
-        "NumPy":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
-        "Pandas":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
-        "Jupyter":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
-        "PyTorch":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
-        "TensorFlow":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
-        "MySQL":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-        "PostgreSQL":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-        "MongoDB":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-        "Firebase":          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-        "AWS":               "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
-        "Microsoft Azure":   "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
-        "Google Cloud":      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
-        "Docker":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-        "Kubernetes":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
-        "Canva":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
-        // CapCut — simpleicons entry unavailable; using branded data URI
-        "CapCut":            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Cpath d='M10 10h5v12h-5zM17 10h5v12h-5z' fill='%23fff'/%3E%3C/svg%3E"
+        "C":                  "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+        "Java":               "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+        "Python":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+        "JavaScript":         "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+        "TypeScript":         "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+        "HTML":               "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+        "CSS":                "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+        "React":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+        "Node.js":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg",
+        "Next.js":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+        "Linux":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+        "Kali Linux":         "https://cdn.simpleicons.org/kalilinux/557C94",
+        "ChatGPT":            "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+        "Google Gemini":      "https://cdn.simpleicons.org/googlegemini/4285F4",
+        "PyTorch":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+        "Visual Studio Code": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+        "AWS":                "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
+        "Google Cloud":       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+        "Kubernetes":         "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
+        "Cloudflare":         "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudflare/cloudflare-original.svg",
+        "Vercel":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+        "MySQL":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+        "MongoDB":            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+        "Firebase":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+        "Supabase":           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+        "SQLite":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg",
+        "SQL":                "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23ff6420' d='M16 2C8.268 2 2 5.582 2 10v12c0 4.418 6.268 8 14 8s14-3.582 14-8V10c0-4.418-6.268-8-14-8zm0 3c6.627 0 12 2.686 12 6s-5.373 6-12 6-12-2.686-12-6 5.373-6 12-6zm-12 8.356C5.98 14.887 10.742 16 16 16s10.02-1.113 12-2.644V16c0 3.314-5.373 6-12 6s-12-2.686-12-6v-2.644zM4 22c1.98 1.531 6.742 2.644 12 2.644s10.02-1.113 12-2.644V22c0 3.314-5.373 6-12 6s-12-2.686-12-6v0z'/%3E%3C/svg%3E",
+        "Git":                "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+        "GitHub":             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+        "Canva":              "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
+        "CapCut":             "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Cpath d='M10 10h5v12h-5zM17 10h5v12h-5z' fill='%23fff'/%3E%3C/svg%3E"
       };
 
       const TECH_DATASET = [
-        // PROGRAMMING (4)
+        // PROGRAMMING (5)
         { name: "C", category: "PROGRAMMING", status: "EXPLORING" },
         { name: "Java", category: "PROGRAMMING", status: "EXPLORING" },
         { name: "Python", category: "PROGRAMMING", status: "EXPLORING" },
+        { name: "JavaScript", category: "PROGRAMMING", status: "USING" },
         { name: "TypeScript", category: "PROGRAMMING", status: "EXPLORING" },
 
-        // WEB DEVELOPMENT (8)
+        // WEB DEVELOPMENT (5)
         { name: "HTML", category: "WEB DEVELOPMENT", status: "USING" },
         { name: "CSS", category: "WEB DEVELOPMENT", status: "USING" },
-        { name: "JavaScript", category: "WEB DEVELOPMENT", status: "USING" },
         { name: "React", category: "WEB DEVELOPMENT", status: "EXPLORING" },
         { name: "Node.js", category: "WEB DEVELOPMENT", status: "EXPLORING" },
-        { name: "Express.js", category: "WEB DEVELOPMENT", status: "EXPLORING" },
         { name: "Next.js", category: "WEB DEVELOPMENT", status: "EXPLORING" },
-        { name: "Tailwind CSS", category: "WEB DEVELOPMENT", status: "EXPLORING" },
 
-        // CYBER SECURITY (8)
-        { name: "Kali Linux", category: "CYBER SECURITY", status: "EXPLORING" },
-        { name: "Linux", category: "CYBER SECURITY", status: "USING" },
-        { name: "Wireshark", category: "CYBER SECURITY", status: "EXPLORING" },
-        { name: "Burp Suite", category: "CYBER SECURITY", status: "EXPLORING" },
-        { name: "Nmap", category: "CYBER SECURITY", status: "EXPLORING" },
-        { name: "Metasploit", category: "CYBER SECURITY", status: "EXPLORING" },
-        { name: "OWASP", category: "CYBER SECURITY", status: "EXPLORING" },
-        { name: "Bash", category: "CYBER SECURITY", status: "USING" },
+        // SYSTEMS & SECURITY (2)
+        { name: "Linux", category: "SYSTEMS & SECURITY", status: "USING" },
+        { name: "Kali Linux", category: "SYSTEMS & SECURITY", status: "EXPLORING" },
 
-        // AI & DATA (8)
-        { name: "ChatGPT", category: "AI & DATA", status: "USING" },
-        { name: "Google Gemini", category: "AI & DATA", status: "USING" },
-        { name: "Claude", category: "AI & DATA", status: "USING" },
-        { name: "NumPy", category: "AI & DATA", status: "EXPLORING" },
-        { name: "Pandas", category: "AI & DATA", status: "EXPLORING" },
-        { name: "Jupyter", category: "AI & DATA", status: "EXPLORING" },
-        { name: "PyTorch", category: "AI & DATA", status: "EXPLORING" },
-        { name: "TensorFlow", category: "AI & DATA", status: "EXPLORING" },
+        // AI & DEVELOPMENT (4)
+        { name: "ChatGPT", category: "AI & DEVELOPMENT", status: "USING" },
+        { name: "Google Gemini", category: "AI & DEVELOPMENT", status: "USING" },
+        { name: "PyTorch", category: "AI & DEVELOPMENT", status: "EXPLORING" },
+        { name: "Visual Studio Code", category: "AI & DEVELOPMENT", status: "USING" },
 
-        // CLOUD & DEVOPS (5)
-        { name: "AWS", category: "CLOUD & DEVOPS", status: "EXPLORING" },
-        { name: "Microsoft Azure", category: "CLOUD & DEVOPS", status: "EXPLORING" },
-        { name: "Google Cloud", category: "CLOUD & DEVOPS", status: "EXPLORING" },
-        { name: "Docker", category: "CLOUD & DEVOPS", status: "EXPLORING" },
-        { name: "Kubernetes", category: "CLOUD & DEVOPS", status: "EXPLORING" },
+        // CLOUD & INFRASTRUCTURE (5)
+        { name: "AWS", category: "CLOUD & INFRASTRUCTURE", status: "EXPLORING" },
+        { name: "Google Cloud", category: "CLOUD & INFRASTRUCTURE", status: "EXPLORING" },
+        { name: "Kubernetes", category: "CLOUD & INFRASTRUCTURE", status: "EXPLORING" },
+        { name: "Cloudflare", category: "CLOUD & INFRASTRUCTURE", status: "EXPLORING" },
+        { name: "Vercel", category: "CLOUD & INFRASTRUCTURE", status: "EXPLORING" },
 
-        // DATABASES (4)
-        { name: "MySQL", category: "DATABASES", status: "EXPLORING" },
-        { name: "PostgreSQL", category: "DATABASES", status: "EXPLORING" },
-        { name: "MongoDB", category: "DATABASES", status: "EXPLORING" },
-        { name: "Firebase", category: "DATABASES", status: "EXPLORING" },
+        // DATABASES & BACKEND (6)
+        { name: "MySQL", category: "DATABASES & BACKEND", status: "EXPLORING" },
+        { name: "MongoDB", category: "DATABASES & BACKEND", status: "EXPLORING" },
+        { name: "Firebase", category: "DATABASES & BACKEND", status: "EXPLORING" },
+        { name: "Supabase", category: "DATABASES & BACKEND", status: "EXPLORING" },
+        { name: "SQLite", category: "DATABASES & BACKEND", status: "EXPLORING" },
+        { name: "SQL", category: "DATABASES & BACKEND", status: "USING" },
 
-        // DEVELOPMENT TOOLS (6)
-        { name: "Visual Studio Code", category: "DEVELOPMENT TOOLS", status: "USING" },
-        { name: "Antigravity", category: "DEVELOPMENT TOOLS", status: "USING" },
-        { name: "Git", category: "DEVELOPMENT TOOLS", status: "USING" },
-        { name: "GitHub", category: "DEVELOPMENT TOOLS", status: "USING" },
-        { name: "Postman", category: "DEVELOPMENT TOOLS", status: "EXPLORING" },
-        { name: "Vercel", category: "DEVELOPMENT TOOLS", status: "EXPLORING" },
+        // DEVELOPMENT & VERSION CONTROL (2)
+        { name: "Git", category: "DEVELOPMENT & VERSION CONTROL", status: "USING" },
+        { name: "GitHub", category: "DEVELOPMENT & VERSION CONTROL", status: "USING" },
 
-        // DESIGN & PRODUCTIVITY (2)
-        { name: "Canva", category: "DESIGN & PRODUCTIVITY", status: "USING" },
-        { name: "CapCut", category: "DESIGN & PRODUCTIVITY", status: "USING" }
+        // CREATIVE (2)
+        { name: "Canva", category: "CREATIVE", status: "USING" },
+        { name: "CapCut", category: "CREATIVE", status: "USING" }
       ];
-
-      // Dynamic Counter Pill
-      const techCounterPill = document.getElementById('techCounter');
-      if (techCounterPill) {
-        techCounterPill.textContent = `${TECH_DATASET.length} TOOLS AVAILABLE`;
-      }
 
       // References to Right Central Showcase elements
       const showcaseIconBadge = document.getElementById('showcaseIconBadge');
       const showcaseToolTitle = document.getElementById('showcaseToolTitle');
       const showcaseCatTag = document.getElementById('showcaseCatTag');
       const showcaseStatusPill = document.getElementById('showcaseStatusPill');
-      const orbitalShowcaseViewport = document.getElementById('orbitalShowcaseViewport');
 
       const DEFAULT_SHOWCASE_STATE = {
         symbol: "</>",
@@ -445,31 +402,35 @@
 
         setTimeout(() => {
           if (!tech || tech.title === 'TECH CORE') {
-            showcaseIconBadge.innerHTML = DEFAULT_SHOWCASE_STATE.symbol;
+            if (showcaseIconBadge) showcaseIconBadge.innerHTML = DEFAULT_SHOWCASE_STATE.symbol;
             showcaseToolTitle.textContent = DEFAULT_SHOWCASE_STATE.title;
-            showcaseCatTag.textContent = DEFAULT_SHOWCASE_STATE.cat;
-            showcaseStatusPill.style.display = 'none';
+            if (showcaseCatTag) showcaseCatTag.textContent = DEFAULT_SHOWCASE_STATE.cat;
+            if (showcaseStatusPill) showcaseStatusPill.style.display = 'none';
           } else {
             const logoUrl = REAL_LOGOS[tech.name];
-            if (logoUrl) {
-              showcaseIconBadge.innerHTML = `<img src="${logoUrl}" alt="${tech.name}">`;
-            } else {
-              showcaseIconBadge.textContent = tech.name.substring(0, 2);
+            if (showcaseIconBadge) {
+              if (logoUrl) {
+                showcaseIconBadge.innerHTML = `<img src="${logoUrl}" alt="${tech.name}">`;
+              } else {
+                showcaseIconBadge.textContent = tech.name.substring(0, 2);
+              }
             }
 
             showcaseToolTitle.textContent = tech.name;
-            showcaseCatTag.textContent = tech.category;
-            showcaseStatusPill.textContent = tech.status;
-            showcaseStatusPill.style.display = 'inline-block';
+            if (showcaseCatTag) showcaseCatTag.textContent = tech.category;
+            if (showcaseStatusPill) {
+              showcaseStatusPill.textContent = tech.status;
+              showcaseStatusPill.style.display = 'inline-block';
 
-            if (tech.status === 'USING') {
-              showcaseStatusPill.style.background = 'rgba(0, 230, 150, 0.15)';
-              showcaseStatusPill.style.color = '#00e696';
-              showcaseStatusPill.style.borderColor = 'rgba(0, 230, 150, 0.4)';
-            } else {
-              showcaseStatusPill.style.background = 'rgba(255, 77, 0, 0.15)';
-              showcaseStatusPill.style.color = 'var(--accent-orange)';
-              showcaseStatusPill.style.borderColor = 'rgba(255, 77, 0, 0.4)';
+              if (tech.status === 'USING') {
+                showcaseStatusPill.style.background = 'rgba(0, 230, 150, 0.15)';
+                showcaseStatusPill.style.color = '#00e696';
+                showcaseStatusPill.style.borderColor = 'rgba(0, 230, 150, 0.4)';
+              } else {
+                showcaseStatusPill.style.background = 'rgba(255, 77, 0, 0.15)';
+                showcaseStatusPill.style.color = 'var(--accent-orange)';
+                showcaseStatusPill.style.borderColor = 'rgba(255, 77, 0, 0.4)';
+              }
             }
           }
 
@@ -480,8 +441,14 @@
       // Populate LEFT Vertical Tool Directory with REAL LOGOS
       const directoryCol = document.getElementById('toolkitDirectoryCol');
       const categoriesOrder = [
-        "PROGRAMMING", "WEB DEVELOPMENT", "CYBER SECURITY", "AI & DATA",
-        "CLOUD & DEVOPS", "DATABASES", "DEVELOPMENT TOOLS", "DESIGN & PRODUCTIVITY"
+        "PROGRAMMING",
+        "WEB DEVELOPMENT",
+        "SYSTEMS & SECURITY",
+        "AI & DEVELOPMENT",
+        "CLOUD & INFRASTRUCTURE",
+        "DATABASES & BACKEND",
+        "DEVELOPMENT & VERSION CONTROL",
+        "CREATIVE"
       ];
 
       if (directoryCol) {
@@ -534,54 +501,70 @@
       }
 
       // ═══════════════════════════════════════════════
-      // RIGHT-SIDE ORBITAL SYSTEM — Full Rebuild
+      // RIGHT-SIDE ORBITAL SYSTEM — 3D TECH CORE MODEL (60 FPS Performance Optimized)
       // ═══════════════════════════════════════════════
       (function initOrbitalSystem() {
         const viewport   = document.getElementById('orbitalShowcaseViewport');
         const nodesLayer = document.getElementById('orbitalNodesLayer');
-        const svgRings   = ["orbitRing1","orbitRing2","orbitRing3","orbitRing4"];
         if (!viewport || !nodesLayer) return;
 
+        const svgRingIds = ["orbitRing1", "orbitRing2", "orbitRing3", "orbitRing4"];
+        const svgRingEls = svgRingIds.map(id => document.getElementById(id));
+
         // Orbital ring definitions — match the 4 SVG ellipses
-        // Speeds ~2.2× faster than original; ratio preserved for natural orbital feel
+        // Speeds tuned for natural, smooth, fluid orbital feel
         const RINGS = [
-          { rx: 92,  ry: 62,  speed:  0.00062, dir:  1 }, // Ring 1 innermost (fastest)
-          { rx: 152, ry: 102, speed:  0.00046, dir: -1 }, // Ring 2
-          { rx: 206, ry: 138, speed:  0.00037, dir:  1 }, // Ring 3
-          { rx: 254, ry: 170, speed:  0.00029, dir: -1 }, // Ring 4 outermost (slowest)
+          { rx: 92,  ry: 62,  speed:  0.00055, dir:  1 }, // Ring 0 innermost
+          { rx: 152, ry: 102, speed:  0.00042, dir: -1 }, // Ring 1
+          { rx: 206, ry: 138, speed:  0.00034, dir:  1 }, // Ring 2
+          { rx: 254, ry: 170, speed:  0.00026, dir: -1 }, // Ring 3 outermost
         ];
 
+        // All 31 technologies distributed across the 4 rings
         const ORBIT_TOOLS = [
-          { name: "Linux",             ring: 0 },
-          { name: "C",                 ring: 0 },
-          { name: "Python",            ring: 0 },
-          { name: "MySQL",             ring: 0 },
-          { name: "Node.js",           ring: 1 },
-          { name: "JavaScript",        ring: 1 },
-          { name: "ChatGPT",           ring: 1 },
-          { name: "PostgreSQL",        ring: 1 },
-          { name: "Visual Studio Code",ring: 1 },
-          { name: "GitHub",            ring: 1 },
-          { name: "React",             ring: 2 },
-          { name: "Next.js",           ring: 2 },
-          { name: "Tailwind CSS",      ring: 2 },
-          { name: "Google Gemini",     ring: 2 },
-          { name: "PyTorch",           ring: 2 },
-          { name: "Postman",           ring: 2 },
-          { name: "Kali Linux",        ring: 2 },
-          { name: "TypeScript",        ring: 2 },
-          { name: "AWS",               ring: 3 },
-          { name: "Kubernetes",        ring: 3 },
-          { name: "Google Cloud",      ring: 3 },
-          { name: "Wireshark",         ring: 3 },
-          { name: "Nmap",              ring: 3 },
-          { name: "Metasploit",        ring: 3 },
-          { name: "OWASP",             ring: 3 },
-          { name: "Bash",              ring: 3 },
-          { name: "Burp Suite",        ring: 3 },
+          // Ring 0 — Innermost (4 tools)
+          { name: "Linux",              ring: 0 },
+          { name: "C",                  ring: 0 },
+          { name: "Python",             ring: 0 },
+          { name: "SQL",                ring: 0 },
+
+          // Ring 1 (8 tools)
+          { name: "JavaScript",         ring: 1 },
+          { name: "HTML",               ring: 1 },
+          { name: "CSS",                ring: 1 },
+          { name: "React",              ring: 1 },
+          { name: "Node.js",            ring: 1 },
+          { name: "Java",               ring: 1 },
+          { name: "MySQL",              ring: 1 },
+          { name: "Git",                ring: 1 },
+
+          // Ring 2 (9 tools)
+          { name: "TypeScript",         ring: 2 },
+          { name: "Next.js",            ring: 2 },
+          { name: "ChatGPT",            ring: 2 },
+          { name: "Google Gemini",      ring: 2 },
+          { name: "PyTorch",            ring: 2 },
+          { name: "Visual Studio Code", ring: 2 },
+          { name: "MongoDB",            ring: 2 },
+          { name: "Firebase",           ring: 2 },
+          { name: "GitHub",             ring: 2 },
+
+          // Ring 3 — Outermost (10 tools)
+          { name: "Kali Linux",         ring: 3 },
+          { name: "AWS",                ring: 3 },
+          { name: "Google Cloud",       ring: 3 },
+          { name: "Kubernetes",         ring: 3 },
+          { name: "Cloudflare",         ring: 3 },
+          { name: "Vercel",             ring: 3 },
+          { name: "Supabase",           ring: 3 },
+          { name: "SQLite",             ring: 3 },
+          { name: "Canva",              ring: 3 },
+          { name: "CapCut",             ring: 3 },
         ];
 
-        // ── Build nodes ──
+        // ── Build nodes once in a DocumentFragment for batch DOM insertion ──
+        nodesLayer.innerHTML = '';
+        const fragment = document.createDocumentFragment();
         const nodeObjects = [];
         const ringCounts  = [0, 0, 0, 0];
         ORBIT_TOOLS.forEach(t => { ringCounts[t.ring]++; });
@@ -602,7 +585,21 @@
             ? `<img src="${logo}" class="node-logo-img" alt="${tool.name}"><span>${tool.name}</span>`
             : `<span style="font-size:14px;line-height:1">&#9679;</span><span>${tool.name}</span>`;
 
-          nodesLayer.appendChild(chip);
+          // Direct hover on orbit nodes
+          chip.addEventListener('mouseenter', () => {
+            _highlightNode(tool.name);
+            highlightLeftPill(tool.name);
+            const techObj = TECH_DATASET.find(t => t.name === tool.name);
+            if (techObj) updateRightShowcase(techObj);
+          }, { passive: true });
+
+          chip.addEventListener('mouseleave', () => {
+            _resetHighlight();
+            resetLeftPills();
+            updateRightShowcase(DEFAULT_SHOWCASE_STATE);
+          }, { passive: true });
+
+          fragment.appendChild(chip);
 
           nodeObjects.push({
             el:          chip,
@@ -611,57 +608,56 @@
             angle:       angle,
             scale:       1,
             targetScale: 1,
+            isActive:    false,
+            lastZ:       0
           });
         });
 
-        // ── Viewport dimension cache (re-read only on resize) ──
+        nodesLayer.appendChild(fragment);
+
+        // ── Viewport dimension & scale calculation ──
         let vw = viewport.clientWidth  || 540;
         let vh = viewport.clientHeight || 540;
-        let scaleX = vw / 540;
-        let scaleY = vh / 540;
+        let scale = Math.min(vw / 540, vh / 540);
+        let scaleX = scale;
+        let scaleY = scale;
         let cx = vw / 2;
         let cy = vh / 2;
 
-        const ro = new ResizeObserver(() => {
+        function updateDimensions() {
           vw = viewport.clientWidth  || 540;
           vh = viewport.clientHeight || 540;
-          scaleX = vw / 540;
-          scaleY = vh / 540;
+          const s = Math.min(vw / 540, vh / 540);
+          scaleX = s;
+          scaleY = s;
           cx = vw / 2;
           cy = vh / 2;
+          renderFrame(0);
+        }
+        updateDimensions();
+
+        const ro = new ResizeObserver(() => {
+          updateDimensions();
         });
         ro.observe(viewport);
 
-        // IntersectionObserver: skip work when section is off-screen
-        let sectionVisible = true;
-        const io = new IntersectionObserver(entries => {
-          sectionVisible = entries[0].isIntersecting;
-        }, { threshold: 0.05 });
-        io.observe(viewport);
+        // Orbit scale settings for premium pop-forward hover
+        const TARGET_SCALE  = 1.35;
+        const SCALE_EASE    = 0.16;
+        const SCALE_EPSILON = 0.001;
 
-        // Orbit NEVER pauses — no hover listeners on the viewport
-        const TARGET_SCALE  = 1.42;
-        const SCALE_EASE    = 0.13;
-        const SCALE_EPSILON = 0.0003;
+        // Check reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // ── High-performance animation loop ──
-        let lastTs = 0;
-        let rafId;
-
-        function tick(ts) {
-          rafId = requestAnimationFrame(tick);
-
-          // Completely skip rendering when section is off-screen
-          if (!sectionVisible) { lastTs = ts; return; }
-
-          const dt = Math.min(ts - lastTs, 40); // cap spike frames at 40ms
-          lastTs = ts;
-
-          nodeObjects.forEach(node => {
+        // Render single frame
+        function renderFrame(dt) {
+          for (let i = 0; i < nodeObjects.length; i++) {
+            const node = nodeObjects[i];
             const ring = RINGS[node.ring];
 
-            // Orbit ALWAYS advances — no pause, ever
-            node.angle += ring.speed * ring.dir * dt;
+            if (dt > 0) {
+              node.angle += ring.speed * ring.dir * dt;
+            }
 
             // Lerp scale toward target smoothly
             const diff = node.targetScale - node.scale;
@@ -675,40 +671,114 @@
             const px = ring.rx * Math.cos(node.angle) * scaleX;
             const py = ring.ry * Math.sin(node.angle) * scaleY;
 
-            // GPU-composited transform: translate3d (no integer rounding = no jitter)
+            // 3D Depth layer sorting: nodes in front of or behind central TECH CORE
+            const newZ = node.isActive ? 90 : (py > 0 ? 25 : 5);
+            if (node.lastZ !== newZ) {
+              node.el.style.zIndex = newZ;
+              node.lastZ = newZ;
+            }
+
+            // GPU-composited transform: translate3d
             node.el.style.transform =
-              `translate3d(${cx + px}px,${cy + py}px,0) translate(-50%,-50%) scale(${node.scale.toFixed(4)})`;
-          });
+              `translate3d(${(cx + px).toFixed(1)}px,${(cy + py).toFixed(1)}px,0) translate(-50%,-50%) scale(${node.scale.toFixed(3)})`;
+          }
         }
 
-        rafId = requestAnimationFrame(tick);
+        // Initial render of nodes
+        renderFrame(0);
+
+        // ── High-performance animation loop management ──
+        let lastTs = 0;
+        let rafId = null;
+        let isRunning = false;
+        let sectionVisible = true;
+        let docVisible = !document.hidden;
+
+        function tick(ts) {
+          if (!isRunning) return;
+
+          if (!lastTs) lastTs = ts;
+          const dt = Math.min(ts - lastTs, 32); // cap frame delta at 32ms (~30fps floor)
+          lastTs = ts;
+
+          renderFrame(dt);
+
+          rafId = requestAnimationFrame(tick);
+        }
+
+        function startLoop() {
+          if (isRunning || prefersReducedMotion) return;
+          if (sectionVisible && docVisible) {
+            isRunning = true;
+            lastTs = 0;
+            rafId = requestAnimationFrame(tick);
+          }
+        }
+
+        function stopLoop() {
+          if (!isRunning) return;
+          isRunning = false;
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          lastTs = 0;
+        }
+
+        // IntersectionObserver: completely stop loop when section is off-screen
+        const io = new IntersectionObserver(entries => {
+          sectionVisible = entries[0].isIntersecting;
+          if (sectionVisible) {
+            startLoop();
+          } else {
+            stopLoop();
+          }
+        }, { threshold: 0.02, rootMargin: '100px 0px 100px 0px' });
+        io.observe(viewport);
+
+        // Tab visibility listener: stop loop when tab is backgrounded
+        document.addEventListener('visibilitychange', () => {
+          docVisible = !document.hidden;
+          if (docVisible && sectionVisible) {
+            startLoop();
+          } else {
+            stopLoop();
+          }
+        }, { passive: true });
+
+        // Start loop if active
+        startLoop();
 
         // ── Highlight / reset logic ──
         function _highlightNode(techName) {
           viewport.classList.add('is-active');
           let activeRing = -1;
-          nodeObjects.forEach(n => {
+          for (let i = 0; i < nodeObjects.length; i++) {
+            const n = nodeObjects[i];
             const isActive = n.name === techName;
+            n.isActive = isActive;
             n.el.classList.toggle('active', isActive);
             n.targetScale = isActive ? TARGET_SCALE : 1;
             if (isActive) activeRing = n.ring;
-          });
-          svgRings.forEach((id, i) => {
-            const el = document.getElementById(id);
+          }
+          for (let i = 0; i < svgRingEls.length; i++) {
+            const el = svgRingEls[i];
             if (el) el.classList.toggle('ring-active', i === activeRing);
-          });
+          }
         }
 
         function _resetHighlight() {
           viewport.classList.remove('is-active');
-          nodeObjects.forEach(n => {
+          for (let i = 0; i < nodeObjects.length; i++) {
+            const n = nodeObjects[i];
+            n.isActive = false;
             n.el.classList.remove('active');
             n.targetScale = 1;
-          });
-          svgRings.forEach(id => {
-            const el = document.getElementById(id);
+          }
+          for (let i = 0; i < svgRingEls.length; i++) {
+            const el = svgRingEls[i];
             if (el) el.classList.remove('ring-active');
-          });
+          }
         }
 
         // Expose to outer scope for left-pill hover calls

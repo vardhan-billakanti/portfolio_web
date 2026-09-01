@@ -199,13 +199,22 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <!-- Google Fonts: Plus Jakarta Sans, Outfit & Inter -->
+  <!-- Google Fonts: Plus Jakarta Sans, Outfit & Inter (display: swap ensures instant text render) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <!-- EmailJS SDK — real email delivery from static HTML (no server needed) -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- Progressive Enhancement: Zero-JS / Restricted Network Fallback -->
+  <noscript>
+    <style>
+      .preloader { display: none !important; }
+      .scroll-reveal, .about-reveal, .beyond-reveal, .heading-reveal, .proj-card {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
 </head>
 <body>
 
@@ -214,6 +223,15 @@
     <div class="preloader-text">Loading Portfolio</div>
     <div class="preloader-bar-wrap" aria-hidden="true"><div class="preloader-bar"></div></div>
   </div>
+  <script>
+    // Failsafe: Never allow preloader overlay to block the screen under any network condition
+    setTimeout(function () {
+      var p = document.getElementById('preloader');
+      if (p && !p.classList.contains('hidden')) {
+        p.classList.add('hidden');
+      }
+    }, 350);
+  </script>
 
   <!-- Fixed Background Scroll Animation Canvas -->
   <canvas id="animationCanvas"></canvas>
@@ -1254,9 +1272,8 @@
   </main>
 
 
-  <!-- JavaScript Animation Controller -->
-
-  <!-- JavaScript Animation Controller -->
-  <script src="js/main.js"></script>
+  <!-- JavaScript Controllers -->
+  <script src="js/email.min.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

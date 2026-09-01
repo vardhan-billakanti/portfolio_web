@@ -358,6 +358,10 @@
               id="mobilePortraitImg"
               class="hero-mobile-portrait-img"
               loading="eager"
+              fetchpriority="high"
+              decoding="sync"
+              width="480"
+              height="640"
               draggable="false"
             >
           </div>
@@ -515,7 +519,7 @@
 
               <h3 class="milestone-title">B.Tech in Computer Science &amp; Engineering</h3>
               <div class="milestone-institution">
-                <img src="images/cvr_logo.png" class="institution-logo" alt="CVR College of Engineering Logo">
+                <img src="images/cvr_logo.png" class="institution-logo" alt="CVR College of Engineering Logo" width="36" height="36" loading="lazy" decoding="async">
                 <span>CVR College of Engineering</span>
               </div>
               <div class="milestone-year">2025 — Present</div>
@@ -540,7 +544,7 @@
 
               <h3 class="milestone-title">Intermediate</h3>
               <div class="milestone-institution">
-                <img src="images/motion_logo.png" class="institution-logo" alt="Motion Junior College Logo">
+                <img src="images/motion_logo.png" class="institution-logo" alt="Motion Junior College Logo" width="36" height="36" loading="lazy" decoding="async">
                 <span>Motion Junior College, Madhapur</span>
               </div>
               <div class="milestone-year">2023 — 2025</div>
@@ -565,7 +569,7 @@
 
               <h3 class="milestone-title">Class 10</h3>
               <div class="milestone-institution">
-                <img src="images/bhashyam_logo.png" class="institution-logo" alt="Bhashyam Blooms Logo">
+                <img src="images/bhashyam_logo.png" class="institution-logo" alt="Bhashyam Blooms Logo" width="36" height="36" loading="lazy" decoding="async">
                 <span>Bhashyam Blooms, Maheshwaram</span>
               </div>
               <div class="milestone-year">2023</div>
@@ -789,7 +793,7 @@
             <!-- Card 01: CVR Code in Borderland Coding Competition (Far Left) -->
             <div class="cert-fan-card" tabindex="0" role="button" aria-label="View Code in Borderland Competition Certificate by CVR ACM" onclick="openCertModal('images/cert_cvr_coding.jpg', 'Code in Borderland Coding Competition — CVR College of Engineering / ACM CVRCE')" onkeydown="if(event.key==='Enter')openCertModal('images/cert_cvr_coding.jpg', 'Code in Borderland Coding Competition — CVR College of Engineering / ACM CVRCE')">
               <div class="cert-fan-media">
-                <img src="images/cert_cvr_coding.jpg" alt="Code in Borderland Coding Competition Certificate of Excellence — CVR College ACM" class="cert-fan-img" loading="lazy" />
+                <img src="images/cert_cvr_coding.jpg" alt="Code in Borderland Coding Competition Certificate of Excellence — CVR College ACM" class="cert-fan-img" width="250" height="175" loading="lazy" decoding="async" />
                 <div class="cert-fan-overlay">
                   <span class="cert-fan-hint">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -810,7 +814,7 @@
             <!-- Card 02: LetsUpgrade Git & GitHub (Mid Left) -->
             <div class="cert-fan-card" tabindex="0" role="button" aria-label="View Git & GitHub Bootcamp Certificate by LetsUpgrade" onclick="openCertModal('images/cert_git_github.jpg', 'Git & GitHub Bootcamp — LetsUpgrade')" onkeydown="if(event.key==='Enter')openCertModal('images/cert_git_github.jpg', 'Git & GitHub Bootcamp — LetsUpgrade')">
               <div class="cert-fan-media">
-                <img src="images/cert_git_github.jpg" alt="Git & GitHub Bootcamp Certificate — LetsUpgrade" class="cert-fan-img" loading="lazy" />
+                <img src="images/cert_git_github.jpg" alt="Git & GitHub Bootcamp Certificate — LetsUpgrade" class="cert-fan-img" width="250" height="175" loading="lazy" decoding="async" />
                 <div class="cert-fan-overlay">
                   <span class="cert-fan-hint">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -831,7 +835,7 @@
             <!-- Card 03: E-Box Data Structures (Inner Left) -->
             <div class="cert-fan-card" tabindex="0" role="button" aria-label="View Data Structures in C Certificate by E-Box" onclick="openCertModal('images/cert_dsa_c.jpg', 'Data Structures : Deep Dive Using C — E-Box / Amphisoft')" onkeydown="if(event.key==='Enter')openCertModal('images/cert_dsa_c.jpg', 'Data Structures : Deep Dive Using C — E-Box / Amphisoft')">
               <div class="cert-fan-media">
-                <img src="images/cert_dsa_c.jpg" alt="Data Structures Deep Dive Using C Certificate — E-Box" class="cert-fan-img" loading="lazy" />
+                <img src="images/cert_dsa_c.jpg" alt="Data Structures Deep Dive Using C Certificate — E-Box" class="cert-fan-img" width="250" height="175" loading="lazy" decoding="async" />
                 <div class="cert-fan-overlay">
                   <span class="cert-fan-hint">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -852,7 +856,7 @@
             <!-- Card 04: Google Crash Course on Python (Center / Featured Keystone) -->
             <div class="cert-fan-card" tabindex="0" role="button" aria-label="View Crash Course on Python Certificate by Google" onclick="openCertModal('images/cert_google_python.jpg', 'Crash Course on Python — Google / Coursera')" onkeydown="if(event.key==='Enter')openCertModal('images/cert_google_python.jpg', 'Crash Course on Python — Google / Coursera')">
               <div class="cert-fan-media">
-                <img src="images/cert_google_python.jpg" alt="Crash Course on Python Certificate — Google Coursera" class="cert-fan-img" loading="lazy" />
+                <img src="images/cert_google_python.jpg" alt="Crash Course on Python Certificate — Google Coursera" class="cert-fan-img" width="250" height="175" loading="lazy" decoding="async" />
                 <div class="cert-fan-overlay">
                   <span class="cert-fan-hint">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -873,7 +877,7 @@
             <!-- Card 05: LetsUpgrade HTML & CSS (Inner Right) -->
             <div class="cert-fan-card" tabindex="0" role="button" aria-label="View HTML & CSS Bootcamp Certificate by LetsUpgrade" onclick="openCertModal('images/cert_html_css.jpg', 'HTML & CSS Bootcamp — LetsUpgrade')" onkeydown="if(event.key==='Enter')openCertModal('images/cert_html_css.jpg', 'HTML & CSS Bootcamp — LetsUpgrade')">
               <div class="cert-fan-media">
-                <img src="images/cert_html_css.jpg" alt="HTML & CSS Bootcamp Certificate — LetsUpgrade" class="cert-fan-img" loading="lazy" />
+                <img src="images/cert_html_css.jpg" alt="HTML & CSS Bootcamp Certificate — LetsUpgrade" class="cert-fan-img" width="250" height="175" loading="lazy" decoding="async" />
                 <div class="cert-fan-overlay">
                   <span class="cert-fan-hint">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -894,7 +898,7 @@
             <!-- Card 06: E-Box Python Basics (Mid Right) -->
             <div class="cert-fan-card" tabindex="0" role="button" aria-label="View Python Basics for Beginners Certificate by E-Box" onclick="openCertModal('images/cert_ebox_python.jpg', 'Python Basics for Beginners — E-Box / Amphisoft')" onkeydown="if(event.key==='Enter')openCertModal('images/cert_ebox_python.jpg', 'Python Basics for Beginners — E-Box / Amphisoft')">
               <div class="cert-fan-media">
-                <img src="images/cert_ebox_python.jpg" alt="Python Basics for Beginners Certificate — E-Box" class="cert-fan-img" loading="lazy" />
+                <img src="images/cert_ebox_python.jpg" alt="Python Basics for Beginners Certificate — E-Box" class="cert-fan-img" width="250" height="175" loading="lazy" decoding="async" />
                 <div class="cert-fan-overlay">
                   <span class="cert-fan-hint">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -915,7 +919,7 @@
             <!-- Card 07: Tata Crucible Campus Quiz (Far Right) -->
             <div class="cert-fan-card" tabindex="0" role="button" aria-label="View TATA Crucible Campus Quiz Certificate by Tata Group" onclick="openCertModal('images/cert_tata_crucible.jpg', 'TATA Crucible Campus Quiz 2025 — Unstop / Tata Group')" onkeydown="if(event.key==='Enter')openCertModal('images/cert_tata_crucible.jpg', 'TATA Crucible Campus Quiz 2025 — Unstop / Tata Group')">
               <div class="cert-fan-media">
-                <img src="images/cert_tata_crucible.jpg" alt="TATA Crucible Campus Quiz Certificate of Participation — Tata Group" class="cert-fan-img" loading="lazy" />
+                <img src="images/cert_tata_crucible.jpg" alt="TATA Crucible Campus Quiz Certificate of Participation — Tata Group" class="cert-fan-img" width="250" height="175" loading="lazy" decoding="async" />
                 <div class="cert-fan-overlay">
                   <span class="cert-fan-hint">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -988,7 +992,10 @@
                 src="images/lorven_logo.png"
                 alt="Lorven Enterprise — Where Strategy Meets Growth"
                 class="lorven-logo-img"
+                width="160"
+                height="102"
                 loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -1095,7 +1102,7 @@
           <!-- Founder 1: Vashishta Reddy -->
           <div class="founder-card scroll-reveal delay-1">
             <div class="founder-avatar">
-              <img src="images/founder_vashishta.jpg" alt="ReddyGari Vashishta Reddy" class="founder-avatar-img" loading="lazy" />
+              <img src="images/founder_vashishta.jpg" alt="ReddyGari Vashishta Reddy" class="founder-avatar-img" width="72" height="72" loading="lazy" decoding="async" />
             </div>
             <div class="founder-name">ReddyGari Vashishta Reddy</div>
             <div class="founder-role-primary">Founder &amp; CEO</div>
@@ -1109,7 +1116,7 @@
           <!-- Founder 2: B. Jaya Vardhan -->
           <div class="founder-card scroll-reveal delay-2">
             <div class="founder-avatar">
-              <img src="frames/ezgif-frame-001.jpg" alt="Billakanti Jaya Vardhan" class="founder-avatar-img" loading="lazy" style="object-position: center 15%;" />
+              <img src="images/founder_jayavardhan.jpg" alt="Billakanti Jaya Vardhan" class="founder-avatar-img" width="72" height="72" loading="lazy" decoding="async" style="object-position: center 15%;" />
             </div>
             <div class="founder-name">Billakanti Jaya Vardhan</div>
             <div class="founder-role-primary">Founder &amp; COO</div>
@@ -1121,7 +1128,7 @@
           <!-- Founder 3: Vishwak Pullepu -->
           <div class="founder-card scroll-reveal delay-3">
             <div class="founder-avatar">
-              <img src="images/founder_vishwak.jpg" alt="Vishwak Pullepu" class="founder-avatar-img" loading="lazy" />
+              <img src="images/founder_vishwak.jpg" alt="Vishwak Pullepu" class="founder-avatar-img" width="72" height="72" loading="lazy" decoding="async" />
             </div>
             <div class="founder-name">Vishwak Pullepu</div>
             <div class="founder-role-primary">Founder &amp; CTO</div>

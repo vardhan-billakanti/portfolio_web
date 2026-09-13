@@ -3043,7 +3043,7 @@
 
       /* ── PROJECTS ── */
       .projects-grid  { grid-template-columns: 1fr !important; gap: 16px; }
-      .proj-card      { padding: 18px 16px 16px 16px; min-height: auto; }
+      .proj-card      { padding: 16px 16px 14px 16px; }
 
       /* ── CERTIFICATIONS ── */
       .cert-grid      { grid-template-columns: 1fr; gap: 14px; }
@@ -3113,7 +3113,7 @@
     @media (max-width: 480px) {
       .hero-title       { font-size: clamp(1.9rem, 8.5vw, 2.8rem); }
       .hero-right-title { font-size: clamp(1.7rem, 7.5vw, 2.4rem); }
-      .proj-card        { padding: 16px 14px; min-height: auto; }
+      .proj-card        { padding: 14px 14px 12px 14px; }
       .lorven-box       { padding: 22px 14px 18px; }
       .founders-grid    { gap: 12px; }
       .contact-form-panel, .contact-info-card { padding: 20px 14px; }
@@ -4694,13 +4694,11 @@
       background: rgba(14, 6, 16, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
-      padding: 22px 20px 18px 20px;
+      padding: 16px 18px 16px 18px;
       overflow: hidden;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      min-height: 260px;
       text-decoration: none !important;
       color: inherit !important;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
@@ -4779,7 +4777,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .proj-num {
@@ -4816,7 +4814,7 @@
       font-weight: 800;
       color: var(--text-white);
       letter-spacing: -0.3px;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       line-height: 1.22;
       text-decoration: none !important;
       transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
@@ -4831,10 +4829,10 @@
     /* Description */
     .proj-desc {
       font-size: 12.5px;
-      line-height: 1.5;
+      line-height: 1.45;
       color: rgba(255, 255, 255, 0.58);
       text-decoration: none !important;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     /* Tech tags — Final Element */
@@ -4842,7 +4840,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
-      margin-top: auto;
+      margin-top: 0;
       margin-bottom: 0;
       text-decoration: none !important;
     }
@@ -4850,7 +4848,7 @@
     .proj-tag {
       font-size: 10.5px;
       font-weight: 600;
-      padding: 2.5px 7.5px;
+      padding: 2px 7px;
       border-radius: 5px;
       background: rgba(255, 255, 255, 0.05);
       color: rgba(255, 255, 255, 0.52);

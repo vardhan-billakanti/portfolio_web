@@ -1077,7 +1077,8 @@
 
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // MODULE 6B: MOBILE CERTIFICATIONS CAROUSEL CONTROLLER
+  // ═══════════════════════════════════════════════════════════════════════════
+  // MODULE 6B: MOBILE CERTIFICATIONS CAROUSEL CONTROLLER (Mobile ONLY < 768px)
   // ═══════════════════════════════════════════════════════════════════════════
   safeExec('Mobile Certifications Carousel Controller', function () {
     const wrapper = document.querySelector('.cert-stack-wrapper');
@@ -1092,6 +1093,10 @@
     let userHasInteracted = false;
     let scrollRaf = null;
 
+    function isMobile() {
+      return window.innerWidth < 768;
+    }
+
     function getTargetScroll(targetCard) {
       if (!targetCard) return 0;
       const wrapperRect = wrapper.getBoundingClientRect();
@@ -1105,7 +1110,7 @@
     }
 
     function updateActiveCard() {
-      if (window.innerWidth >= 768) return;
+      if (!isMobile()) return;
       const wrapperRect = wrapper.getBoundingClientRect();
       const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
 
@@ -1132,7 +1137,7 @@
     }
 
     function centerMiddleCard(force) {
-      if (window.innerWidth >= 768) return;
+      if (!isMobile()) return;
       if (userHasInteracted && !force) return;
 
       const targetCard = cards[middleIndex];
@@ -1144,15 +1149,20 @@
     }
 
     function markUserInteracted() {
+      if (!isMobile()) return;
       userHasInteracted = true;
     }
 
     wrapper.addEventListener('touchstart', markUserInteracted, { passive: true });
-    wrapper.addEventListener('pointerdown', markUserInteracted, { passive: true });
-    wrapper.addEventListener('mousedown', markUserInteracted, { passive: true });
-    wrapper.addEventListener('wheel', markUserInteracted, { passive: true });
+    wrapper.addEventListener('pointerdown', function (e) {
+      if (!isMobile()) return;
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        userHasInteracted = true;
+      }
+    }, { passive: true });
 
     wrapper.addEventListener('scroll', function () {
+      if (!isMobile()) return;
       if (scrollRaf) cancelAnimationFrame(scrollRaf);
       scrollRaf = requestAnimationFrame(updateActiveCard);
     }, { passive: true });
@@ -1162,7 +1172,7 @@
       if (certSection) {
         const observer = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
-            if (entry.isIntersecting && !userHasInteracted && window.innerWidth < 768) {
+            if (entry.isIntersecting && !userHasInteracted && isMobile()) {
               centerMiddleCard(false);
             }
           });
@@ -1171,7 +1181,7 @@
       }
     }
 
-    if (window.innerWidth < 768) {
+    if (isMobile()) {
       centerMiddleCard(false);
       requestAnimationFrame(function () {
         centerMiddleCard(false);
@@ -1185,7 +1195,7 @@
     }
 
     window.addEventListener('load', function () {
-      if (window.innerWidth < 768 && !userHasInteracted) {
+      if (isMobile() && !userHasInteracted) {
         centerMiddleCard(false);
       }
     });
@@ -1194,7 +1204,7 @@
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
-        if (window.innerWidth < 768) {
+        if (isMobile()) {
           if (!userHasInteracted) {
             centerMiddleCard(false);
           } else {

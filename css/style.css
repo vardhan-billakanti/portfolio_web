@@ -5176,36 +5176,44 @@
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
+        -ms-overflow-style: none;
         overscroll-behavior-x: contain;
+        touch-action: pan-x pan-y;
       }
       .cert-stack-wrapper::-webkit-scrollbar {
         display: none;
+        width: 0;
+        height: 0;
       }
-      /* Content Track */
+      /* Content Track: Centered side padding allows every card to settle in exact center */
       .cert-stack-stage {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        align-items: stretch;
+        align-items: center;
         justify-content: flex-start;
         width: max-content;
         min-width: 100%;
-        padding: 4px 24px 10px 24px;
+        padding-top: 6px;
+        padding-bottom: 12px;
+        padding-left: max(24px, calc(50vw - 135px));
+        padding-right: max(24px, calc(50vw - 135px));
         gap: 16px;
         margin: 0;
         transform: none;
         perspective: none;
         overflow: visible;
+        box-sizing: border-box;
       }
-      /* Clean standalone cards with ZERO desktop transforms */
+      /* Standalone cards with smooth centering prominence */
       .cert-fan-card {
         flex: 0 0 270px;
         width: 270px;
         max-width: 78vw;
         min-width: 240px;
         margin: 0;
-        transform: none;
-        opacity: 1;
+        transform: scale(0.94);
+        opacity: 0.72;
         scroll-snap-align: center;
         scroll-snap-stop: normal;
         background: rgba(14, 6, 18, 0.92);
@@ -5224,21 +5232,35 @@
         top: auto;
         bottom: auto;
         z-index: 1;
+        transition:
+          transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+          opacity 0.32s ease,
+          border-color 0.32s ease,
+          box-shadow 0.32s ease;
       }
       .cert-fan-card:nth-child(n) {
-        transform: none;
-        opacity: 1;
         margin: 0;
-        z-index: 1;
+      }
+      .cert-fan-card.is-centered {
+        transform: scale(1);
+        opacity: 1;
+        border-color: rgba(255, 77, 0, 0.7);
+        box-shadow:
+          0 14px 34px rgba(0, 0, 0, 0.75),
+          0 0 24px rgba(255, 77, 0, 0.24);
+        z-index: 5;
       }
       .cert-fan-card::before {
         display: none;
       }
       .cert-fan-card:hover,
       .cert-fan-card:active {
-        transform: translateY(-2px);
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
         border-color: rgba(255, 77, 0, 0.7);
+      }
+      .cert-fan-card.is-centered:hover,
+      .cert-fan-card.is-centered:active {
+        transform: scale(1.02);
       }
       .cert-fan-title {
         font-size: 13.5px;

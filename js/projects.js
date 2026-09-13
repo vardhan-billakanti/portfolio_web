@@ -48,14 +48,22 @@
         const body = card.querySelector('.project-card-body');
         let rafId = null;
 
+        let cardRect = null;
+
+        card.addEventListener('mouseenter', () => {
+          cardRect = card.getBoundingClientRect();
+        }, { passive: true });
+
         card.addEventListener('mousemove', (e) => {
+          const clientX = e.clientX;
+          const clientY = e.clientY;
           if (rafId) cancelAnimationFrame(rafId);
           rafId = requestAnimationFrame(() => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+            if (!cardRect) cardRect = card.getBoundingClientRect();
+            const x = clientX - cardRect.left;
+            const y = clientY - cardRect.top;
+            const centerX = cardRect.width / 2;
+            const centerY = cardRect.height / 2;
 
             const rotateX = ((y - centerY) / centerY) * -2.5;
             const rotateY = ((x - centerX) / centerX) * 2.5;
@@ -74,6 +82,7 @@
         }, { passive: true });
 
         card.addEventListener('mouseleave', () => {
+          cardRect = null;
           if (rafId) cancelAnimationFrame(rafId);
           card.style.transform = '';
           if (img) img.style.transform = '';

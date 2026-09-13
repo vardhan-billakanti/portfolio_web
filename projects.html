@@ -284,7 +284,9 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <!-- Google Fonts: Plus Jakarta Sans, Outfit & Inter (display: swap ensures instant text render) -->
+  <!-- Resource Hints & Google Fonts (display: swap ensures instant text render) -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -339,7 +341,7 @@
         <!-- Project Card 1: Portfolio -->
         <div class="project-card" data-category="web">
           <div class="project-card-img-box">
-            <img src="images/proj_portfolio.jpg" alt="Portfolio Website by Billakanti Jaya Vardhan" class="project-card-img" width="480" height="320" loading="lazy" decoding="async">
+            <img src="images/proj_portfolio.jpg" alt="Portfolio Website by Billakanti Jaya Vardhan" class="project-card-img" width="480" height="320" loading="eager" fetchpriority="high" decoding="async">
           </div>
           <div class="project-card-body">
             <div>

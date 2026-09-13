@@ -5210,15 +5210,15 @@
         overflow: visible;
         box-sizing: border-box;
       }
-      /* Standalone cards with smooth centering prominence */
+      /* Standalone cards with uniform appearance — no active outline or following highlight */
       .cert-fan-card {
         flex: 0 0 270px;
         width: 270px;
         max-width: 78vw;
         min-width: 240px;
         margin: 0;
-        transform: scale(0.94);
-        opacity: 0.72;
+        transform: none;
+        opacity: 1;
         scroll-snap-align: center;
         scroll-snap-stop: normal;
         background: rgba(14, 6, 18, 0.92);
@@ -5237,30 +5237,28 @@
         top: auto;
         bottom: auto;
         z-index: 1;
-        transition:
-          transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
-          opacity 0.32s ease,
-          border-color 0.32s ease,
-          box-shadow 0.32s ease;
+        transition: none;
       }
       .cert-fan-card:nth-child(n) {
         margin: 0;
-      }
-      .cert-fan-card.is-centered {
-        transform: scale(1);
+        transform: none;
         opacity: 1;
-        border-color: rgba(255, 77, 0, 0.7);
-        box-shadow:
-          0 14px 34px rgba(0, 0, 0, 0.75),
-          0 0 24px rgba(255, 77, 0, 0.24);
-        z-index: 5;
+        z-index: 1;
       }
       .cert-fan-card::before,
       .cert-fan-card::after {
-        display: none;
+        display: none !important;
       }
-      .cert-fan-card:active {
-        border-color: rgba(255, 77, 0, 0.7);
+      .cert-fan-card:hover,
+      .cert-fan-card:focus,
+      .cert-fan-card:focus-visible,
+      .cert-fan-card:active,
+      .cert-fan-card.is-centered {
+        transform: none !important;
+        border-color: rgba(255, 255, 255, 0.09) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+        filter: none !important;
+        outline: none !important;
       }
       .cert-fan-title {
         font-size: 13.5px;

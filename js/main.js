@@ -1091,7 +1091,6 @@
     // Symmetrical middle certificate index (for 10 cards: index 4, the 5th card)
     const middleIndex = Math.floor((cards.length - 1) / 2);
     let userHasInteracted = false;
-    let scrollRaf = null;
 
     function isMobile() {
       return window.innerWidth < 768;
@@ -1109,33 +1108,6 @@
       return Math.max(0, targetCard.offsetLeft - (wrapper.clientWidth - targetCard.clientWidth) / 2);
     }
 
-    function updateActiveCard() {
-      if (!isMobile()) return;
-      const wrapperRect = wrapper.getBoundingClientRect();
-      const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
-
-      let closestIndex = -1;
-      let minDistance = Infinity;
-
-      for (let i = 0; i < cards.length; i++) {
-        const cardRect = cards[i].getBoundingClientRect();
-        const cardCenter = cardRect.left + cardRect.width / 2;
-        const dist = Math.abs(cardCenter - wrapperCenter);
-        if (dist < minDistance) {
-          minDistance = dist;
-          closestIndex = i;
-        }
-      }
-
-      for (let i = 0; i < cards.length; i++) {
-        if (i === closestIndex) {
-          cards[i].classList.add('is-centered');
-        } else {
-          cards[i].classList.remove('is-centered');
-        }
-      }
-    }
-
     function centerMiddleCard(force) {
       if (!isMobile()) return;
       if (userHasInteracted && !force) return;
@@ -1145,7 +1117,6 @@
 
       const targetScroll = getTargetScroll(targetCard);
       wrapper.scrollLeft = Math.round(targetScroll);
-      updateActiveCard();
     }
 
     function markUserInteracted() {
@@ -1159,12 +1130,6 @@
       if (e.pointerType === 'touch' || e.pointerType === 'pen') {
         userHasInteracted = true;
       }
-    }, { passive: true });
-
-    wrapper.addEventListener('scroll', function () {
-      if (!isMobile()) return;
-      if (scrollRaf) cancelAnimationFrame(scrollRaf);
-      scrollRaf = requestAnimationFrame(updateActiveCard);
     }, { passive: true });
 
     if ('IntersectionObserver' in window) {
@@ -1207,13 +1172,7 @@
         if (isMobile()) {
           if (!userHasInteracted) {
             centerMiddleCard(false);
-          } else {
-            updateActiveCard();
           }
-        } else {
-          cards.forEach(function (c) {
-            c.classList.remove('is-centered');
-          });
         }
       }, 150);
     });

@@ -3043,7 +3043,7 @@
 
       /* ── PROJECTS ── */
       .projects-grid  { grid-template-columns: 1fr !important; gap: 16px; }
-      .proj-card      { padding: 24px 18px; }
+      .proj-card      { padding: 18px 16px 16px 16px; min-height: auto; }
 
       /* ── CERTIFICATIONS ── */
       .cert-grid      { grid-template-columns: 1fr; gap: 14px; }
@@ -3113,7 +3113,7 @@
     @media (max-width: 480px) {
       .hero-title       { font-size: clamp(1.9rem, 8.5vw, 2.8rem); }
       .hero-right-title { font-size: clamp(1.7rem, 7.5vw, 2.4rem); }
-      .proj-card        { padding: 20px 14px; }
+      .proj-card        { padding: 16px 14px; min-height: auto; }
       .lorven-box       { padding: 22px 14px 18px; }
       .founders-grid    { gap: 12px; }
       .contact-form-panel, .contact-info-card { padding: 20px 14px; }
@@ -4658,16 +4658,16 @@
       margin: 0 auto;
     }
 
-    /* 2-column grid */
+    /* 3-column compact grid on desktop */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
-      max-width: 1080px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 992px) {
       .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     }
 
@@ -4694,11 +4694,13 @@
       background: rgba(14, 6, 16, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
-      padding: 20px 22px 18px 22px;
+      padding: 22px 20px 18px 20px;
       overflow: hidden;
       cursor: pointer;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      min-height: 260px;
       text-decoration: none !important;
       color: inherit !important;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
@@ -4740,8 +4742,8 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       border-top: 1.5px solid rgba(255, 77, 0, 0.25);
       border-right: 1.5px solid rgba(255, 77, 0, 0.25);
       border-radius: 0 14px 0 0;
@@ -4782,7 +4784,7 @@
 
     .proj-num {
       font-family: 'Outfit', var(--font-main);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       letter-spacing: 2px;
       color: rgba(255, 255, 255, 0.28);
@@ -4798,9 +4800,9 @@
     /* Category */
     .proj-category {
       font-family: 'Outfit', var(--font-main);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
-      letter-spacing: 1.8px;
+      letter-spacing: 1.5px;
       color: rgba(255, 77, 0, 0.75);
       text-transform: uppercase;
       text-decoration: none !important;
@@ -4810,12 +4812,12 @@
     /* Title */
     .proj-title {
       font-family: 'Outfit', var(--font-main);
-      font-size: 1.25rem;
+      font-size: 1.18rem;
       font-weight: 800;
       color: var(--text-white);
       letter-spacing: -0.3px;
       margin-bottom: 6px;
-      line-height: 1.2;
+      line-height: 1.22;
       text-decoration: none !important;
       transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
     }
@@ -4828,11 +4830,11 @@
 
     /* Description */
     .proj-desc {
-      font-size: 13px;
+      font-size: 12.5px;
       line-height: 1.5;
       color: rgba(255, 255, 255, 0.58);
       text-decoration: none !important;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     /* Tech tags — Final Element */
@@ -4840,15 +4842,16 @@
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
+      margin-top: auto;
       margin-bottom: 0;
       text-decoration: none !important;
     }
 
     .proj-tag {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 6px;
+      padding: 2.5px 7.5px;
+      border-radius: 5px;
       background: rgba(255, 255, 255, 0.05);
       color: rgba(255, 255, 255, 0.52);
       border: 1px solid rgba(255, 255, 255, 0.08);

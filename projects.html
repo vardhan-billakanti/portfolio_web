@@ -111,7 +111,7 @@
           "@type": "ItemList",
           "name": "Projects by Billakanti Jaya Vardhan",
           "description": "Curated collection of software and web development projects built by Billakanti Jaya Vardhan.",
-          "numberOfItems": 6,
+          "numberOfItems": 8,
           "itemListElement": [
             {
               "@type": "ListItem",
@@ -232,6 +232,46 @@
                   "@id": "https://vardhanbillakanti.vercel.app/#person"
                 }
               }
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "item": {
+                "@type": "WebApplication",
+                "@id": "https://resuvana.vercel.app/#app",
+                "name": "Resuvana",
+                "url": "https://resuvana.vercel.app/",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "Web Browser",
+                "browserRequirements": "Requires JavaScript. Requires HTML5.",
+                "description": "A modern resume-building web application designed for students, fresh graduates, and experienced professionals with six professional resume templates, live A4 preview, multi-page support, and ATS-conscious formatting.",
+                "author": {
+                  "@id": "https://vardhanbillakanti.vercel.app/#person"
+                },
+                "creator": {
+                  "@id": "https://vardhanbillakanti.vercel.app/#person"
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "item": {
+                "@type": "WebApplication",
+                "@id": "https://cookpro.vercel.app/#app",
+                "name": "CookPro",
+                "url": "https://cookpro.vercel.app/",
+                "applicationCategory": "LifestyleApplication",
+                "operatingSystem": "Web Browser",
+                "browserRequirements": "Requires JavaScript. Requires HTML5.",
+                "description": "A full-stack smart recipe discovery platform that helps users discover recipes based on ingredients they already have, with transparent recipe match percentages, relevance ranking, personal pantry, saved cookbook, and shopping list.",
+                "author": {
+                  "@id": "https://vardhanbillakanti.vercel.app/#person"
+                },
+                "creator": {
+                  "@id": "https://vardhanbillakanti.vercel.app/#person"
+                }
+              }
             }
           ]
         }
@@ -285,7 +325,7 @@
 
       <!-- Category Filter Bar -->
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterProjects('all', this)">All Projects (6)</button>
+        <button class="filter-btn active" onclick="filterProjects('all', this)">All Projects (8)</button>
         <button class="filter-btn" onclick="filterProjects('web', this)">Web &amp; Cloud</button>
         <button class="filter-btn" onclick="filterProjects('security', this)">Security &amp; Privacy</button>
         <button class="filter-btn" onclick="filterProjects('interactive', this)">Interactive</button>
@@ -503,6 +543,79 @@
             </div>
             <div class="project-btn-row">
               <a href="https://toolock.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-link" aria-label="Visit Live Toolock Project">
+                <span>Visit Live Project</span>
+                <span class="btn-link-arrow">➔</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Card 7: Resuvana -->
+        <div class="project-card" data-category="web">
+          <div class="project-card-img-box">
+            <img src="images/proj_resuvana.jpg" alt="Resuvana — Professional Resume Builder" class="project-card-img" width="480" height="320" loading="lazy" decoding="async">
+          </div>
+          <div class="project-card-body">
+            <div>
+              <div class="project-meta-row">
+                <span class="project-category">Professional Resume Builder</span>
+                <span class="project-year">2026</span>
+              </div>
+              <h2 class="project-title">Resuvana</h2>
+              <p class="project-desc">
+                Resuvana is a modern resume-building web application designed for students, fresh graduates, and experienced professionals. It provides six professional resume templates, dedicated sections for personal information, professional summary, education, skills, projects, internships, experience, certifications, and professional links, with a live A4 resume preview that supports multi-page resumes and ATS-conscious formatting.
+              </p>
+              <div class="project-tags">
+                <span class="tag-badge">Next.js</span>
+                <span class="tag-badge">React</span>
+                <span class="tag-badge">TypeScript</span>
+                <span class="tag-badge">Tailwind CSS</span>
+                <span class="tag-badge">HTML/CSS</span>
+                <span class="tag-badge">Local Storage</span>
+                <span class="tag-badge">Responsive Design</span>
+                <span class="tag-badge">PDF Generation</span>
+                <span class="tag-badge">Git</span>
+                <span class="tag-badge">GitHub</span>
+                <span class="tag-badge">Vercel</span>
+              </div>
+            </div>
+            <div class="project-btn-row">
+              <a href="https://resuvana.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-link" aria-label="Visit Live Resuvana Project">
+                <span>Visit Live Project</span>
+                <span class="btn-link-arrow">➔</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Card 8: CookPro -->
+        <div class="project-card" data-category="web">
+          <div class="project-card-img-box">
+            <img src="images/proj_cookpro.jpg" alt="CookPro — Smart Recipe Discovery" class="project-card-img" width="480" height="320" loading="lazy" decoding="async">
+          </div>
+          <div class="project-card-body">
+            <div>
+              <div class="project-meta-row">
+                <span class="project-category">Smart Recipe Discovery</span>
+                <span class="project-year">2026</span>
+              </div>
+              <h2 class="project-title">CookPro</h2>
+              <p class="project-desc">
+                CookPro is a full-stack smart recipe discovery platform that helps users discover recipes based on ingredients they already have. Its ingredient-matching engine calculates transparent recipe match percentages while relevance ranking prioritizes recipes that meaningfully use the user's main ingredients, with a personal pantry, saved cookbook, and shopping list completing the meal-planning workflow.
+              </p>
+              <div class="project-tags">
+                <span class="tag-badge">React</span>
+                <span class="tag-badge">TypeScript</span>
+                <span class="tag-badge">Vite</span>
+                <span class="tag-badge">Node.js</span>
+                <span class="tag-badge">MongoDB Atlas</span>
+                <span class="tag-badge">Server-side APIs</span>
+                <span class="tag-badge">TheMealDB API</span>
+                <span class="tag-badge">Vercel</span>
+              </div>
+            </div>
+            <div class="project-btn-row">
+              <a href="https://cookpro.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-link" aria-label="Visit Live CookPro Project">
                 <span>Visit Live Project</span>
                 <span class="btn-link-arrow">➔</span>
               </a>

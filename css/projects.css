@@ -207,11 +207,11 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
-      max-width: 1080px;
+      gap: 20px;
+      max-width: 1020px;
       width: 100%;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 20px;
       position: relative;
       z-index: 1;
       perspective: 1200px;
@@ -219,7 +219,7 @@
 
     .project-card {
       position: relative;
-      border-radius: 18px;
+      border-radius: 16px;
       overflow: hidden;
       background: rgba(18, 20, 29, 0.72);
       backdrop-filter: blur(20px);
@@ -227,7 +227,7 @@
       border: 1px solid rgba(255, 255, 255, 0.09);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.42);
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
                   border-color 0.35s ease, 
                   box-shadow 0.35s ease,
@@ -291,7 +291,7 @@
     }
 
     .project-card-body {
-      padding: 18px 20px 16px 20px;
+      padding: 15px 17px 13px 17px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -304,11 +304,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .project-category {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: var(--accent-orange);
       text-transform: uppercase;
@@ -316,15 +316,15 @@
     }
 
     .project-year {
-      font-size: 11px;
+      font-size: 10.5px;
       color: rgba(255, 255, 255, 0.45);
     }
 
     .project-title {
-      font-size: 20px;
+      font-size: 18.5px;
       font-weight: 800;
       color: #ffffff;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       letter-spacing: -0.4px;
       line-height: 1.2;
       transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -336,25 +336,25 @@
     }
 
     .project-desc {
-      font-size: 13.5px;
-      line-height: 1.55;
+      font-size: 13px;
+      line-height: 1.5;
       color: rgba(255, 255, 255, 0.68);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .project-tags {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-bottom: 11px;
     }
 
     .tag-badge {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 3px 9px;
+      padding: 2.5px 8px;
       border-radius: 100px;
-      font-size: 11px;
+      font-size: 10.5px;
       color: rgba(255, 255, 255, 0.82);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -391,19 +391,19 @@
       align-items: center;
       justify-content: flex-start;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 12px;
+      padding-top: 10px;
     }
 
     .btn-project-link {
       position: relative;
       color: #ffffff;
       text-decoration: none;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 4px 0;
+      padding: 3px 0;
       transition: color 0.25s ease, text-shadow 0.25s ease, filter 0.25s ease, transform 0.25s ease;
     }
 
@@ -482,7 +482,8 @@
     @media (max-width: 992px) {
       .projects-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 20px;
+        gap: 16px;
+        padding: 0 16px;
       }
       .project-card-img-box {
         aspect-ratio: 16 / 8;
@@ -493,7 +494,8 @@
     @media (max-width: 767px) {
       .projects-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
+        padding: 0 16px;
       }
       .projects-hero-title {
         font-size: 2.2rem;
@@ -502,10 +504,10 @@
         font-size: 14.5px;
       }
       .project-card-body {
-        padding: 16px 18px 14px 18px;
+        padding: 14px 15px 12px 15px;
       }
       .project-title {
-        font-size: 19px;
+        font-size: 17.5px;
       }
       .project-card-img-box {
         aspect-ratio: 16 / 8;
